@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
     $_SESSION['form_submissions'][] = $now;
 
     // Send to n8n webhook
-    $webhookUrl = 'https://n8n-n8n.nqa0v5.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
+    $webhookUrl = 'https://n8n-n8n.nqa0v5.easypanel.host/webhook-test/73129db0-a899-412d-b0f3-0a32fac8b692';
 
     $payload = json_encode([
         'nombre_completo' => $nombre,
@@ -130,17 +130,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         CURLOPT_POSTFIELDS => $payload,
         CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_SSL_VERIFYPEER => false, // Disable SSL verification for testing
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_FOLLOWLOCATION => true
     ]);
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
     curl_close($ch);
+
+    // Log for debugging (remove in production)
+    error_log("Webhook Response: HTTP $httpCode - $response - Error: $curlError");
 
     if ($httpCode >= 200 && $httpCode < 300) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Server error. Please try again.']);
+        $errorMsg = $curlError ? $curlError : 'Server error. Please try again.';
+        echo json_encode(['success' => false, 'error' => $errorMsg, 'http_code' => $httpCode]);
     }
     exit;
 }
