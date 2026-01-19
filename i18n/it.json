@@ -1,0 +1,185 @@
+{
+    "lang": "it",
+    "meta": {
+        "title": "IntuiFy – Automatizza la tua azienda con l'IA",
+        "description": "Soluzioni di automazione aziendale con assistenti IA. Ottimizza i processi, riduci i costi e scala il tuo business."
+    },
+    "nav": {
+        "inicio": "Home",
+        "servicios": "Servizi",
+        "beneficios": "Benefici",
+        "testimonios": "Testimonianze",
+        "contacto": "Contatto",
+        "cta": "Parla con noi"
+    },
+    "hero": {
+        "badge": "Automazione + IA",
+        "title": "Trasforma il tuo business con l'intelligenza artificiale",
+        "subtitle": "Automatizziamo i tuoi processi con assistenti IA affinché il tuo team si concentri su ciò che conta davvero. Risultati misurabili dal primo mese.",
+        "cta_primary": "Parla con noi",
+        "cta_secondary": "Vedi servizi"
+    },
+    "services": {
+        "title": "I Nostri Servizi",
+        "subtitle": "Soluzioni complete di automazione e intelligenza artificiale progettate per far crescere il tuo business",
+        "items": [
+            {
+                "title": "Automazione dei processi",
+                "description": "Integrazioni tra strumenti",
+                "features": [
+                    "Collega CRM, ERP e applicazioni",
+                    "Flussi di lavoro automatici",
+                    "Sincronizzazione in tempo reale",
+                    "Avvisi intelligenti"
+                ]
+            },
+            {
+                "title": "Chatbot e assistenti IA",
+                "description": "Assistenza clienti 24/7",
+                "features": [
+                    "Risposte istantanee",
+                    "Linguaggio naturale avanzato",
+                    "Integrazione multicanale",
+                    "Apprendimento continuo"
+                ]
+            },
+            {
+                "title": "Analisi predittiva",
+                "description": "Decisioni basate sui dati",
+                "features": [
+                    "Previsione delle tendenze",
+                    "Rilevamento opportunità",
+                    "Avvisi anomalie",
+                    "Dashboard personalizzate"
+                ]
+            },
+            {
+                "title": "Automazione avanzata",
+                "description": "Organizzazione intelligente dei dati",
+                "features": [
+                    "ETL automatizzato",
+                    "Pulizia e arricchimento",
+                    "Data warehousing",
+                    "Report automatici"
+                ]
+            },
+            {
+                "title": "Marketing automation",
+                "description": "Campagne efficienti",
+                "features": [
+                    "Email marketing automatizzato",
+                    "Segmentazione intelligente",
+                    "Lead scoring con IA",
+                    "Tracking conversioni"
+                ]
+            },
+            {
+                "title": "Gestione operazioni",
+                "description": "Processi ottimizzati",
+                "features": [
+                    "Programmazione automatica",
+                    "Gestione risorse",
+                    "Fatturazione automatizzata",
+                    "Monitoraggio progetti"
+                ]
+            }
+        ]
+    },
+    "benefits": {
+        "title": "Risultati che trasformano",
+        "subtitle": "Sperimenta l'impatto reale dell'automazione intelligente sul tuo business",
+        "items": [
+            {
+                "title": "80% meno tempo in attività manuali",
+                "description": "Libera il tuo team dalle attività ripetitive per concentrarsi su lavoro strategico ad alto valore."
+            },
+            {
+                "title": "Riduzione significativa dei costi",
+                "description": "Ottimizza le risorse e riduci i costi operativi con processi che lavorano per te 24 ore su 24."
+            },
+            {
+                "title": "Scalabilità senza limiti",
+                "description": "Cresci senza assumere proporzionalmente. Le nostre soluzioni si adattano al tuo ritmo di espansione."
+            },
+            {
+                "title": "Produttività moltiplicata",
+                "description": "Potenzia il tuo team con strumenti che amplificano la loro capacità di impatto."
+            },
+            {
+                "title": "Precisione garantita",
+                "description": "Elimina gli errori umani e assicura una consistenza perfetta in ogni processo automatizzato."
+            },
+            {
+                "title": "Vantaggio competitivo reale",
+                "description": "Supera la concorrenza con tecnologia all'avanguardia che pochi stanno sfruttando."
+            }
+        ]
+    },
+    "testimonials": {
+        "title": "Cosa dicono i nostri clienti",
+        "subtitle": "Aziende di tutte le dimensioni si affidano a IntuiFy per ottimizzare le loro operazioni",
+        "items": [
+            {
+                "quote": "IntuiFy ha trasformato completamente i nostri processi. Quello che prima richiedeva ore ora avviene automaticamente. Il ROI è stato visibile in meno di due mesi.",
+                "name": "María González",
+                "role": "Direttrice Operazioni",
+                "company": "TechSolutions S.L."
+            },
+            {
+                "quote": "L'implementazione degli assistenti IA ha migliorato drasticamente il nostro servizio clienti. Risposte istantanee 24/7 e clienti più soddisfatti.",
+                "name": "Carlos Mendoza",
+                "role": "CEO",
+                "company": "RetailPro"
+            },
+            {
+                "quote": "Le automazioni hanno collegato tutti i nostri strumenti. Ora il nostro team si concentra sulla strategia, non sulle attività manuali.",
+                "name": "Laura Martínez",
+                "role": "Marketing Manager",
+                "company": "Marketing Digital Plus"
+            },
+            {
+                "quote": "Professionalità e competenza di primo livello. IntuiFy non ha solo consegnato quanto promesso, ha superato le nostre aspettative con miglioramenti aggiuntivi.",
+                "name": "Javier Ruiz",
+                "role": "Direttore Tecnologia",
+                "company": "Logística Express"
+            }
+        ]
+    },
+    "demo": {
+        "title": "Prova la nostra demo gratuita",
+        "subtitle": "Scopri come l'automazione e l'IA possono rivoluzionare i tuoi processi. Senza impegno, senza carta di credito.",
+        "cta": "Richiedi demo gratuita"
+    },
+    "contact": {
+        "title": "Parliamo del tuo progetto",
+        "subtitle": "Raccontaci del tuo business e ti mostreremo come possiamo aiutarti",
+        "reasons_title": "Perché sceglierci?",
+        "reasons": [
+            "Consulenza iniziale gratuita",
+            "Soluzioni 100% personalizzate",
+            "Supporto tecnico continuo",
+            "ROI garantito"
+        ],
+        "form": {
+            "name": "Nome completo",
+            "name_placeholder": "Il tuo nome",
+            "company": "Azienda",
+            "company_placeholder": "Nome della tua azienda",
+            "email": "Email",
+            "email_placeholder": "tua@email.com",
+            "message": "Messaggio",
+            "message_placeholder": "Raccontaci del tuo progetto o delle tue esigenze...",
+            "submit": "Invia messaggio",
+            "sending": "Invio in corso...",
+            "success": "Messaggio inviato! Ti contatteremo presto.",
+            "error": "Errore nell'invio. Riprova."
+        }
+    },
+    "footer": {
+        "tagline": "Automazione aziendale e intelligenza artificiale per far crescere il tuo business.",
+        "nav_title": "Navigazione",
+        "services_title": "Servizi",
+        "contact_title": "Contatto",
+        "copyright": "© {year} IntuiFy – Tutti i diritti riservati"
+    }
+}

@@ -1,0 +1,185 @@
+{
+    "lang": "en",
+    "meta": {
+        "title": "IntuiFy – Automate your business with AI",
+        "description": "Enterprise automation solutions with AI assistants. Optimize processes, reduce costs, and scale your business."
+    },
+    "nav": {
+        "inicio": "Home",
+        "servicios": "Services",
+        "beneficios": "Benefits",
+        "testimonios": "Testimonials",
+        "contacto": "Contact",
+        "cta": "Talk to us"
+    },
+    "hero": {
+        "badge": "Automation + AI",
+        "title": "Transform your business with artificial intelligence",
+        "subtitle": "We automate your processes with AI assistants so your team can focus on what truly matters. Measurable results from day one.",
+        "cta_primary": "Talk to us",
+        "cta_secondary": "View services"
+    },
+    "services": {
+        "title": "Our Services",
+        "subtitle": "Comprehensive automation and artificial intelligence solutions designed to grow your business",
+        "items": [
+            {
+                "title": "Process automation",
+                "description": "Tool integrations",
+                "features": [
+                    "Connect CRM, ERP and applications",
+                    "Automated workflows",
+                    "Real-time synchronization",
+                    "Smart alerts"
+                ]
+            },
+            {
+                "title": "Chatbots and AI assistants",
+                "description": "24/7 customer support",
+                "features": [
+                    "Instant responses",
+                    "Advanced natural language",
+                    "Multichannel integration",
+                    "Continuous learning"
+                ]
+            },
+            {
+                "title": "Predictive analytics",
+                "description": "Data-driven decisions",
+                "features": [
+                    "Trend prediction",
+                    "Opportunity detection",
+                    "Anomaly alerts",
+                    "Custom dashboards"
+                ]
+            },
+            {
+                "title": "Advanced automation",
+                "description": "Intelligent data organization",
+                "features": [
+                    "Automated ETL",
+                    "Cleaning and enrichment",
+                    "Data warehousing",
+                    "Automated reports"
+                ]
+            },
+            {
+                "title": "Marketing automation",
+                "description": "Efficient campaigns",
+                "features": [
+                    "Automated email marketing",
+                    "Smart segmentation",
+                    "AI lead scoring",
+                    "Conversion tracking"
+                ]
+            },
+            {
+                "title": "Operations management",
+                "description": "Optimized processes",
+                "features": [
+                    "Automatic scheduling",
+                    "Resource management",
+                    "Automated invoicing",
+                    "Project tracking"
+                ]
+            }
+        ]
+    },
+    "benefits": {
+        "title": "Results that transform",
+        "subtitle": "Experience the real impact of intelligent automation on your business",
+        "items": [
+            {
+                "title": "80% less time on manual tasks",
+                "description": "Free your team from repetitive tasks to focus on high-value strategic work."
+            },
+            {
+                "title": "Significant cost reduction",
+                "description": "Optimize resources and reduce operational costs with processes that work for you 24/7."
+            },
+            {
+                "title": "Unlimited scalability",
+                "description": "Grow without proportional hiring. Our solutions adapt to your expansion pace."
+            },
+            {
+                "title": "Multiplied productivity",
+                "description": "Empower your team with tools that amplify their impact capacity."
+            },
+            {
+                "title": "Guaranteed precision",
+                "description": "Eliminate human errors and ensure perfect consistency in every automated process."
+            },
+            {
+                "title": "Real competitive advantage",
+                "description": "Stay ahead of competition with cutting-edge technology that few are leveraging."
+            }
+        ]
+    },
+    "testimonials": {
+        "title": "What our clients say",
+        "subtitle": "Companies of all sizes trust IntuiFy to optimize their operations",
+        "items": [
+            {
+                "quote": "IntuiFy completely transformed our processes. What used to take hours now happens automatically. ROI was visible in less than two months.",
+                "name": "María González",
+                "role": "Operations Director",
+                "company": "TechSolutions S.L."
+            },
+            {
+                "quote": "The AI assistant implementation drastically improved our customer service. Instant 24/7 responses and happier customers.",
+                "name": "Carlos Mendoza",
+                "role": "CEO",
+                "company": "RetailPro"
+            },
+            {
+                "quote": "The automations connected all our tools. Now our team focuses on strategy, not manual tasks.",
+                "name": "Laura Martínez",
+                "role": "Marketing Manager",
+                "company": "Marketing Digital Plus"
+            },
+            {
+                "quote": "Top-tier professionalism and expertise. IntuiFy didn't just deliver what was promised, they exceeded our expectations with additional improvements.",
+                "name": "Javier Ruiz",
+                "role": "Technology Director",
+                "company": "Logística Express"
+            }
+        ]
+    },
+    "demo": {
+        "title": "Try our free demo",
+        "subtitle": "Discover how automation and AI can revolutionize your processes. No commitment, no credit card required.",
+        "cta": "Request free demo"
+    },
+    "contact": {
+        "title": "Let's talk about your project",
+        "subtitle": "Tell us about your business and we'll show you how we can help",
+        "reasons_title": "Why choose us?",
+        "reasons": [
+            "Free initial consultation",
+            "100% customized solutions",
+            "Continuous technical support",
+            "Guaranteed ROI"
+        ],
+        "form": {
+            "name": "Full name",
+            "name_placeholder": "Your name",
+            "company": "Company",
+            "company_placeholder": "Your company name",
+            "email": "Email",
+            "email_placeholder": "you@email.com",
+            "message": "Message",
+            "message_placeholder": "Tell us about your project or needs...",
+            "submit": "Send message",
+            "sending": "Sending...",
+            "success": "Message sent! We'll contact you soon.",
+            "error": "Error sending. Please try again."
+        }
+    },
+    "footer": {
+        "tagline": "Enterprise automation and artificial intelligence to grow your business.",
+        "nav_title": "Navigation",
+        "services_title": "Services",
+        "contact_title": "Contact",
+        "copyright": "© {year} IntuiFy – All rights reserved"
+    }
+}
