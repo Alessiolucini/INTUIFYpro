@@ -14,7 +14,7 @@ $testData = [
     'timestamp' => date('c')
 ];
 
-$webhookUrl = 'https://n8n-n8n-60a08c-72-60-34-31.traefik.me/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
+$webhookUrl = 'https://n8n-n8n-60a08c-72-60-34-31.traefik.me/webhook-test/73129db0-a899-412d-b0f3-0a32fac8b692';
 
 echo "Testing webhook connection...\n";
 echo "URL: $webhookUrl\n";
