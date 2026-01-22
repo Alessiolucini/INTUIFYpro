@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
     $_SESSION['form_submissions'][] = $now;
 
     // Send to n8n webhook
-    $webhookUrl = 'https://n8n-n8n.nqa0v5.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
+    $webhookUrl = 'https://n8n-n8n-60a08c-72-60-34-31.traefik.me/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
 
     $payload = json_encode([
         'nombre_completo' => $nombre,
