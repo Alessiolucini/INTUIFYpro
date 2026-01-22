@@ -14,7 +14,7 @@ $testData = [
     'timestamp' => date('c')
 ];
 
-$webhookUrl = 'https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook-test/73129db0-a899-412d-b0f3-0a32fac8b692';
+$webhookUrl = 'https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
 
 echo "Testing webhook connection...\n";
 echo "URL: $webhookUrl\n";

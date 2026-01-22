@@ -44,7 +44,7 @@ Then open http://localhost:8000 in your browser.
 ## Contact Form
 
 Submits via AJAX POST to n8n webhook:
-`https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook-test/73129db0-a899-412d-b0f3-0a32fac8b692`
+`https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692`
 
 Payload:
 ```json
