@@ -4,6 +4,9 @@
  * This file helps debug webhook connectivity issues
  */
 
+// Load configuration
+$config = require __DIR__ . '/config.php';
+
 // Test data
 $testData = [
     'nombre_completo' => 'Test User',
@@ -14,7 +17,7 @@ $testData = [
     'timestamp' => date('c')
 ];
 
-$webhookUrl = 'https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
+$webhookUrl = $config['webhook_url'];
 
 echo "Testing webhook connection...\n";
 echo "URL: $webhookUrl\n";

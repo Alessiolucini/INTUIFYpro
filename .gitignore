@@ -1,0 +1,22 @@
+# IntuiFy - Git Ignore
+
+# Configuration with sensitive data
+config.php
+
+# Test files
+test_webhook.php
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
+
+# Session files
+sess_*

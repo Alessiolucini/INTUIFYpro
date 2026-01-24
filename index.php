@@ -21,10 +21,16 @@ declare(strict_types=1);
 
 session_start();
 
-// Rate limiting for form (simple session-based)
+// Load configuration
+$config = require __DIR__ . '/config.php';
+
+// Rate limiting for form (session + IP based)
 if (!isset($_SESSION['form_submissions'])) {
     $_SESSION['form_submissions'] = [];
 }
+
+// IP-based rate limiting file
+$rateLimitFile = sys_get_temp_dir() . '/intuify_ratelimit_' . md5($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '.json';
 
 // Detect language
 function detectLanguage(): string
@@ -81,7 +87,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         exit;
     }
 
-    // Anti-spam: Rate limiting (max 3 submissions per 5 minutes)
+    // Anti-spam: reCAPTCHA v3 verification
+    $recaptchaToken = $_POST['recaptcha_token'] ?? '';
+    if (!empty($config['recaptcha_secret_key']) && $config['recaptcha_secret_key'] !== 'YOUR_RECAPTCHA_SECRET_KEY') {
+        $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+        $recaptchaData = [
+            'secret' => $config['recaptcha_secret_key'],
+            'response' => $recaptchaToken,
+            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+        ];
+
+        $recaptchaOptions = [
+            'http' => [
+                'method' => 'POST',
+                'header' => 'Content-Type: application/x-www-form-urlencoded',
+                'content' => http_build_query($recaptchaData)
+            ]
+        ];
+
+        $recaptchaContext = stream_context_create($recaptchaOptions);
+        $recaptchaResult = @file_get_contents($recaptchaUrl, false, $recaptchaContext);
+
+        if ($recaptchaResult !== false) {
+            $recaptchaJson = json_decode($recaptchaResult, true);
+            $minScore = $config['recaptcha_min_score'] ?? 0.5;
+
+            if (!$recaptchaJson['success'] || ($recaptchaJson['score'] ?? 0) < $minScore) {
+                error_log("reCAPTCHA failed: score=" . ($recaptchaJson['score'] ?? 'N/A'));
+                echo json_encode(['success' => false, 'error' => 'Security verification failed. Please try again.']);
+                exit;
+            }
+        }
+    }
+
+    // Anti-spam: Rate limiting (session-based: max 3 per 5 minutes)
     $now = time();
     $_SESSION['form_submissions'] = array_filter(
         $_SESSION['form_submissions'],
@@ -90,6 +129,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
 
     if (count($_SESSION['form_submissions']) >= 3) {
         echo json_encode(['success' => false, 'error' => 'Too many submissions. Please wait.']);
+        exit;
+    }
+
+    // Anti-spam: Rate limiting (IP-based: max 5 per hour)
+    $ipSubmissions = [];
+    if (file_exists($rateLimitFile)) {
+        $ipSubmissions = json_decode(file_get_contents($rateLimitFile), true) ?: [];
+        $ipSubmissions = array_filter($ipSubmissions, fn($ts) => $now - $ts < 3600);
+    }
+
+    if (count($ipSubmissions) >= 5) {
+        echo json_encode(['success' => false, 'error' => 'Too many submissions from your network. Please try later.']);
         exit;
     }
 
@@ -109,11 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         exit;
     }
 
-    // Record submission
+    // Record submission (session + IP)
     $_SESSION['form_submissions'][] = $now;
+    $ipSubmissions[] = $now;
+    file_put_contents($rateLimitFile, json_encode($ipSubmissions));
 
-    // Send to n8n webhook
-    $webhookUrl = 'https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692';
+    // Send to n8n webhook (URL from config)
+    $webhookUrl = $config['webhook_url'];
 
     $payload = json_encode([
         'nombre_completo' => $nombre,
@@ -193,6 +246,11 @@ $benefitIcons = [
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google reCAPTCHA v3 (only if configured) -->
+    <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
+    <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($config['recaptcha_site_key']) ?>"></script>
+    <?php endif; ?>
     <script>
         tailwind.config = {
             theme: {
@@ -607,6 +665,7 @@ $benefitIcons = [
                                 <!-- Time trap -->
                                 <input type="hidden" name="_timestamp" id="form-timestamp" value="">
                                 <input type="hidden" name="ajax_submit" value="1">
+                                <input type="hidden" name="recaptcha_token" id="recaptcha-token" value="">
 
                                 <!-- Name -->
                                 <div>
@@ -793,6 +852,14 @@ $benefitIcons = [
                         btnSpinner.classList.remove('hidden');
 
                         try {
+                            // Get reCAPTCHA token if configured
+                            <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
+                            if (typeof grecaptcha !== 'undefined') {
+                                const recaptchaToken = await grecaptcha.execute('<?= htmlspecialchars($config['recaptcha_site_key']) ?>', {action: 'contact_form'});
+                                document.getElementById('recaptcha-token').value = recaptchaToken;
+                            }
+                            <?php endif; ?>
+                            
                             const formData = new FormData(form);
                             const response = await fetch(window.location.href, {
                                 method: 'POST',
