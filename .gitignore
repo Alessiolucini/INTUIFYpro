@@ -1,8 +1,5 @@
 # IntuiFy - Git Ignore
 
-# Configuration with sensitive data
-config.php
-
 # Test files
 test_webhook.php
 
