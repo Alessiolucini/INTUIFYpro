@@ -1,31 +1,31 @@
 {
     "lang": "es",
     "meta": {
-        "title": "IntuiFy Ventures – Grupo Multidisciplinar & Venture Builder",
-        "description": "IntuiFy Ventures S.L. opera en desarrollo de software, tratamiento de datos, agencia de publicidad, fabricación aditiva 3D, promoción inmobiliaria y agencia de viajes global."
+        "title": "IntuiFy Ventures – Holding Industrial & Grupo Multidisciplinar",
+        "description": "IntuiFy Ventures S.L. opera como holding matriz coordinando empresas filiales especializadas en desarrollo de software, tratamiento de datos, publicidad, impresión 3D, promoción inmobiliaria y turismo."
     },
     "nav": {
-        "inicio": "Grupo",
-        "servicios": "Divisiones",
+        "inicio": "Holding",
+        "servicios": "Empresas",
         "beneficios": "Sinergias",
         "testimonios": "Éxito",
         "contacto": "Contacto",
-        "cta": "Hablar con Nosotros"
+        "cta": "Contactar con la Holding"
     },
     "hero": {
-        "badge": "Venture Builder & Holding Multidisciplinar",
-        "title": "Construimos soluciones avanzadas para los desafíos de hoy y mañana",
-        "subtitle": "IntuiFy Ventures S.L. es un grupo empresarial global que coordina el desarrollo tecnológico de vanguardia, producción industrial, marketing y publicidad, promoción inmobiliaria y turismo global. A través de nuestras divisiones especializadas, ofrecemos soluciones de alto rendimiento a escala internacional.",
+        "badge": "Holding Financiero & Industrial Matriz",
+        "title": "Orquestamos una cartera de empresas líderes en sus sectores",
+        "subtitle": "IntuiFy Ventures S.L. es la sociedad holding matriz que posee y coordina empresas filiales operativas especializadas en ingeniería de software, procesamiento de datos, marketing estratégico, fabricación industrial y turismo global. Un ecosistema robusto diseñado para desbloquear sinergias de alto rendimiento.",
         "cta_primary": "Agendar Consulta",
-        "cta_secondary": "Explorar Divisiones"
+        "cta_secondary": "Explorar Filiales"
     },
     "services": {
-        "title": "Nuestras Divisiones Operativas",
-        "subtitle": "Seis pilares estratégicos diseñados para ofrecer excelencia y plena conformidad en los sectores clave de la economía moderna",
+        "title": "Nuestras Empresas del Grupo",
+        "subtitle": "Una cartera de filiales y sociedades participadas, cada una enfocada en la excelencia, la innovación y el pleno cumplimiento normativo en su respectivo sector",
         "items": [
             {
-                "title": "Software & Ingeniería a Medida",
-                "description": "Desarrollo y Mantenimiento de Sistemas",
+                "title": "Software & IT Solutions",
+                "description": "Compañía de Ingeniería Informática",
                 "features": [
                     "Diseño y desarrollo de programas y aplicaciones",
                     "Elaboración de software a medida y portales web",
@@ -34,8 +34,8 @@
                 ]
             },
             {
-                "title": "Tratamiento de Datos & IA",
-                "description": "Procesamiento y Plataformas Inteligentes",
+                "title": "Data Intelligence & AI",
+                "description": "Sociedad de Procesamiento de Datos",
                 "features": [
                     "Tratamiento electrónico o mecánico de datos",
                     "Procesamiento de información y programación por encargo",
@@ -44,8 +44,8 @@
                 ]
             },
             {
-                "title": "Agencia de Publicidad & Marketing",
-                "description": "Estrategia Creativa y Campañas",
+                "title": "Marketing & Communication",
+                "description": "Agencia de Publicidad y Marketing Integral",
                 "features": [
                     "Asesoramiento estratégico y servicios creativos",
                     "Diseño publicitario y comunicación corporativa",
@@ -54,8 +54,8 @@
                 ]
             },
             {
-                "title": "Fabricación Aditiva & Impresión 3D",
-                "description": "Diseño, Escaneado y Piezas a Medida",
+                "title": "3D Additive Manufacturing",
+                "description": "Compañía de Fabricación Aditiva e Impresión 3D",
                 "features": [
                     "Fabricación de piezas a medida, repuestos y maquetas",
                     "Escaneado tridimensional e ingeniería aditiva",
@@ -64,18 +64,18 @@
                 ]
             },
             {
-                "title": "Actividad Inmobiliaria & Construcción",
-                "description": "Promoción, Gestión e Intermediación",
+                "title": "Real Estate & Development",
+                "description": "Sociedad de Promoción Inmobiliaria y Construcción",
                 "features": [
-                    "Promoción de obras civíles y edificaciones",
+                    "Promoción de obras civiles y edificaciones",
                     "Adquisición, venta y arrendamiento de propiedades",
                     "Construcción por cuenta propia o de terceros",
                     "Asesoramiento e intermediación en compraventa"
                 ]
             },
             {
-                "title": "Agencia de Viajes & Turismo",
-                "description": "Turismo Mayorista-Minorista Global",
+                "title": "Travel & Global Tourism",
+                "description": "Agencia de Viajes y Operador Turístico Global",
                 "features": [
                     "Asesoramiento y venta de viajes combinados",
                     "Organización de recorridos turísticos y excursiones",
@@ -86,59 +86,59 @@
         ]
     },
     "benefits": {
-        "title": "La Fuerza de Nuestra Sinergia",
-        "subtitle": "Un único partner corporativo sólido y multidisciplinar para coordinar el crecimiento, la tecnología y la producción de tu empresa",
+        "title": "La Fuerza de Nuestro Grupo",
+        "subtitle": "Las ventajas estratégicas de asociarse con una holding sólida para coordinar la tecnología, el crecimiento y la producción de su empresa",
         "items": [
             {
-                "title": "Sinergia Multidisciplinar",
-                "description": "Conectamos tecnología, marketing, fabricación aditiva y servicios logísticos bajo una única estructura corporativa."
+                "title": "Sinergia entre Filiales",
+                "description": "Conectamos nuestras empresas de tecnología, marketing, fabricación aditiva y servicios bajo una sola estructura holding corporativa."
             },
             {
-                "title": "Ingeniería sobre Especificación",
-                "description": "Desde la aplicación de software a medida hasta la fabricación de repuestos 3D, todo es diseñado y probado rigurosamente."
+                "title": "Verticales Especializadas",
+                "description": "Cada sociedad del grupo opera de manera independiente, garantizando equipos de expertos dedicados y especialización vertical."
             },
             {
-                "title": "Alcance Internacional",
-                "description": "Operamos globalmente en desarrollo tecnológico, promoción inmobiliaria y turismo, asegurando la máxima fiabilidad."
+                "title": "Presencia Global",
+                "description": "A través de la holding y sus empresas participadas, estamos presentes en mercados estratégicos de tecnología, inmobiliario y turismo."
             },
             {
-                "title": "Conformidad y Solidez Legal",
-                "description": "Garantizamos el cumplimiento normativo en todos los sectores regulados de nuestras operaciones comerciales."
+                "title": "Gobernanza y Estabilidad",
+                "description": "La matriz IntuiFy Ventures S.L. garantiza la máxima solidez financiera, de gestión, y el pleno cumplimiento legal y normativo."
             },
             {
-                "title": "Experiencia Nativa Digital",
-                "description": "Desarrollamos internamente todas nuestras aplicaciones, SaaS (Software as a Service) y portales en línea."
+                "title": "Propiedad Intelectual",
+                "description": "Diseñamos, desarrollamos y patentamos internamente las tecnologías y plataformas utilizadas por nuestras empresas de cartera."
             },
             {
-                "title": "Asesoramiento de Negocios",
-                "description": "Acompañamos cada desarrollo con consultoría estratégica y servicios creativos para maximizar su éxito de mercado."
+                "title": "Consultoría a Nivel Holding",
+                "description": "Acompañamos cada proyecto con asesoramiento estratégico y de gobernanza a nivel del grupo matriz."
             }
         ]
     },
     "testimonials": {
-        "title": "Testimonios de Nuestros Socios",
-        "subtitle": "Cómo los socios y clientes de nuestras diversas divisiones alcanzan la excelencia operativa junto a IntuiFy",
+        "title": "Éxito Compartido",
+        "subtitle": "Cómo los socios institucionales y los clientes de nuestras diversas filiales alcanzan la excelencia operativa junto a nuestro grupo",
         "items": [
             {
-                "quote": "IntuiFy desarrolló nuestra plataforma SaaS empresarial y gestionó la campaña de marketing global. Los resultados superaron todas nuestras metas en tiempo récord.",
+                "quote": "El grupo IntuiFy coordinó el desarrollo de nuestro SaaS empresarial y gestionó la campaña de marketing global a través de sus filiales con un éxito rotundo.",
                 "name": "Marco Bianchi",
                 "role": "CEO de TechFlow",
                 "company": "TechFlow Systems"
             },
             {
-                "quote": "Su división de fabricación aditiva produjo repuestos 3D de alta precisión para nuestra flota logística, evitándonos semanas de inactividad operativa.",
+                "quote": "Su filial de fabricación aditiva produjo repuestos 3D de alta precisión para nuestra flota logística, evitándonos semanas de inactividad operativa.",
                 "name": "Elena Rossi",
                 "role": "Ops Manager",
                 "company": "Logistics3D International"
             },
             {
-                "quote": "Confiamos a IntuiFy la adquisición de terrenos y el desarrollo de nuestro nuevo headquarter. Profesionalidad intachable durante todo el proceso de intermediación.",
+                "quote": "Confiamos al brazo inmobiliario de IntuiFy la adquisición de terrenos y el desarrollo de nuestra sede corporativa. Excelente solidez contractual y financiera.",
                 "name": "Stefano Moretti",
                 "role": "Socio Asociado",
                 "company": "RealEstate Hub"
             },
             {
-                "quote": "El paquete de viaje combinado y la gestión de alojamientos para nuestra convención internacional de negocios fueron organizados a la perfección.",
+                "quote": "El viaje combinado y la gestión de alojamientos para nuestra cumbre internacional de negocios fueron organizados a la perfección por su filial de viajes.",
                 "name": "Laura Verdi",
                 "role": "Head of People",
                 "company": "GlobalTrip Ltd"
@@ -146,19 +146,19 @@
         ]
     },
     "demo": {
-        "title": "¿Preparado para colaborar con nosotros?",
-        "subtitle": "Ponte en contacto con nuestros expertos para descubrir cómo las divisiones especializadas de IntuiFy Ventures pueden impulsar tus proyectos.",
-        "cta": "Contactar con el Equipo"
+        "title": "¿Preparado para colaborar con nuestro Grupo?",
+        "subtitle": "Póngase en contacto con nuestros expertos para descubrir cómo la estructura holding de IntuiFy Ventures puede impulsar y asegurar sus proyectos.",
+        "cta": "Contactar con la Holding"
     },
     "contact": {
-        "title": "Conecta con una de nuestras divisiones",
-        "subtitle": "Selecciona el área de interés y describe las necesidades de tu proyecto. Te responderemos a la mayor brevedad con nuestros especialistas dedicados.",
+        "title": "Conecte con nuestro Grupo",
+        "subtitle": "Seleccione la empresa de cartera o área de su interés para ser dirigido al departamento adecuado, o contacte directamente con la holding para asociaciones estratégicas.",
         "reasons_title": "¿Por qué IntuiFy Ventures?",
         "reasons": [
-            "Un único partner robusto para tecnología, marketing y logística",
-            "Máxima seguridad contractual y operativa en todos los sectores",
-            "Tecnología digital y de fabricación aditiva de última generación",
-            "Consultoría estratégica integrada en todos los flujos de trabajo"
+            "Un único grupo de referencia para tecnología, marketing y logística",
+            "Máxima solidez y respaldo contractual garantizados por la sociedad matriz",
+            "Sociedades operativas verticales especializadas de última generación",
+            "Consultoría estratégica y gobernanza corporativa integradas"
         ],
         "form": {
             "name": "Nombre completo",
@@ -167,8 +167,8 @@
             "company_placeholder": "Acme S.L.",
             "email": "Correo corporativo",
             "email_placeholder": "juan@empresa.com",
-            "message": "Detalles del proyecto / Solicitud para la división",
-            "message_placeholder": "Describe tus necesidades (ej. desarrollo de software, impresión 3D, campañas de marketing, promoción inmobiliaria o viajes)...",
+            "message": "Solicitud para la Empresa del Grupo / Detalles del Proyecto",
+            "message_placeholder": "Describa sus necesidades, especificando la empresa filial o el área de su interés (ej. Software, Datos, Marketing, Impresión 3D, Inmobiliario o Viajes)...",
             "submit": "Enviar Solicitud",
             "sending": "Iniciando conexión...",
             "success": "¡Solicitud recibida! Nuestros especialistas se pondrán en contacto en breve.",
@@ -176,9 +176,9 @@
         }
     },
     "footer": {
-        "tagline": "IntuiFy Ventures S.L. es un grupo multidisciplinar que opera en el desarrollo de software, tratamiento de datos, publicidad, fabricación aditiva 3D, promoción inmobiliaria y turismo global.",
-        "nav_title": "Grupo",
-        "services_title": "Divisiones",
+        "tagline": "IntuiFy Ventures S.L. es la sociedad holding matriz que coordina una cartera de filiales operativas especializadas en desarrollo de software, tratamiento de datos, publicidad, impresión 3D, promoción inmobiliaria y turismo global.",
+        "nav_title": "Holding",
+        "services_title": "Empresas del Grupo",
         "contact_title": "Conexión",
         "copyright": "© {year} IntuiFy. Todos los derechos reservados."
     }

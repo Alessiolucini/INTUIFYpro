@@ -1,31 +1,31 @@
 {
     "lang": "en",
     "meta": {
-        "title": "IntuiFy Ventures – Multidisciplinary Group & Venture Builder",
-        "description": "IntuiFy Ventures S.L. operates in custom software development, data processing, integrated marketing, 3D printing & additive manufacturing, real estate development, and global travel."
+        "title": "IntuiFy Ventures – Industrial Holding & Multidisciplinary Group",
+        "description": "IntuiFy Ventures S.L. operates as a parent holding company coordinating specialized subsidiaries in custom software, data processing, marketing, 3D manufacturing, real estate, and global travel."
     },
     "nav": {
-        "inicio": "Group",
-        "servicios": "Divisions",
+        "inicio": "Holding",
+        "servicios": "Companies",
         "beneficios": "Synergies",
         "testimonios": "Success",
         "contacto": "Contact",
-        "cta": "Talk with Us"
+        "cta": "Contact the Holding"
     },
     "hero": {
-        "badge": "Venture Builder & Multidisciplinary Holding",
-        "title": "Building advanced solutions for today's and tomorrow's challenges",
-        "subtitle": "IntuiFy Ventures S.L. is a global group orchestrating advanced technology, industrial manufacturing, creative marketing, real estate assets, and tourism. Through our specialized divisions, we offer a comprehensive ecosystem of high-performance services and solutions.",
+        "badge": "Parent Financial & Industrial Holding Group",
+        "title": "Orchestrating a portfolio of industry-leading companies",
+        "subtitle": "IntuiFy Ventures S.L. is the parent holding company that owns and coordinates specialized subsidiaries in software engineering, data processing, strategic marketing, industrial manufacturing, and global hospitality. A solid ecosystem engineered to unlock high-performance synergies.",
         "cta_primary": "Schedule a Consultation",
-        "cta_secondary": "Explore Divisions"
+        "cta_secondary": "Explore Portfolio"
     },
     "services": {
-        "title": "Our Operating Divisions",
-        "subtitle": "Six vertical pillars designed to deliver excellence and compliance across key sectors of the global economy",
+        "title": "Our Group Companies",
+        "subtitle": "A portfolio of specialized subsidiaries, each focused on excellence, innovation, and regulatory compliance in its respective sector",
         "items": [
             {
-                "title": "Custom Software & Tech",
-                "description": "Advanced Software Engineering",
+                "title": "Software & IT Solutions",
+                "description": "Software Engineering Company",
                 "features": [
                     "Custom software & application development",
                     "Creation of web portals & SaaS platforms",
@@ -34,8 +34,8 @@
                 ]
             },
             {
-                "title": "Data Intelligence & AI Platforms",
-                "description": "Information Analysis & Management",
+                "title": "Data Intelligence & AI",
+                "description": "Data & AI Platform Company",
                 "features": [
                     "Electronic & mechanical data processing",
                     "Data calculation & programming for third parties",
@@ -44,8 +44,8 @@
                 ]
             },
             {
-                "title": "Marketing & Advertising Agency",
-                "description": "Consultative & Creative Campaigns",
+                "title": "Marketing & Communication",
+                "description": "Full-Service Advertising Agency",
                 "features": [
                     "Strategic positioning & business consulting",
                     "Creative art direction & advertising design",
@@ -54,8 +54,8 @@
                 ]
             },
             {
-                "title": "Additive Manufacturing & 3D Printing",
-                "description": "Prototyping & Custom Components",
+                "title": "3D Additive Manufacturing",
+                "description": "Additive Prototyping & Fabrication Company",
                 "features": [
                     "Fabrication of custom parts & spare components",
                     "High-precision 3D scanning & inspection",
@@ -64,8 +64,8 @@
                 ]
             },
             {
-                "title": "Real Estate & Construction",
-                "description": "Property Promotion & Management",
+                "title": "Real Estate & Development",
+                "description": "Real Estate Development & Construction Company",
                 "features": [
                     "Civil and industrial real estate promotion",
                     "Acquisition and sale of plots and land",
@@ -74,8 +74,8 @@
                 ]
             },
             {
-                "title": "Travel Agency & Hospitality",
-                "description": "Global Tourism & Tour Operator",
+                "title": "Travel & Global Tourism",
+                "description": "Global Tour Operator & Travel Agency",
                 "features": [
                     "Organization of tour packages & custom travel",
                     "Brokerage & sales of tourist packages",
@@ -86,59 +86,59 @@
         ]
     },
     "benefits": {
-        "title": "The Strength of Our Synergy",
-        "subtitle": "A single solid, multidisciplinary partner coordinating your enterprise's technology, growth, and manufacturing",
+        "title": "The Strength of Our Group",
+        "subtitle": "The strategic benefits of partnering with a solid holding group to coordinate your enterprise's technology, growth, and manufacturing",
         "items": [
             {
-                "title": "Multidisciplinary Synergy",
-                "description": "We seamlessly connect technology, marketing, additive manufacturing, and services to create unique value."
+                "title": "Subsidiary Synergy",
+                "description": "We seamlessly connect our technology, marketing, additive manufacturing, and hospitality companies to create unique value."
             },
             {
-                "title": "Tailored Engineering",
-                "description": "From custom mobile apps to high-precision 3D printed parts, every solution is tested to exact specifications."
+                "title": "Specialized Verticals",
+                "description": "Each portfolio company operates independently, guaranteeing dedicated expert teams and vertical specialization."
             },
             {
                 "title": "Global Footprint",
-                "description": "We operate globally in tech development, real estate, and tourism with institutional-grade reliability."
+                "description": "Through our holding structure and operating subsidiaries, we are present globally in key tech, real estate, and tourism sectors."
             },
             {
-                "title": "Regulated Competence",
-                "description": "We guarantee absolute compliance and adherence to the highest legal and operational standards in every activity."
+                "title": "Governance & Stability",
+                "description": "Our parent company IntuiFy Ventures S.L. guarantees maximum financial, administrative, and legal solidity."
             },
             {
-                "title": "Digital-Native Experience",
-                "description": "We design and build all our web platforms, custom SaaS, and artificial intelligence tools in-house."
+                "title": "Intellectual Property",
+                "description": "We design, build, and patent the underlying software and platforms used across our portfolio companies."
             },
             {
-                "title": "Strategic Consulting",
-                "description": "We accompany every project with strategic advisory, from technical development to ultimate market launch."
+                "title": "Holding-Level Consulting",
+                "description": "We accompany every engagement with strategic advisory and corporate governance at the parent company level."
             }
         ]
     },
     "testimonials": {
-        "title": "Partner Testimonials",
-        "subtitle": "How partners and clients across our diverse divisions achieve strategic excellence alongside IntuiFy",
+        "title": "Shared Success",
+        "subtitle": "How institutional partners and clients across our diverse subsidiaries achieve strategic excellence",
         "items": [
             {
-                "quote": "IntuiFy developed our enterprise SaaS platform and managed our global marketing campaign. The results exceeded all benchmarks in record time.",
+                "quote": "The IntuiFy group coordinated the development of our enterprise SaaS and managed the global marketing campaign through its subsidiaries. Outstanding results.",
                 "name": "Marco Bianchi",
                 "role": "CEO of TechFlow",
                 "company": "TechFlow Systems"
             },
             {
-                "quote": "Their additive manufacturing division produced high-precision 3D spare parts for our logistics fleet, saving us weeks of operational downtime.",
+                "quote": "Their additive manufacturing subsidiary produced high-precision 3D spare parts for our logistics fleet, saving us weeks of operational downtime.",
                 "name": "Elena Rossi",
                 "role": "Ops Manager",
                 "company": "Logistics3D International"
             },
             {
-                "quote": "We entrusted IntuiFy with land acquisition and the development of our new headquarters. Exceptional professionalism throughout the brokerage process.",
+                "quote": "We entrusted IntuiFy's real estate arm with land acquisition and the development of our new headquarters. Exceptional contractual security and financial backing.",
                 "name": "Stefano Moretti",
                 "role": "Associate Partner",
                 "company": "RealEstate Hub"
             },
             {
-                "quote": "The tour package and accommodation management for our overseas corporate summit were planned and executed without a single issue.",
+                "quote": "The tour package and accommodation management for our overseas corporate summit were planned and executed without a single issue by their travel subsidiary.",
                 "name": "Laura Verdi",
                 "role": "Head of People",
                 "company": "GlobalTrip Ltd"
@@ -146,19 +146,19 @@
         ]
     },
     "demo": {
-        "title": "Ready to Partner with Us?",
-        "subtitle": "Get in touch with our experts to discover how the specialized divisions of IntuiFy Ventures can accelerate your business.",
-        "cta": "Contact Our Team"
+        "title": "Ready to Partner with Our Group?",
+        "subtitle": "Get in touch with our experts to discover how the holding structure of IntuiFy Ventures can accelerate and secure your business.",
+        "cta": "Contact the Holding"
     },
     "contact": {
-        "title": "Connect with One of Our Divisions",
-        "subtitle": "Select your area of interest and describe your project needs. We will direct you to our specialized team.",
+        "title": "Connect with Our Group",
+        "subtitle": "Select your portfolio company or area of interest to be routed to the appropriate department, or contact the holding directly for strategic partnerships.",
         "reasons_title": "Why IntuiFy Ventures?",
         "reasons": [
-            "A single, robust partner for tech, marketing, and logistics",
-            "Highest contractual security and reliability across sectors",
-            "State-of-the-art digital and additive manufacturing tech",
-            "Integrated strategic consulting included in all workflows"
+            "A single, robust parent group for tech, marketing, and logistics",
+            "Highest contractual security and backing guaranteed by the holding",
+            "Specialized vertical companies with state-of-the-art technologies",
+            "Integrated strategic consulting and corporate governance included"
         ],
         "form": {
             "name": "Full name",
@@ -167,8 +167,8 @@
             "company_placeholder": "Acme Corp",
             "email": "Work email",
             "email_placeholder": "john@company.com",
-            "message": "Project Scope / Division Request",
-            "message_placeholder": "Describe your needs (e.g. custom software, 3D printing, marketing campaigns, real estate or travel services)...",
+            "message": "Group Company Request / Project Details",
+            "message_placeholder": "Describe your needs, specifying the target subsidiary or area of interest (e.g. Software, Data, Marketing, 3D Printing, Real Estate, or Travel)...",
             "submit": "Submit Inquiry",
             "sending": "Initiating connection...",
             "success": "Inquiry received! Our specialists will contact you shortly.",
@@ -176,9 +176,9 @@
         }
     },
     "footer": {
-        "tagline": "IntuiFy Ventures S.L. is a multidisciplinary group operating in custom software development, data processing, integrated marketing, 3D printing, real estate, and global travel.",
-        "nav_title": "Group",
-        "services_title": "Divisions",
+        "tagline": "IntuiFy Ventures S.L. is the parent holding company coordinating a portfolio of specialized subsidiaries operating in software, data processing, advertising, 3D printing, real estate, and global travel.",
+        "nav_title": "Holding",
+        "services_title": "Group Companies",
         "contact_title": "Connection",
         "copyright": "© {year} IntuiFy. All rights reserved."
     }
