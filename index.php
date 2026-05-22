@@ -218,8 +218,8 @@ $benefitIcons = [
     <meta name="description" content="<?= htmlspecialchars($t['meta']['description']) ?>">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+    <link rel="icon" type="image/png" href="assets/favicon.png?v=<?= filemtime(__DIR__ . '/assets/favicon.png') ?>">
+    <link rel="shortcut icon" href="assets/favicon.png?v=<?= filemtime(__DIR__ . '/assets/favicon.png') ?>" type="image/png">
 
     <!-- Premium Google Fonts: Plus Jakarta Sans for body, Outfit for geometric display titles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -384,7 +384,7 @@ $benefitIcons = [
                             <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
                             <span class="mx-auto w-32 md:w-48 h-3.5 md:h-4.5 bg-slate-200/40 border border-slate-200/30 rounded-full"></span>
                         </div>
-                        <img src="assets/hero_dashboard.png" alt="IntuiFy Premium Dashboard" class="w-full h-auto object-cover transform scale-101 hover:scale-100 duration-1000" loading="eager" width="1152" height="648">
+                        <img src="assets/hero_dashboard.png?v=<?= filemtime(__DIR__ . '/assets/hero_dashboard.png') ?>" alt="IntuiFy Premium Dashboard" class="w-full h-auto object-cover transform scale-101 hover:scale-100 duration-1000" loading="eager" width="1152" height="648">
                     </div>
                 </div>
             </div>
@@ -442,7 +442,7 @@ $benefitIcons = [
                                     </div>
                                     <!-- Embedded visual diagram inside card 0 -->
                                     <div class="lg:col-span-6 p-2 rounded-3xl bg-slate-50/50 border border-slate-200/30 shadow-inner">
-                                        <img src="assets/bento_integration.png" alt="Workflow Orchestration Diagram" class="w-full h-auto rounded-2xl object-cover shadow-sm" loading="lazy" width="400" height="280">
+                                        <img src="assets/bento_integration.png?v=<?= filemtime(__DIR__ . '/assets/bento_integration.png') ?>" alt="Workflow Orchestration Diagram" class="w-full h-auto rounded-2xl object-cover shadow-sm" loading="lazy" width="400" height="280">
                                     </div>
                                 </div>
                             </div>
@@ -608,7 +608,7 @@ $benefitIcons = [
                                 <!-- Silicon Valley team collaborating photo inside Double-Bezel card -->
                                 <div class="relative w-full lg:max-w-lg p-2.5 rounded-3xl bg-bezel-outer border border-bezel-border shadow-md">
                                     <div class="overflow-hidden rounded-2xl border border-slate-200/30 shadow-inner">
-                                        <img src="assets/people_work.png" alt="Collaborative tech team in modern office environment" class="w-full h-auto object-cover transform group-hover:scale-101 duration-700" loading="lazy" width="480" height="320">
+                                        <img src="assets/people_work.png?v=<?= filemtime(__DIR__ . '/assets/people_work.png') ?>" alt="Collaborative tech team in modern office environment" class="w-full h-auto object-cover transform group-hover:scale-101 duration-700" loading="lazy" width="480" height="320">
                                     </div>
                                 </div>
                             </div>
