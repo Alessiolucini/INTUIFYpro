@@ -1,184 +1,184 @@
 {
     "lang": "it",
     "meta": {
-        "title": "IntuiFy – Flussi di Lavoro Autonomi e Agenti Digitali IA",
-        "description": "Distribuisci agenti IA personalizzati e flussi di lavoro automatizzati per orchestrare i tuoi sistemi aziendali in autopilota. Scala le operazioni e riduci i costi."
+        "title": "IntuiFy Ventures – Gruppo Multidisciplinare & Venture Builder",
+        "description": "IntuiFy Ventures S.L. opera nello sviluppo software, elaborazione dati, marketing integrato, fabbricazione additiva 3D, sviluppo immobiliare e turismo globale."
     },
     "nav": {
-        "inicio": "Panoramica",
-        "servicios": "Funzionalità",
-        "beneficios": "Impatto",
+        "inicio": "Gruppo",
+        "servicios": "Divisioni",
+        "beneficios": "Sinergie",
         "testimonios": "Successo",
         "contacto": "Contatti",
-        "cta": "Richiedi Pilota"
+        "cta": "Parla con Noi"
     },
     "hero": {
-        "badge": "Lavoro Digitale & Autopilota",
-        "title": "Automatizza le tue operazioni con agenti IA intelligenti",
-        "subtitle": "Orchestra CRM, database e API in autopilota. Distribuiamo agenti digitali personalizzati che eseguono flussi di lavoro complessi 24 ore su 24, permettendo al tuo team di concentrarsi sulla crescita strategica.",
-        "cta_primary": "Pianifica una Demo",
-        "cta_secondary": "Esplora le Funzionalità"
+        "badge": "Venture Builder & Holding Multidisciplinare",
+        "title": "Costruiamo soluzioni avanzate per le sfide di oggi e di domani",
+        "subtitle": "IntuiFy Ventures S.L. è un gruppo globale che orchestra tecnologia avanzata, produzione industriale, marketing creativo, asset immobiliari e turismo. Attraverso le nostre divisioni specializzate, offriamo un ecosistema completo di servizi e soluzioni ad alte prestazioni.",
+        "cta_primary": "Pianifica un Consulto",
+        "cta_secondary": "Esplora le Divisioni"
     },
     "services": {
-        "title": "Funzionalità Chiave",
-        "subtitle": "Moduli di automazione di livello enterprise progettati per massimizzare l'efficienza operativa",
+        "title": "Le Nostre Divisioni Operative",
+        "subtitle": "Sei pilastri verticali progettati per offrire eccellenza e conformità nei settori chiave dell'economia globale",
         "items": [
             {
-                "title": "Flussi di Lavoro Autonomi",
-                "description": "Orchestrazione Cross-Piattaforma",
+                "title": "Tecnologia & Software su Misura",
+                "description": "Ingegneria Informatica Avanzata",
                 "features": [
-                    "Integrazioni CRM ed ERP su misura",
-                    "Processi aziendali guidati dagli eventi",
-                    "Sincronizzazione dei dati resiliente",
-                    "Allarmi proattivi per anomalie e minacce"
+                    "Sviluppo di software su misura e applicazioni",
+                    "Creazione di portali web e piattaforme SaaS",
+                    "Progettazione di sistemi operativi e app",
+                    "Manutenzione e collaudo software dedicati"
                 ]
             },
             {
-                "title": "Agenti IA Cognitivi",
-                "description": "Supporto Contestuale 24/7",
+                "title": "Data Intelligence & Piattaforme IA",
+                "description": "Analisi e Gestione Informativa",
                 "features": [
-                    "Supporto conversazionale generativo",
-                    "Motore di risoluzione a latenza zero",
-                    "Sincronizzazione multicanale immediata",
-                    "Cicli di feedback auto-miglioranti"
+                    "Elaborazione elettronica e meccanica di dati",
+                    "Programmazione e calcolo dati per terzi",
+                    "Creazione di applicazioni e piattaforme di IA",
+                    "Archiviazione sicura e tabulazione dei dati"
                 ]
             },
             {
-                "title": "Analisi Predittiva",
-                "description": "Intelligence Operativa in Tempo Reale",
+                "title": "Marketing & Agenzia Pubblicitaria",
+                "description": "Consulenza e Campagne Creative",
                 "features": [
-                    "Previsione dei trend guidata dall'IA",
-                    "Riconoscimento automatico delle opportunità",
-                    "Pianificazione predittiva delle risorse",
-                    "Dashboard personalizzate ad alta fedeltà"
+                    "Consulenza strategica di posizionamento",
+                    "Direzione artistica e design pubblicitario",
+                    "Creazione e distribuzione di campagne",
+                    "Copertura omnicanale (web, TV, stampa, radio)"
                 ]
             },
             {
-                "title": "Pipeline di Dati Intelligenti",
-                "description": "Strutturazione Avanzata dei Dati",
+                "title": "Produzione Additiva & Stampa 3D",
+                "description": "Prototipazione e Pezzi su Misura",
                 "features": [
-                    "Canali ETL personalizzati e automatizzati",
-                    "Pulizia e arricchimento dati tramite IA",
-                    "Data warehousing in cloud distribuiti",
-                    "Business intelligence giornaliera autonoma"
+                    "Fabbricazione di pezzi di ricambio e maquette",
+                    "Servizi di scansione 3D ad alta precisione",
+                    "Consulenza tecnica su tecnologie additive",
+                    "Corsi di formazione e design dedicati"
                 ]
             },
             {
-                "title": "Automazione della Crescita",
-                "description": "Funnels ad Alta Velocità",
+                "title": "Real Estate & Costruzioni",
+                "description": "Promozione e Gestione Immobiliare",
                 "features": [
-                    "Auto-orchestrazione email comportamentale",
-                    "Modelli predittivi di lead scoring",
-                    "Fornitura autonoma di asset marketing",
-                    "Tracciamento conversioni e attribuzione"
+                    "Promozione di opere civili e industriali",
+                    "Acquisizione e compravendita di terreni",
+                    "Locazione e gestione di asset immobiliari",
+                    "Intermediazione specializzata per terzi"
                 ]
             },
             {
-                "title": "Back-Office Autonomo",
-                "description": "Operazioni Core Ottimizzate",
+                "title": "Viaggi & Turismo",
+                "description": "Turismo e Viaggi Internazionali",
                 "features": [
-                    "Pianificazione dinamica delle risorse",
-                    "Fatturazione automatica e pipeline di pagamento",
-                    "Telemetria dei progetti cross-sistema",
-                    "Classificazione autonoma dei documenti"
+                    "Organizzazione di viaggi combinati e tour",
+                    "Intermediazione e vendita di pacchetti turistici",
+                    "Prenotazione di alloggi, trasporti e ristorazione",
+                    "Gestione telematica e piattaforme online"
                 ]
             }
         ]
     },
     "benefits": {
-        "title": "Impatto Operativo Misurabile",
-        "subtitle": "Sblocca una profonda efficienza e una scalabilità illimitata con flussi digitali robusti",
+        "title": "La Forza della Nostra Sinergia",
+        "subtitle": "Un unico partner solido e multidisciplinare per coordinare la crescita, la tecnologia e la produzione della tua impresa",
         "items": [
             {
-                "title": "80% in meno di esecuzione manuale",
-                "description": "Reindirizza i talenti ad alto valore lontano dal noioso inserimento dati, verso iniziative strategiche."
+                "title": "Sinergia Multidisciplinare",
+                "description": "Colleghiamo tecnologia, marketing, manifattura additiva e servizi per creare valore unico."
             },
             {
-                "title": "Risparmio operativo sostanziale",
-                "description": "Abbatti drasticamente il costo per esecuzione con lavoratori digitali attivi 24 ore su 24, 7 giorni su 7."
+                "title": "Ingegneria su Misura",
+                "description": "Dall'app mobile al pezzo stampato in 3D, ogni soluzione è progettata e collaudata su specifiche esatte."
             },
             {
-                "title": "Scalabilità aziendale elastica",
-                "description": "Gestisci picchi nei volumi transazionali o di database senza colli di bottiglia nelle assunzioni."
+                "title": "Copertura Internazionale",
+                "description": "Operiamo su scala globale nei settori della tecnologia, immobiliare e turismo con la massima affidabilità."
             },
             {
-                "title": "Velocità di esecuzione impareggiabile",
-                "description": "Sostituisci la latenza umana con l'orchestrazione API istantanea, completando flussi in pochi secondi."
+                "title": "Competenza Regolamentata",
+                "description": "Garantiamo conformità e rispetto dei massimi standard operativi e legali in ogni nostra attività."
             },
             {
-                "title": "Precisione a zero errori",
-                "description": "Proteggi le operazioni critiche dagli errori umani, ottenendo una perfetta conformità dei dati."
+                "title": "Esperienza Digitale Nativa",
+                "description": "Sviluppiamo internamente le nostre piattaforme web, SaaS e strumenti di intelligenza artificiale."
             },
             {
-                "title": "Vantaggio competitivo pionieristico",
-                "description": "Supera la concorrenza implementando un'infrastruttura IA all'avanguardia su misura per i tuoi obiettivi."
+                "title": "Consulenza Strategica",
+                "description": "Accompagniamo ogni progetto con consulenza strategica, dallo sviluppo tecnico fino alla promozione di mercato."
             }
         ]
     },
     "testimonials": {
-        "title": "Supportato da risultati concreti",
-        "subtitle": "Come i team all'avanguardia orchestrano la propria crescita con IntuiFy",
+        "title": "La Voce dei Nostri Partner",
+        "subtitle": "Come i partner e i clienti delle nostre divisioni raggiungono i propri obiettivi strategici insieme a IntuiFy",
         "items": [
             {
-                "quote": "IntuiFy ha rivoluzionato completamente il nostro flusso di onboarding. Quello che prima richiedeva mezza giornata ai nostri operatori ora gira in autopilota. L'investimento si è ripagato in sei settimane.",
-                "name": "Maria Gonzalez",
-                "role": "VP delle Operazioni",
-                "company": "TechSolutions Corp"
+                "quote": "IntuiFy ha sviluppato la nostra piattaforma SaaS aziendale e gestito la campagna di marketing globale. I risultati hanno superato ogni aspettativa in tempi record.",
+                "name": "Marco Bianchi",
+                "role": "CEO di TechFlow",
+                "company": "TechFlow Systems"
             },
             {
-                "quote": "L'implementazione degli agenti cognitivi di IntuiFy è stata una svolta. Abbiamo esteso il supporto clienti 24/7, ridotto i tempi del 70% e aumentato la soddisfazione a livelli storici.",
-                "name": "Carlos Mendoza",
-                "role": "Chief Executive",
-                "company": "RetailPro Group"
+                "quote": "La loro divisione di fabbricazione additiva ha prodotto pezzi di ricambio 3D ad altissima precisione per la nostra flotta logistica, risparmiandoci settimane di fermo operativo.",
+                "name": "Elena Rossi",
+                "role": "Ops Manager di Logistics3D",
+                "company": "Logistics3D International"
             },
             {
-                "quote": "I nostri strumenti erano completamente disconnessi. IntuiFy ha sintetizzato tutto in flussi di lavoro coerenti, offrendo al nostro team di marketing totale chiarezza.",
-                "name": "Laura Martinez",
-                "role": "Direttrice della Crescita",
-                "company": "GrowthPlus"
+                "quote": "Abbiamo affidato a IntuiFy l'acquisizione di terreni e lo sviluppo del nostro nuovo headquarter. Una professionalità impeccabile anche nella gestione intermediazione.",
+                "name": "Stefano Moretti",
+                "role": "Partner Associato",
+                "company": "RealEstate Hub"
             },
             {
-                "quote": "IntuiFy ha superato ogni aspettativa. Hanno progettato una pipeline personalizzata perfettamente orchestrata che ha semplificato le nostre operazioni e risolto lacune critiche nei dati.",
-                "name": "Javier Ruiz",
-                "role": "Direttore Infrastrutture",
-                "company": "Logistics Express"
+                "quote": "Il pacchetto di viaggio combinato e la gestione alloggi per la nostra conferenza aziendale all'estero sono stati pianificati ed eseguiti senza alcun intoppo.",
+                "name": "Laura Verdi",
+                "role": "Head of People",
+                "company": "GlobalTrip Ltd"
             }
         ]
     },
     "demo": {
-        "title": "Vedi le tue operazioni in autopilota",
-        "subtitle": "Scopri come i flussi di lavoro IA personalizzati possono sbloccare una precisione e una scala senza precedenti. Nessun attrito, nessun impegno.",
-        "cta": "Richiedi un Pilota Gratuito"
+        "title": "Pronto a collaborare con noi?",
+        "subtitle": "Parla con i nostri esperti per scoprire come le divisioni di IntuiFy Ventures possono accelerare e consolidare i tuoi progetti.",
+        "cta": "Contatta il Nostro Team"
     },
     "contact": {
-        "title": "Progetta la tua forza lavoro digitale",
-        "subtitle": "Raccontaci dei tuoi colli di bottiglia operativi e tracceremo un piano di automazione su misura per te.",
-        "reasons_title": "Perché scegliere IntuiFy?",
+        "title": "Parla con una delle nostre divisioni",
+        "subtitle": "Seleziona l'area di interesse e descrivi le tue esigenze aziendali. Ti risponderemo a stretto giro con i nostri specialisti dedicati.",
+        "reasons_title": "Perché IntuiFy Ventures?",
         "reasons": [
-            "Piano strategico iniziale gratuito",
-            "Integrazioni ingegnerizzate su misura",
-            "Ottimizzazione continua e SLA rigorosi",
-            "Performance e ROI garantiti"
+            "Unico partner solido per tecnologia, marketing e logistica",
+            "Massima serietà e solidità contrattuale in ogni settore",
+            "Tecnologie digitali e produttive di ultimissima generazione",
+            "Consulenza strategica integrata in tutti i processi"
         ],
         "form": {
             "name": "Nome completo",
             "name_placeholder": "Mario Rossi",
-            "company": "Azienda",
+            "company": "Azienda / Ente",
             "company_placeholder": "Acme S.r.l.",
-            "email": "Email di lavoro",
+            "email": "Email aziendale",
             "email_placeholder": "mario@azienda.com",
-            "message": "Scopo del progetto / Esigenze",
-            "message_placeholder": "Descrivi i flussi di lavoro manuali o i sistemi che desideri automatizzare...",
+            "message": "Dettagli del progetto / Richiesta per la divisione",
+            "message_placeholder": "Descrivi le tue esigenze (es. sviluppo software, stampa 3D, campagne marketing, servizi immobiliari o turistici)...",
             "submit": "Invia Richiesta",
             "sending": "Inizializzazione connessione...",
-            "success": "Richiesta ricevuta! I nostri architetti dell'automazione ti contatteranno a breve.",
+            "success": "Richiesta ricevuta! I nostri specialisti ti contatteranno a breve.",
             "error": "Errore nell'invio. Riprova."
         }
     },
     "footer": {
-        "tagline": "Progettiamo flussi di lavoro digitali autonomi e agenti cognitivi per scalare le operazioni aziendali moderne.",
-        "nav_title": "Piattaforma",
-        "services_title": "Funzionalità",
+        "tagline": "IntuiFy Ventures S.L. è un gruppo operante nei settori dello sviluppo tecnologico, elaborazione dati, marketing creativo, stampa 3D, immobiliare e turismo.",
+        "nav_title": "Gruppo",
+        "services_title": "Divisioni",
         "contact_title": "Connessione",
         "copyright": "© {year} IntuiFy. Tutti i diritti riservati."
     }

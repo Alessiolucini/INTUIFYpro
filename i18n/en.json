@@ -1,184 +1,184 @@
 {
     "lang": "en",
     "meta": {
-        "title": "IntuiFy – Autonomous AI Workflows & Digital Operations",
-        "description": "Deploy customized AI agents and automated workflows to orchestrate your business systems on autopilot. Scale back-office operations and reduce execution costs."
+        "title": "IntuiFy Ventures – Multidisciplinary Group & Venture Builder",
+        "description": "IntuiFy Ventures S.L. operates in custom software development, data processing, integrated marketing, 3D printing & additive manufacturing, real estate development, and global travel."
     },
     "nav": {
-        "inicio": "Overview",
-        "servicios": "Capabilities",
-        "beneficios": "Impact",
+        "inicio": "Group",
+        "servicios": "Divisions",
+        "beneficios": "Synergies",
         "testimonios": "Success",
         "contacto": "Contact",
-        "cta": "Request Pilot"
+        "cta": "Talk with Us"
     },
     "hero": {
-        "badge": "Digital Labor & Autopilot",
-        "title": "Automate your operations with intelligent AI agents",
-        "subtitle": "Orchestrate your CRM, databases, and APIs on autopilot. We deploy custom digital agents that execute complex business workflows 24/7, leaving your team to focus on high-leverage growth.",
-        "cta_primary": "Schedule a Demo",
-        "cta_secondary": "Explore Capabilities"
+        "badge": "Venture Builder & Multidisciplinary Holding",
+        "title": "Building advanced solutions for today's and tomorrow's challenges",
+        "subtitle": "IntuiFy Ventures S.L. is a global group orchestrating advanced technology, industrial manufacturing, creative marketing, real estate assets, and tourism. Through our specialized divisions, we offer a comprehensive ecosystem of high-performance services and solutions.",
+        "cta_primary": "Schedule a Consultation",
+        "cta_secondary": "Explore Divisions"
     },
     "services": {
-        "title": "Core Capabilities",
-        "subtitle": "Enterprise-grade automation modules engineered to drive operational efficiency",
+        "title": "Our Operating Divisions",
+        "subtitle": "Six vertical pillars designed to deliver excellence and compliance across key sectors of the global economy",
         "items": [
             {
-                "title": "Autonomous Workflows",
-                "description": "Cross-Platform Orchestration",
+                "title": "Custom Software & Tech",
+                "description": "Advanced Software Engineering",
                 "features": [
-                    "Bespoke CRM & ERP integrations",
-                    "Event-driven business processes",
-                    "Self-healing data synchronization",
-                    "Proactive threat and anomaly alerts"
+                    "Custom software & application development",
+                    "Creation of web portals & SaaS platforms",
+                    "Design of custom operating systems & apps",
+                    "Dedicated software maintenance & testing"
                 ]
             },
             {
-                "title": "Cognitive AI Agents",
-                "description": "24/7 Contextual Support",
+                "title": "Data Intelligence & AI Platforms",
+                "description": "Information Analysis & Management",
                 "features": [
-                    "Generative natural language support",
-                    "Zero-latency resolution engine",
-                    "Omnichannel system synchronization",
-                    "Self-improving feedback loops"
+                    "Electronic & mechanical data processing",
+                    "Data calculation & programming for third parties",
+                    "Creation of AI platforms and applications",
+                    "Secure data storage, tabulation & registration"
                 ]
             },
             {
-                "title": "Predictive Analytics",
-                "description": "Real-time Operations Intelligence",
+                "title": "Marketing & Advertising Agency",
+                "description": "Consultative & Creative Campaigns",
                 "features": [
-                    "AI-driven trend forecasting",
-                    "Automatic business opportunity matching",
-                    "Predictive resource planning",
-                    "High-fidelity custom dashboards"
+                    "Strategic positioning & business consulting",
+                    "Creative art direction & advertising design",
+                    "Creation, execution & distribution of campaigns",
+                    "Omnichannel coverage (web, TV, print, radio)"
                 ]
             },
             {
-                "title": "Data Pipeline Engineering",
-                "description": "Intelligent Data Structuring",
+                "title": "Additive Manufacturing & 3D Printing",
+                "description": "Prototyping & Custom Components",
                 "features": [
-                    "Fully automated custom ETL channels",
-                    "AI-powered cleaning & enrichment",
-                    "Distributed cloud data warehousing",
-                    "Automated daily business intelligence"
+                    "Fabrication of custom parts & spare components",
+                    "High-precision 3D scanning & inspection",
+                    "Technical consulting on additive technologies",
+                    "Specialized training courses & industrial design"
                 ]
             },
             {
-                "title": "Growth Automation",
-                "description": "High-Velocity Funnels",
+                "title": "Real Estate & Construction",
+                "description": "Property Promotion & Management",
                 "features": [
-                    "Behavioral email auto-orchestration",
-                    "Predictive lead scoring models",
-                    "Automated marketing asset delivery",
-                    "Attribution & conversion tracking"
+                    "Civil and industrial real estate promotion",
+                    "Acquisition and sale of plots and land",
+                    "Leasing & management of real estate assets",
+                    "Specialized third-party brokerage & advisory"
                 ]
             },
             {
-                "title": "Autonomous Back-Office",
-                "description": "Optimized Core Operations",
+                "title": "Travel Agency & Hospitality",
+                "description": "Global Tourism & Tour Operator",
                 "features": [
-                    "Dynamic resource scheduling",
-                    "Automated invoicing & billing pipelines",
-                    "Cross-system project telemetry",
-                    "Autonomous document classification"
+                    "Organization of tour packages & custom travel",
+                    "Brokerage & sales of tourist packages",
+                    "Reservation of accommodation, transport & catering",
+                    "Online booking systems & global travel platforms"
                 ]
             }
         ]
     },
     "benefits": {
-        "title": "Measurable Performance Impact",
-        "subtitle": "Unlocking deep efficiency and limitless scale with robust digital operations",
+        "title": "The Strength of Our Synergy",
+        "subtitle": "A single solid, multidisciplinary partner coordinating your enterprise's technology, growth, and manufacturing",
         "items": [
             {
-                "title": "80% reduction in manual execution",
-                "description": "Redirect high-value talent away from dry data-entry towards strategic initiatives that move metrics."
+                "title": "Multidisciplinary Synergy",
+                "description": "We seamlessly connect technology, marketing, additive manufacturing, and services to create unique value."
             },
             {
-                "title": "Substantial operational saving",
-                "description": "Dramatically lower cost-per-execution with automated digital workers that execute tasks instantly 24/7."
+                "title": "Tailored Engineering",
+                "description": "From custom mobile apps to high-precision 3D printed parts, every solution is tested to exact specifications."
             },
             {
-                "title": "Elastic enterprise scale",
-                "description": "Handle spikes in transactional or database volume without hiring bottlenecks or operational delays."
+                "title": "Global Footprint",
+                "description": "We operate globally in tech development, real estate, and tourism with institutional-grade reliability."
             },
             {
-                "title": "Unrivaled execution velocity",
-                "description": "Replace human latency with instant API orchestration, executing workflows in seconds."
+                "title": "Regulated Competence",
+                "description": "We guarantee absolute compliance and adherence to the highest legal and operational standards in every activity."
             },
             {
-                "title": "Zero-error precision",
-                "description": "Protect critical operations from human mistakes, achieving perfect consistency and data compliance."
+                "title": "Digital-Native Experience",
+                "description": "We design and build all our web platforms, custom SaaS, and artificial intelligence tools in-house."
             },
             {
-                "title": "Pioneering competitive edge",
-                "description": "Outpace slower competitors by deploying state-of-the-art AI infrastructure custom-fitted to your goals."
+                "title": "Strategic Consulting",
+                "description": "We accompany every project with strategic advisory, from technical development to ultimate market launch."
             }
         ]
     },
     "testimonials": {
-        "title": "Backed by operational results",
-        "subtitle": "How leading-edge teams orchestrate their scale and efficiency with IntuiFy",
+        "title": "Partner Testimonials",
+        "subtitle": "How partners and clients across our diverse divisions achieve strategic excellence alongside IntuiFy",
         "items": [
             {
-                "quote": "IntuiFy completely revolutionized our client onboarding flow. What once took our operators half a day now runs seamlessly on autopilot. The investment paid for itself in six weeks.",
-                "name": "Maria Gonzalez",
-                "role": "VP of Operations",
-                "company": "TechSolutions Corp"
+                "quote": "IntuiFy developed our enterprise SaaS platform and managed our global marketing campaign. The results exceeded all benchmarks in record time.",
+                "name": "Marco Bianchi",
+                "role": "CEO of TechFlow",
+                "company": "TechFlow Systems"
             },
             {
-                "quote": "Deploying IntuiFy's cognitive agents was a turning point. We scaled our customer operations 24/7, cut ticket times by 70%, and raised customer satisfaction to record levels.",
-                "name": "Carlos Mendoza",
-                "role": "Chief Executive",
-                "company": "RetailPro Group"
+                "quote": "Their additive manufacturing division produced high-precision 3D spare parts for our logistics fleet, saving us weeks of operational downtime.",
+                "name": "Elena Rossi",
+                "role": "Ops Manager",
+                "company": "Logistics3D International"
             },
             {
-                "quote": "Our tool stack used to be completely disjointed. IntuiFy synthesized everything into cohesive workflows, giving our marketing team total clarity.",
-                "name": "Laura Martinez",
-                "role": "Director of Growth",
-                "company": "GrowthPlus"
+                "quote": "We entrusted IntuiFy with land acquisition and the development of our new headquarters. Exceptional professionalism throughout the brokerage process.",
+                "name": "Stefano Moretti",
+                "role": "Associate Partner",
+                "company": "RealEstate Hub"
             },
             {
-                "quote": "IntuiFy exceeded every expectation. They designed a beautifully orchestrated custom pipeline that simplified our operations and resolved key data gaps.",
-                "name": "Javier Ruiz",
-                "role": "Director of Infrastructure",
-                "company": "Logistics Express"
+                "quote": "The tour package and accommodation management for our overseas corporate summit were planned and executed without a single issue.",
+                "name": "Laura Verdi",
+                "role": "Head of People",
+                "company": "GlobalTrip Ltd"
             }
         ]
     },
     "demo": {
-        "title": "See your operations on autopilot",
-        "subtitle": "Experience how tailored AI workflows can unlock unmatched scale and precision for your team. Zero friction, zero commitment.",
-        "cta": "Request a Free Pilot"
+        "title": "Ready to Partner with Us?",
+        "subtitle": "Get in touch with our experts to discover how the specialized divisions of IntuiFy Ventures can accelerate your business.",
+        "cta": "Contact Our Team"
     },
     "contact": {
-        "title": "Design your digital workforce",
-        "subtitle": "Tell us about your operational bottlenecks and we will outline a custom automation plan.",
-        "reasons_title": "Why partner with IntuiFy?",
+        "title": "Connect with One of Our Divisions",
+        "subtitle": "Select your area of interest and describe your project needs. We will direct you to our specialized team.",
+        "reasons_title": "Why IntuiFy Ventures?",
         "reasons": [
-            "Complimentary initial strategy blueprint",
-            "Custom-engineered bespoke integrations",
-            "Continuous optimization and SLAs",
-            "Guaranteed performance and ROI"
+            "A single, robust partner for tech, marketing, and logistics",
+            "Highest contractual security and reliability across sectors",
+            "State-of-the-art digital and additive manufacturing tech",
+            "Integrated strategic consulting included in all workflows"
         ],
         "form": {
             "name": "Full name",
-            "name_placeholder": "Jane Doe",
-            "company": "Company",
+            "name_placeholder": "John Doe",
+            "company": "Company / Organization",
             "company_placeholder": "Acme Corp",
             "email": "Work email",
-            "email_placeholder": "jane@company.com",
-            "message": "Project scope / Needs",
-            "message_placeholder": "Describe the manual workflows or systems you want to automate...",
-            "submit": "Submit Request",
+            "email_placeholder": "john@company.com",
+            "message": "Project Scope / Division Request",
+            "message_placeholder": "Describe your needs (e.g. custom software, 3D printing, marketing campaigns, real estate or travel services)...",
+            "submit": "Submit Inquiry",
             "sending": "Initiating connection...",
-            "success": "Request received! Our automation architects will reach out shortly.",
+            "success": "Inquiry received! Our specialists will contact you shortly.",
             "error": "Submission error. Please try again."
         }
     },
     "footer": {
-        "tagline": "Architecting autonomous digital workflows and cognitive agents to scale modern enterprise operations.",
-        "nav_title": "Platform",
-        "services_title": "Capabilities",
+        "tagline": "IntuiFy Ventures S.L. is a multidisciplinary group operating in custom software development, data processing, integrated marketing, 3D printing, real estate, and global travel.",
+        "nav_title": "Group",
+        "services_title": "Divisions",
         "contact_title": "Connection",
         "copyright": "© {year} IntuiFy. All rights reserved."
     }
