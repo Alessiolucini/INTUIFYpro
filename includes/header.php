@@ -12,10 +12,9 @@
         <nav class="flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#inicio"
-                class="flex items-center gap-2 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full transition-transform duration-300 hover:scale-102"
+                class="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full transition-transform duration-300 hover:scale-102"
                 aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
                 <img src="assets/logo.png?v=<?= time() ?>" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
-                <span class="font-display font-bold text-lg tracking-tight text-slate-800 hidden sm:inline">IntuiFy</span>
             </a>
 
             <!-- Desktop Navigation Links -->

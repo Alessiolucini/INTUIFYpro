@@ -17,10 +17,9 @@ $currentYear = date('Y');
             <!-- Brand Column -->
             <div class="lg:col-span-5 flex flex-col items-start gap-4">
                 <a href="#inicio"
-                    class="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full transition-transform duration-300 hover:scale-102"
+                    class="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full transition-transform duration-300 hover:scale-102"
                     aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
                     <img src="assets/logo.png" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
-                    <span class="font-display font-bold text-lg tracking-tight text-slate-800">IntuiFy</span>
                 </a>
                 <p class="text-slate-500 text-sm leading-relaxed max-w-sm">
                     <?= $t['footer']['tagline'] ?>
@@ -110,10 +109,15 @@ $currentYear = date('Y');
         </div>
 
         <!-- Bottom Copyright / Certifications -->
-        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-slate-400 text-xs font-medium">
-                <?= str_replace('{year}', $currentYear, $t['footer']['copyright']) ?>
-            </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col gap-1 text-center sm:text-left">
+                <p class="text-slate-400 text-xs font-medium">
+                    <?= str_replace('{year}', $currentYear, $t['footer']['copyright']) ?>
+                </p>
+                <p class="text-slate-400/80 text-[10px] font-bold tracking-wider uppercase">
+                    IntuiFy Ventures S.L.
+                </p>
+            </div>
             <div class="flex items-center gap-6">
                 <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Privacy Policy</span>
                 <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Terms of Service</span>
