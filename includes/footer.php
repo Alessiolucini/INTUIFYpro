@@ -59,12 +59,7 @@ $currentYear = date('Y');
                                 <?= $t['nav']['beneficios'] ?>
                             </a>
                         </li>
-                        <li>
-                            <a href="#testimonios"
-                                class="text-slate-500 hover:text-slate-900 text-sm font-medium transition-all duration-300 focus:outline-none focus-visible:text-accent">
-                                <?= $t['nav']['testimonios'] ?>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 

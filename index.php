@@ -662,57 +662,6 @@ $benefitIcons = [
             </div>
         </section>
 
-        <!-- ================================================================
-             TESTIMONIALS SECTION: Supported by concrete results
-             ================================================================ -->
-        <section id="testimonios" class="relative py-32 md:py-40 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
-                <!-- Section header -->
-                <div class="text-center max-w-3xl mx-auto mb-20 md:mb-24">
-                    <div class="reveal-element inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 border border-slate-200/40 rounded-full mb-4">
-                        <span class="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400">Success Stories</span>
-                    </div>
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
-                        <?= htmlspecialchars($t['testimonials']['title']) ?>
-                    </h2>
-                    <p class="reveal-element text-slate-500 leading-relaxed text-base md:text-lg">
-                        <?= htmlspecialchars($t['testimonials']['subtitle']) ?>
-                    </p>
-                </div>
-
-                <!-- Testimonials grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <?php foreach ($t['testimonials']['items'] as $testimonial): ?>
-                        <article class="reveal-element group p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border flex flex-col justify-between h-full hover-lift">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-10 h-full flex flex-col justify-between gap-8">
-                                <blockquote class="relative">
-                                    <svg class="absolute -top-4 -left-2 w-8 h-8 text-accent/10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                                    </svg>
-                                    <p class="relative text-slate-700 leading-relaxed text-sm italic pl-6">
-                                        "<?= htmlspecialchars($testimonial['quote']) ?>"
-                                    </p>
-                                </blockquote>
-
-                                <div class="mt-6 flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                                        <?= strtoupper(substr($testimonial['name'], 0, 1)) ?>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-slate-900 text-xs">
-                                            <?= htmlspecialchars($testimonial['name']) ?>
-                                        </p>
-                                        <p class="text-[10px] uppercase font-extrabold tracking-widest text-slate-400 mt-0.5">
-                                            <?= htmlspecialchars($testimonial['role']) ?> – <?= htmlspecialchars($testimonial['company']) ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
 
         <!-- ================================================================
              DEMO CTA SECTION: Floating action container

@@ -31,10 +31,7 @@
                     class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['beneficios'] ?>
                 </a>
-                <a href="#testimonios" data-section="testimonios"
-                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
-                    <?= $t['nav']['testimonios'] ?>
-                </a>
+
                 <a href="#contacto" data-section="contacto"
                     class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['contacto'] ?>
@@ -93,10 +90,7 @@
                     class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['beneficios'] ?>
                 </a>
-                <a href="#testimonios" data-section="testimonios"
-                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
-                    <?= $t['nav']['testimonios'] ?>
-                </a>
+
                 <a href="#contacto" data-section="contacto"
                     class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['contacto'] ?>
