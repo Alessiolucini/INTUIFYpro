@@ -14,7 +14,7 @@
             <a href="#inicio"
                 class="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full transition-transform duration-300 hover:scale-102"
                 aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
-                <img src="assets/logo.png?v=<?= time() ?>" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
+                <img src="assets/logo.svg?v=<?= time() ?>" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
             </a>
 
             <!-- Desktop Navigation Links -->

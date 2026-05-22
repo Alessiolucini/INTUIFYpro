@@ -19,7 +19,7 @@ $currentYear = date('Y');
                 <a href="#inicio"
                     class="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full transition-transform duration-300 hover:scale-102"
                     aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
-                    <img src="assets/logo.png" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
+                    <img src="assets/logo.svg" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
                 </a>
                 <p class="text-slate-500 text-sm leading-relaxed max-w-sm">
                     <?= $t['footer']['tagline'] ?>
