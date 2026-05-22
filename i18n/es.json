@@ -1,185 +1,185 @@
 {
-  "lang": "es",
-  "meta": {
-    "title": "IntuiFy – Automatiza tu empresa con IA",
-    "description": "Soluciones de automatización empresarial con asistentes de IA. Optimiza procesos, reduce costos y escala tu negocio."
-  },
-  "nav": {
-    "inicio": "Inicio",
-    "servicios": "Servicios",
-    "beneficios": "Beneficios",
-    "testimonios": "Testimonios",
-    "contacto": "Contacto",
-    "cta": "Habla con nosotros"
-  },
-  "hero": {
-    "badge": "Automatización + IA",
-    "title": "Transforma tu negocio con inteligencia artificial",
-    "subtitle": "Automatizamos tus procesos con asistentes IA para que tu equipo se enfoque en lo que realmente importa. Resultados medibles desde el primer mes.",
-    "cta_primary": "Habla con nosotros",
-    "cta_secondary": "Ver servicios"
-  },
-  "services": {
-    "title": "Nuestros Servicios",
-    "subtitle": "Soluciones integrales de automatización e inteligencia artificial diseñadas para impulsar tu negocio",
-    "items": [
-      {
-        "title": "Automatización de procesos",
-        "description": "Integraciones entre herramientas",
-        "features": [
-          "Conecta CRM, ERP y aplicaciones",
-          "Flujos de trabajo automáticos",
-          "Sincronización en tiempo real",
-          "Alertas inteligentes"
+    "lang": "es",
+    "meta": {
+        "title": "IntuiFy – Flujos de Trabajo Autónomos y Agentes Digitales IA",
+        "description": "Despliega agentes IA personalizados y flujos de trabajo automatizados para orquestar tus sistemas empresariales en piloto automático. Escala operaciones y reduce costes."
+    },
+    "nav": {
+        "inicio": "Perspectiva",
+        "servicios": "Capacidades",
+        "beneficios": "Impacto",
+        "testimonios": "Éxito",
+        "contacto": "Contacto",
+        "cta": "Solicitar Piloto"
+    },
+    "hero": {
+        "badge": "Trabajo Digital & Piloto Automático",
+        "title": "Automatiza tus operaciones con agentes IA inteligentes",
+        "subtitle": "Orquesta tu CRM, bases de datos y APIs en piloto automático. Desplegamos agentes digitales a medida que ejecutan flujos de trabajo complejos 24/7, permitiendo a tu equipo centrarse en el crecimiento estratégico.",
+        "cta_primary": "Programar una Demo",
+        "cta_secondary": "Explorar Capacidades"
+    },
+    "services": {
+        "title": "Capacidades Clave",
+        "subtitle": "Módulos de automatización de nivel empresarial diseñados para maximizar la eficiencia operativa",
+        "items": [
+            {
+                "title": "Flujos de Trabajo Autónomos",
+                "description": "Orquestación Multiplataforma",
+                "features": [
+                    "Integraciones de CRM y ERP a medida",
+                    "Procesos de negocio dirigidos por eventi",
+                    "Sincronización de datos resiliente",
+                    "Alertas proactivas ante anomalías o amenazas"
+                ]
+            },
+            {
+                "title": "Agentes IA Cognitivos",
+                "description": "Soporte Contextual 24/7",
+                "features": [
+                    "Soporte conversacional generativo",
+                    "Motor de resolución con latencia cero",
+                    "Sincronización multicanal inmediata",
+                    "Bucles de feedback auto-optimizables"
+                ]
+            },
+            {
+                "title": "Análisis Predictivo",
+                "description": "Inteligencia Operativa en Tiempo Real",
+                "features": [
+                    "Predicción de tendencias guiada por IA",
+                    "Emparejamiento automático de oportunidades",
+                    "Planificación predictiva de recursos",
+                    "Cuadros de mando personalizados de alta fidelidad"
+                ]
+            },
+            {
+                "title": "Tuberías de Datos Inteligentes",
+                "description": "Estructuración Avanzada de Datos",
+                "features": [
+                    "Canales ETL personalizados y automatizados",
+                    "Limpieza y enriquecimiento de datos con IA",
+                    "Almacenamiento de datos en la nube distribuida",
+                    "Inteligencia empresarial diaria autónoma"
+                ]
+            },
+            {
+                "title": "Automatización del Crecimiento",
+                "description": "Funnels de Alta Velocidad",
+                "features": [
+                    "Auto-orquestación de email de comportamiento",
+                    "Modelos predictivos de lead scoring",
+                    "Entrega autónoma de recursos de marketing",
+                    "Seguimiento de conversiones y atribución"
+                ]
+            },
+            {
+                "title": "Back-Office Autónomo",
+                "description": "Operaciones Core Optimizadas",
+                "features": [
+                    "Planificación dinámica de recursos",
+                    "Facturación automática y cobros integrados",
+                    "Telemetría de proyectos entre sistemas",
+                    "Clasificación autónoma de documentos"
+                ]
+            }
         ]
-      },
-      {
-        "title": "Chatbots y asistentes IA",
-        "description": "Atención al cliente 24/7",
-        "features": [
-          "Respuestas instantáneas",
-          "Lenguaje natural avanzado",
-          "Integración multicanal",
-          "Aprendizaje continuo"
+    },
+    "benefits": {
+        "title": "Impacto Operativo Medible",
+        "subtitle": "Desbloquea una eficiencia profunda y una escalabilidad ilimitada con flujos digitales robustos",
+        "items": [
+            {
+                "title": "80% menos de ejecución manual",
+                "description": "Redirige el talento de alto valor lejos de la monótona introducción de datos, enfocándolos en iniciativas estratégicas."
+            },
+            {
+                "title": "Ahorro operativo sustancial",
+                "description": "Reduce drásticamente el coste por ejecución con trabajadores digitales activos las 24 horas del día, los 7 días de la semana."
+            },
+            {
+                "title": "Escalabilidad empresarial elástica",
+                "description": "Gestiona picos en los volúmenes transaccionales o de bases de datos sin cuellos de botella en las contrataciones."
+            },
+            {
+                "title": "Velocidad de ejecución inigualable",
+                "description": "Sustituye la latencia humana con la orquestación API instantánea, completando flujos en pocos segundos."
+            },
+            {
+                "title": "Precisión con cero errores",
+                "description": "Protege las operaciones críticas de los errores humanos, logrando una perfecta conformidad de los datos."
+            },
+            {
+                "title": "Ventaja competitiva pionera",
+                "description": "Supera a tus competidores implementando una infraestructura de IA de vanguardia adaptada a tus objetivos."
+            }
         ]
-      },
-      {
-        "title": "Análisis predictivo",
-        "description": "Decisiones basadas en datos",
-        "features": [
-          "Predicción de tendencias",
-          "Detección de oportunidades",
-          "Alertas de anomalías",
-          "Dashboards personalizados"
+    },
+    "testimonials": {
+        "title": "Respaldado por resultados concretos",
+        "subtitle": "Cómo los equipos de vanguardia orquestan su crecimiento con IntuiFy",
+        "items": [
+            {
+                "quote": "IntuiFy revolucionó por completo nuestro flujo de incorporación de clientes. Lo que antes requería medio día a nuestros operadores ahora funciona en piloto automático. La inversión se amortizó en seis semanas.",
+                "name": "Maria Gonzalez",
+                "role": "VP de Operaciones",
+                "company": "TechSolutions Corp"
+            },
+            {
+                "quote": "La implementación de los agentes cognitivos de IntuiFy fue un punto de inflexión. Extendimos el soporte al cliente 24/7, recortamos los tiempos en un 70% y aumentamos la satisfacción a niveles históricos.",
+                "name": "Carlos Mendoza",
+                "role": "Chief Executive",
+                "company": "RetailPro Group"
+            },
+            {
+                "quote": "Nuestras herramientas estaban completamente desconectadas. IntuiFy sintetizó todo en flujos de trabajo coherentes, ofreciendo a nuestro equipo de marketing total claridad.",
+                "name": "Laura Martinez",
+                "role": "Directora de Crecimiento",
+                "company": "GrowthPlus"
+            },
+            {
+                "quote": "IntuiFy superó cualquier expectativa. Diseñaron una tubería personalizada perfectamente orquestada que simplificó nuestras operaciones y resolvió vacíos críticos de datos.",
+                "name": "Javier Ruiz",
+                "role": "Director de Infraestructura",
+                "company": "Logistics Express"
+            }
         ]
-      },
-      {
-        "title": "Automatización avanzada",
-        "description": "Organización inteligente de datos",
-        "features": [
-          "ETL automatizado",
-          "Limpieza y enriquecimiento",
-          "Data warehousing",
-          "Reportes automáticos"
-        ]
-      },
-      {
-        "title": "Marketing automation",
-        "description": "Campañas eficientes",
-        "features": [
-          "Email marketing automatizado",
-          "Segmentación inteligente",
-          "Lead scoring con IA",
-          "Tracking de conversiones"
-        ]
-      },
-      {
-        "title": "Gestión de operaciones",
-        "description": "Procesos optimizados",
-        "features": [
-          "Programación automática",
-          "Gestión de recursos",
-          "Facturación automatizada",
-          "Seguimiento de proyectos"
-        ]
-      }
-    ]
-  },
-  "benefits": {
-    "title": "Resultados que transforman",
-    "subtitle": "Experimenta el impacto real de la automatización inteligente en tu negocio",
-    "items": [
-      {
-        "title": "80% menos tiempo en tareas manuales",
-        "description": "Libera a tu equipo de tareas repetitivas para que se enfoquen en trabajo estratégico de alto valor."
-      },
-      {
-        "title": "Reducción significativa de costos",
-        "description": "Optimiza recursos y reduce gastos operativos con procesos que trabajan por ti las 24 horas."
-      },
-      {
-        "title": "Escalabilidad sin límites",
-        "description": "Crece sin contratar proporcionalmente. Nuestras soluciones se adaptan a tu ritmo de expansión."
-      },
-      {
-        "title": "Productividad multiplicada",
-        "description": "Empodera a tu equipo con herramientas que amplifican su capacidad de impacto."
-      },
-      {
-        "title": "Precisión garantizada",
-        "description": "Elimina errores humanos y asegura consistencia perfecta en cada proceso automatizado."
-      },
-      {
-        "title": "Ventaja competitiva real",
-        "description": "Adelántate a tu competencia con tecnología de vanguardia que pocos están aprovechando."
-      }
-    ]
-  },
-  "testimonials": {
-    "title": "Lo que dicen nuestros clientes",
-    "subtitle": "Empresas de todos los tamaños confían en IntuiFy para optimizar sus operaciones",
-    "items": [
-      {
-        "quote": "IntuiFy transformó completamente nuestros procesos. Lo que antes nos tomaba horas ahora se hace automáticamente. El ROI fue visible en menos de dos meses.",
-        "name": "María González",
-        "role": "Directora de Operaciones",
-        "company": "TechSolutions S.L."
-      },
-      {
-        "quote": "La implementación de asistentes IA mejoró nuestra atención al cliente drásticamente. Respuestas instantáneas 24/7 y clientes más satisfechos.",
-        "name": "Carlos Mendoza",
-        "role": "CEO",
-        "company": "RetailPro"
-      },
-      {
-        "quote": "Las automatizaciones conectaron todas nuestras herramientas. Ahora nuestro equipo se enfoca en estrategia, no en tareas manuales.",
-        "name": "Laura Martínez",
-        "role": "Gerente de Marketing",
-        "company": "Marketing Digital Plus"
-      },
-      {
-        "quote": "Profesionalismo y expertise de primer nivel. IntuiFy no solo entregó lo prometido, superó nuestras expectativas con mejoras adicionales.",
-        "name": "Javier Ruiz",
-        "role": "Director de Tecnología",
-        "company": "Logística Express"
-      }
-    ]
-  },
-  "demo": {
-    "title": "Prueba nuestra demo gratis",
-    "subtitle": "Descubre cómo la automatización e IA pueden revolucionar tus procesos. Sin compromiso, sin tarjeta de crédito.",
-    "cta": "Solicitar demo gratuita"
-  },
-  "contact": {
-    "title": "Hablemos de tu proyecto",
-    "subtitle": "Cuéntanos sobre tu negocio y te mostraremos cómo podemos ayudarte",
-    "reasons_title": "¿Por qué elegirnos?",
-    "reasons": [
-      "Consulta inicial gratuita",
-      "Soluciones 100% personalizadas",
-      "Soporte técnico continuo",
-      "ROI garantizado"
-    ],
-    "form": {
-      "name": "Nombre completo",
-      "name_placeholder": "Tu nombre",
-      "company": "Empresa",
-      "company_placeholder": "Nombre de tu empresa",
-      "email": "Email",
-      "email_placeholder": "tu@email.com",
-      "message": "Mensaje",
-      "message_placeholder": "Cuéntanos sobre tu proyecto o necesidades...",
-      "submit": "Enviar mensaje",
-      "sending": "Enviando...",
-      "success": "¡Mensaje enviado! Te contactaremos pronto.",
-      "error": "Error al enviar. Inténtalo de nuevo."
+    },
+    "demo": {
+        "title": "Ve tus operaciones en piloto automático",
+        "subtitle": "Descubre cómo los flujos de trabajo de IA personalizados pueden desbloquear una precisión y una escala sin precedentes. Sin fricción, sin compromiso.",
+        "cta": "Solicitar un Piloto Gratis"
+    },
+    "contact": {
+        "title": "Diseña tu fuerza laboral digital",
+        "subtitle": "Cuéntanos sobre tus cuellos de botella operativos y trazaremos un plan de automatización a tu medida.",
+        "reasons_title": "¿Por qué elegir IntuiFy?",
+        "reasons": [
+            "Planes estratégicos iniciales complementarios",
+            "Integraciones de ingeniería a medida",
+            "Optimización continua y SLAs estrictos",
+            "Rendimiento y ROI garantizados"
+        ],
+        "form": {
+            "name": "Nombre completo",
+            "name_placeholder": "Juan Pérez",
+            "company": "Empresa",
+            "company_placeholder": "Acme S.L.",
+            "email": "Email de trabajo",
+            "email_placeholder": "juan@empresa.com",
+            "message": "Alcance del proyecto / Necesidades",
+            "message_placeholder": "Describe los flujos de trabajo manuales o los sistemas que deseas automatizar...",
+            "submit": "Enviar Petición",
+            "sending": "Iniciando conexión...",
+            "success": "¡Petición recibida! Nuestros arquitectos de la automatización se pondrán en contacto en breve.",
+            "error": "Error en el envío. Inténtalo de nuevo."
+        }
+    },
+    "footer": {
+        "tagline": "Diseñamos flujos de trabajo digitales autónomos y agentes cognitivos para escalar las operaciones de empresas modernas.",
+        "nav_title": "Plataforma",
+        "services_title": "Capacidades",
+        "contact_title": "Conexión",
+        "copyright": "© {year} IntuiFy. Todos los derechos reservados."
     }
-  },
-  "footer": {
-    "tagline": "Automatización empresarial e inteligencia artificial para impulsar tu negocio.",
-    "nav_title": "Navegación",
-    "services_title": "Servicios",
-    "contact_title": "Contacto",
-    "copyright": "© {year} IntuiFy – Todos los derechos reservados"
-  }
 }

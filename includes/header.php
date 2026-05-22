@@ -1,126 +1,127 @@
 <?php
 /**
- * IntuiFy - Header Component
- * Fixed header with backdrop-blur, desktop nav + mobile hamburger
- * Active section highlighting via IntersectionObserver (JS in index.php)
+ * IntuiFy - Premium Header Component (Silicon Valley / Apple Style)
+ * Floating island navbar detached from top, glassmorphism, responsive,
+ * and custom transitions designed using the high-end-visual-design skill.
  */
 ?>
-<header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="absolute inset-0 bg-primary/80 backdrop-blur-xl border-b border-white/5"></div>
-    <nav class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 md:h-20">
-            <!-- Logo -->
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50 mt-4 md:mt-5 mx-auto w-[92%] max-w-6xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+    <!-- Outer glass shell (Floating island) -->
+    <div class="relative w-full rounded-full bg-white/70 backdrop-blur-xl border border-slate-200/40 shadow-xl shadow-slate-100/40 px-4 md:px-6 py-2.5 md:py-3 transition-all duration-500">
+        
+        <nav class="flex items-center justify-between">
+            <!-- Brand Logo -->
             <a href="#inicio"
-                class="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded-lg"
+                class="flex items-center gap-2 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full transition-transform duration-300 hover:scale-102"
                 aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
-                <img src="assets/logo.png?v=<?= time() ?>" alt="IntuiFy" class="h-8 md:h-10 w-auto" width="120"
-                    height="40">
+                <img src="assets/logo.png?v=<?= time() ?>" alt="IntuiFy" class="h-6 md:h-7 w-auto" width="96" height="28">
+                <span class="font-display font-bold text-lg tracking-tight text-slate-800 hidden sm:inline">IntuiFy</span>
             </a>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-1">
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-full border border-slate-200/30">
                 <a href="#inicio" data-section="inicio"
-                    class="nav-link px-4 py-2 text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['inicio'] ?>
                 </a>
                 <a href="#servicio" data-section="servicio"
-                    class="nav-link px-4 py-2 text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['servicios'] ?>
                 </a>
                 <a href="#beneficios" data-section="beneficios"
-                    class="nav-link px-4 py-2 text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['beneficios'] ?>
                 </a>
                 <a href="#testimonios" data-section="testimonios"
-                    class="nav-link px-4 py-2 text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['testimonios'] ?>
                 </a>
                 <a href="#contacto" data-section="contacto"
-                    class="nav-link px-4 py-2 text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-accent">
                     <?= $t['nav']['contacto'] ?>
                 </a>
             </div>
 
-            <!-- CTA + Mobile Menu Button -->
+            <!-- Language Switcher + CTA -->
             <div class="flex items-center gap-3">
-                <!-- Language Switcher -->
-                <div class="hidden sm:flex items-center gap-1 mr-2">
+                <!-- Segmented Language Picker -->
+                <div class="hidden sm:flex items-center bg-slate-100/60 p-0.5 rounded-full border border-slate-200/40">
                     <a href="?lang=es"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'es' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors"
+                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'es' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300"
                         aria-label="Español">ES</a>
                     <a href="?lang=it"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'it' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors"
+                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'it' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300"
                         aria-label="Italiano">IT</a>
                     <a href="?lang=en"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'en' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors"
+                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'en' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300"
                         aria-label="English">EN</a>
                 </div>
 
-                <!-- CTA Button -->
+                <!-- Primary CTA (Button-in-Button style) -->
                 <a href="#contacto"
-                    class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-accent to-secondary rounded-xl hover:opacity-90 transition-opacity duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary shadow-lg shadow-accent/25">
-                    <?= $t['nav']['cta'] ?>
+                    class="group hidden sm:inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] rounded-full transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-md shadow-slate-900/10">
+                    <span><?= $t['nav']['cta'] ?></span>
+                    <span class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-[0.5px]">
+                        <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </span>
                 </a>
 
-                <!-- Mobile Menu Button -->
+                <!-- Mobile Menu Button (Hamburger Morph) -->
                 <button id="mobile-menu-btn" type="button"
-                    class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-text-light/70 hover:text-text-light hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <span id="hamburger-line-1" class="w-4 h-0.5 bg-slate-600 rounded transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] translate-y-[-3px]"></span>
+                    <span id="hamburger-line-2" class="w-4 h-0.5 bg-slate-600 rounded transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] translate-y-[3px]"></span>
                 </button>
             </div>
-        </div>
+        </nav>
 
-        <!-- Mobile Menu -->
+        <!-- Mobile Full-screen Glass Overlay Menu -->
         <div id="mobile-menu"
-            class="hidden md:hidden absolute top-full left-0 right-0 bg-primary/95 backdrop-blur-xl border-b border-white/5">
-            <div class="px-4 py-4 space-y-1">
+            class="md:hidden absolute top-[110%] left-0 right-0 w-full bg-white/95 backdrop-blur-2xl border border-slate-200/50 rounded-3xl p-6 shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] opacity-0 pointer-events-none translate-y-4 scale-95 z-40">
+            <div class="flex flex-col gap-4">
                 <a href="#inicio" data-section="inicio"
-                    class="nav-link block px-4 py-3 text-base font-medium text-text-light/70 hover:text-text-light hover:bg-white/5 rounded-lg transition-colors">
+                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['inicio'] ?>
                 </a>
                 <a href="#servicio" data-section="servicio"
-                    class="nav-link block px-4 py-3 text-base font-medium text-text-light/70 hover:text-text-light hover:bg-white/5 rounded-lg transition-colors">
+                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['servicios'] ?>
                 </a>
                 <a href="#beneficios" data-section="beneficios"
-                    class="nav-link block px-4 py-3 text-base font-medium text-text-light/70 hover:text-text-light hover:bg-white/5 rounded-lg transition-colors">
+                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['beneficios'] ?>
                 </a>
                 <a href="#testimonios" data-section="testimonios"
-                    class="nav-link block px-4 py-3 text-base font-medium text-text-light/70 hover:text-text-light hover:bg-white/5 rounded-lg transition-colors">
+                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['testimonios'] ?>
                 </a>
                 <a href="#contacto" data-section="contacto"
-                    class="nav-link block px-4 py-3 text-base font-medium text-text-light/70 hover:text-text-light hover:bg-white/5 rounded-lg transition-colors">
+                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100/50 rounded-2xl transition-all duration-300">
                     <?= $t['nav']['contacto'] ?>
                 </a>
 
-                <!-- Language Switcher Mobile -->
-                <div class="flex items-center gap-2 px-4 py-3 border-t border-white/5 mt-2">
-                    <span class="text-xs text-text-light/50 mr-2">Lang:</span>
-                    <a href="?lang=es"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'es' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors">ES</a>
-                    <a href="?lang=it"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'it' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors">IT</a>
-                    <a href="?lang=en"
-                        class="px-2 py-1 text-xs font-medium rounded <?= $currentLang === 'en' ? 'bg-accent text-white' : 'text-text-light/60 hover:text-text-light' ?> transition-colors">EN</a>
+                <!-- Mobile Segmented Language Picker -->
+                <div class="flex items-center justify-between px-4 py-3 border-t border-slate-200/40 mt-2">
+                    <span class="text-xs font-bold text-slate-400">Language:</span>
+                    <div class="flex items-center bg-slate-100 p-0.5 rounded-full border border-slate-200/40">
+                        <a href="?lang=es"
+                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'es' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300">ES</a>
+                        <a href="?lang=it"
+                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'it' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300">IT</a>
+                        <a href="?lang=en"
+                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'en' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-700' ?> transition-all duration-300">EN</a>
+                    </div>
                 </div>
 
+                <!-- Mobile CTA Button -->
                 <a href="#contacto"
-                    class="block mx-4 mt-4 px-5 py-3 text-center text-sm font-semibold text-white bg-gradient-to-r from-accent to-secondary rounded-xl shadow-lg shadow-accent/25">
+                    class="block w-full text-center py-3.5 text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-full transition-colors mt-2 shadow-lg shadow-slate-900/10">
                     <?= $t['nav']['cta'] ?>
                 </a>
             </div>
         </div>
-    </nav>
+    </div>
 </header>

@@ -17,3 +17,6 @@ error_log
 
 # Session files
 sess_*
+
+# Agents
+.agents/

@@ -1,185 +1,185 @@
 {
     "lang": "en",
     "meta": {
-        "title": "IntuiFy – Automate your business with AI",
-        "description": "Enterprise automation solutions with AI assistants. Optimize processes, reduce costs, and scale your business."
+        "title": "IntuiFy – Autonomous AI Workflows & Digital Operations",
+        "description": "Deploy customized AI agents and automated workflows to orchestrate your business systems on autopilot. Scale back-office operations and reduce execution costs."
     },
     "nav": {
-        "inicio": "Home",
-        "servicios": "Services",
-        "beneficios": "Benefits",
-        "testimonios": "Testimonials",
+        "inicio": "Overview",
+        "servicios": "Capabilities",
+        "beneficios": "Impact",
+        "testimonios": "Success",
         "contacto": "Contact",
-        "cta": "Talk to us"
+        "cta": "Request Pilot"
     },
     "hero": {
-        "badge": "Automation + AI",
-        "title": "Transform your business with artificial intelligence",
-        "subtitle": "We automate your processes with AI assistants so your team can focus on what truly matters. Measurable results from day one.",
-        "cta_primary": "Talk to us",
-        "cta_secondary": "View services"
+        "badge": "Digital Labor & Autopilot",
+        "title": "Automate your operations with intelligent AI agents",
+        "subtitle": "Orchestrate your CRM, databases, and APIs on autopilot. We deploy custom digital agents that execute complex business workflows 24/7, leaving your team to focus on high-leverage growth.",
+        "cta_primary": "Schedule a Demo",
+        "cta_secondary": "Explore Capabilities"
     },
     "services": {
-        "title": "Our Services",
-        "subtitle": "Comprehensive automation and artificial intelligence solutions designed to grow your business",
+        "title": "Core Capabilities",
+        "subtitle": "Enterprise-grade automation modules engineered to drive operational efficiency",
         "items": [
             {
-                "title": "Process automation",
-                "description": "Tool integrations",
+                "title": "Autonomous Workflows",
+                "description": "Cross-Platform Orchestration",
                 "features": [
-                    "Connect CRM, ERP and applications",
-                    "Automated workflows",
-                    "Real-time synchronization",
-                    "Smart alerts"
+                    "Bespoke CRM & ERP integrations",
+                    "Event-driven business processes",
+                    "Self-healing data synchronization",
+                    "Proactive threat and anomaly alerts"
                 ]
             },
             {
-                "title": "Chatbots and AI assistants",
-                "description": "24/7 customer support",
+                "title": "Cognitive AI Agents",
+                "description": "24/7 Contextual Support",
                 "features": [
-                    "Instant responses",
-                    "Advanced natural language",
-                    "Multichannel integration",
-                    "Continuous learning"
+                    "Generative natural language support",
+                    "Zero-latency resolution engine",
+                    "Omnichannel system synchronization",
+                    "Self-improving feedback loops"
                 ]
             },
             {
-                "title": "Predictive analytics",
-                "description": "Data-driven decisions",
+                "title": "Predictive Analytics",
+                "description": "Real-time Operations Intelligence",
                 "features": [
-                    "Trend prediction",
-                    "Opportunity detection",
-                    "Anomaly alerts",
-                    "Custom dashboards"
+                    "AI-driven trend forecasting",
+                    "Automatic business opportunity matching",
+                    "Predictive resource planning",
+                    "High-fidelity custom dashboards"
                 ]
             },
             {
-                "title": "Advanced automation",
-                "description": "Intelligent data organization",
+                "title": "Data Pipeline Engineering",
+                "description": "Intelligent Data Structuring",
                 "features": [
-                    "Automated ETL",
-                    "Cleaning and enrichment",
-                    "Data warehousing",
-                    "Automated reports"
+                    "Fully automated custom ETL channels",
+                    "AI-powered cleaning & enrichment",
+                    "Distributed cloud data warehousing",
+                    "Automated daily business intelligence"
                 ]
             },
             {
-                "title": "Marketing automation",
-                "description": "Efficient campaigns",
+                "title": "Growth Automation",
+                "description": "High-Velocity Funnels",
                 "features": [
-                    "Automated email marketing",
-                    "Smart segmentation",
-                    "AI lead scoring",
-                    "Conversion tracking"
+                    "Behavioral email auto-orchestration",
+                    "Predictive lead scoring models",
+                    "Automated marketing asset delivery",
+                    "Attribution & conversion tracking"
                 ]
             },
             {
-                "title": "Operations management",
-                "description": "Optimized processes",
+                "title": "Autonomous Back-Office",
+                "description": "Optimized Core Operations",
                 "features": [
-                    "Automatic scheduling",
-                    "Resource management",
-                    "Automated invoicing",
-                    "Project tracking"
+                    "Dynamic resource scheduling",
+                    "Automated invoicing & billing pipelines",
+                    "Cross-system project telemetry",
+                    "Autonomous document classification"
                 ]
             }
         ]
     },
     "benefits": {
-        "title": "Results that transform",
-        "subtitle": "Experience the real impact of intelligent automation on your business",
+        "title": "Measurable Performance Impact",
+        "subtitle": "Unlocking deep efficiency and limitless scale with robust digital operations",
         "items": [
             {
-                "title": "80% less time on manual tasks",
-                "description": "Free your team from repetitive tasks to focus on high-value strategic work."
+                "title": "80% reduction in manual execution",
+                "description": "Redirect high-value talent away from dry data-entry towards strategic initiatives that move metrics."
             },
             {
-                "title": "Significant cost reduction",
-                "description": "Optimize resources and reduce operational costs with processes that work for you 24/7."
+                "title": "Substantial operational saving",
+                "description": "Dramatically lower cost-per-execution with automated digital workers that execute tasks instantly 24/7."
             },
             {
-                "title": "Unlimited scalability",
-                "description": "Grow without proportional hiring. Our solutions adapt to your expansion pace."
+                "title": "Elastic enterprise scale",
+                "description": "Handle spikes in transactional or database volume without hiring bottlenecks or operational delays."
             },
             {
-                "title": "Multiplied productivity",
-                "description": "Empower your team with tools that amplify their impact capacity."
+                "title": "Unrivaled execution velocity",
+                "description": "Replace human latency with instant API orchestration, executing workflows in seconds."
             },
             {
-                "title": "Guaranteed precision",
-                "description": "Eliminate human errors and ensure perfect consistency in every automated process."
+                "title": "Zero-error precision",
+                "description": "Protect critical operations from human mistakes, achieving perfect consistency and data compliance."
             },
             {
-                "title": "Real competitive advantage",
-                "description": "Stay ahead of competition with cutting-edge technology that few are leveraging."
+                "title": "Pioneering competitive edge",
+                "description": "Outpace slower competitors by deploying state-of-the-art AI infrastructure custom-fitted to your goals."
             }
         ]
     },
     "testimonials": {
-        "title": "What our clients say",
-        "subtitle": "Companies of all sizes trust IntuiFy to optimize their operations",
+        "title": "Backed by operational results",
+        "subtitle": "How leading-edge teams orchestrate their scale and efficiency with IntuiFy",
         "items": [
             {
-                "quote": "IntuiFy completely transformed our processes. What used to take hours now happens automatically. ROI was visible in less than two months.",
-                "name": "María González",
-                "role": "Operations Director",
-                "company": "TechSolutions S.L."
+                "quote": "IntuiFy completely revolutionized our client onboarding flow. What once took our operators half a day now runs seamlessly on autopilot. The investment paid for itself in six weeks.",
+                "name": "Maria Gonzalez",
+                "role": "VP of Operations",
+                "company": "TechSolutions Corp"
             },
             {
-                "quote": "The AI assistant implementation drastically improved our customer service. Instant 24/7 responses and happier customers.",
+                "quote": "Deploying IntuiFy's cognitive agents was a turning point. We scaled our customer operations 24/7, cut ticket times by 70%, and raised customer satisfaction to record levels.",
                 "name": "Carlos Mendoza",
-                "role": "CEO",
-                "company": "RetailPro"
+                "role": "Chief Executive",
+                "company": "RetailPro Group"
             },
             {
-                "quote": "The automations connected all our tools. Now our team focuses on strategy, not manual tasks.",
-                "name": "Laura Martínez",
-                "role": "Marketing Manager",
-                "company": "Marketing Digital Plus"
+                "quote": "Our tool stack used to be completely disjointed. IntuiFy synthesized everything into cohesive workflows, giving our marketing team total clarity.",
+                "name": "Laura Martinez",
+                "role": "Director of Growth",
+                "company": "GrowthPlus"
             },
             {
-                "quote": "Top-tier professionalism and expertise. IntuiFy didn't just deliver what was promised, they exceeded our expectations with additional improvements.",
+                "quote": "IntuiFy exceeded every expectation. They designed a beautifully orchestrated custom pipeline that simplified our operations and resolved key data gaps.",
                 "name": "Javier Ruiz",
-                "role": "Technology Director",
-                "company": "Logística Express"
+                "role": "Director of Infrastructure",
+                "company": "Logistics Express"
             }
         ]
     },
     "demo": {
-        "title": "Try our free demo",
-        "subtitle": "Discover how automation and AI can revolutionize your processes. No commitment, no credit card required.",
-        "cta": "Request free demo"
+        "title": "See your operations on autopilot",
+        "subtitle": "Experience how tailored AI workflows can unlock unmatched scale and precision for your team. Zero friction, zero commitment.",
+        "cta": "Request a Free Pilot"
     },
     "contact": {
-        "title": "Let's talk about your project",
-        "subtitle": "Tell us about your business and we'll show you how we can help",
-        "reasons_title": "Why choose us?",
+        "title": "Design your digital workforce",
+        "subtitle": "Tell us about your operational bottlenecks and we will outline a custom automation plan.",
+        "reasons_title": "Why partner with IntuiFy?",
         "reasons": [
-            "Free initial consultation",
-            "100% customized solutions",
-            "Continuous technical support",
-            "Guaranteed ROI"
+            "Complimentary initial strategy blueprint",
+            "Custom-engineered bespoke integrations",
+            "Continuous optimization and SLAs",
+            "Guaranteed performance and ROI"
         ],
         "form": {
             "name": "Full name",
-            "name_placeholder": "Your name",
+            "name_placeholder": "Jane Doe",
             "company": "Company",
-            "company_placeholder": "Your company name",
-            "email": "Email",
-            "email_placeholder": "you@email.com",
-            "message": "Message",
-            "message_placeholder": "Tell us about your project or needs...",
-            "submit": "Send message",
-            "sending": "Sending...",
-            "success": "Message sent! We'll contact you soon.",
-            "error": "Error sending. Please try again."
+            "company_placeholder": "Acme Corp",
+            "email": "Work email",
+            "email_placeholder": "jane@company.com",
+            "message": "Project scope / Needs",
+            "message_placeholder": "Describe the manual workflows or systems you want to automate...",
+            "submit": "Submit Request",
+            "sending": "Initiating connection...",
+            "success": "Request received! Our automation architects will reach out shortly.",
+            "error": "Submission error. Please try again."
         }
     },
     "footer": {
-        "tagline": "Enterprise automation and artificial intelligence to grow your business.",
-        "nav_title": "Navigation",
-        "services_title": "Services",
-        "contact_title": "Contact",
-        "copyright": "© {year} IntuiFy – All rights reserved"
+        "tagline": "Architecting autonomous digital workflows and cognitive agents to scale modern enterprise operations.",
+        "nav_title": "Platform",
+        "services_title": "Capabilities",
+        "contact_title": "Connection",
+        "copyright": "© {year} IntuiFy. All rights reserved."
     }
 }
