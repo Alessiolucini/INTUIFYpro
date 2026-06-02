@@ -8,8 +8,17 @@
  */
 
 return [
-    // n8n Webhook URL - Contact form submissions are sent here
-    'webhook_url' => 'https://intuifypersonale-n8n.oqlfv4.easypanel.host/webhook/73129db0-a899-412d-b0f3-0a32fac8b692',
+    // SMTP Configuration for contact form emails
+    'smtp_host' => 'smtp.hostinger.com',
+    'smtp_port' => 465,
+    'smtp_encryption' => 'ssl',
+    'smtp_username' => 'info@intuify.net',
+    'smtp_password' => 'Alessi016011983$',
+    
+    // Email addresses
+    'mail_from' => 'info@intuify.net',
+    'mail_from_name' => 'IntuiFy',
+    'mail_to' => 'info@intuify.net',
 
     // Google reCAPTCHA v3 Keys
     // Get your keys at: https://www.google.com/recaptcha/admin

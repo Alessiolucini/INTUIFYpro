@@ -16,6 +16,11 @@ session_start();
 // Load configuration
 $config = require __DIR__ . '/config.php';
 
+// PHPMailer (for contact form SMTP)
+require_once __DIR__ . '/vendor/phpmailer/Exception.php';
+require_once __DIR__ . '/vendor/phpmailer/PHPMailer.php';
+require_once __DIR__ . '/vendor/phpmailer/SMTP.php';
+
 // Rate limiting for form (session + IP based)
 if (!isset($_SESSION['form_submissions'])) {
     $_SESSION['form_submissions'] = [];
@@ -153,37 +158,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
     $ipSubmissions[] = $now;
     file_put_contents($rateLimitFile, json_encode($ipSubmissions));
 
-    // Send to n8n webhook
-    $webhookUrl = $config['webhook_url'];
+    // Send email via PHPMailer SMTP
+    try {
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
-    $payload = json_encode([
-        'nombre_completo' => $nombre,
-        'empresa' => $empresa,
-        'email' => $email,
-        'mensaje' => $mensaje,
-        'lang' => $currentLang,
-        'timestamp' => date('c')
-    ]);
+        // SMTP Configuration
+        $mail->isSMTP();
+        $mail->Host       = $config['smtp_host'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $config['smtp_username'];
+        $mail->Password   = $config['smtp_password'];
+        $mail->SMTPSecure = $config['smtp_encryption'];
+        $mail->Port       = $config['smtp_port'];
+        $mail->CharSet    = 'UTF-8';
 
-    $ch = curl_init($webhookUrl);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => $payload,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_FOLLOWLOCATION => true
-    ]);
+        // Sender & Recipient
+        $mail->setFrom($config['mail_from'], $config['mail_from_name']);
+        $mail->addAddress($config['mail_to']);
+        $mail->addReplyTo($email, $nombre);
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = "IntuiFy - Nuovo contatto da {$nombre} ({$empresa})";
+        $mail->Body = "
+            <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                <div style='background: linear-gradient(135deg, #6366F1, #8B5CF6); padding: 24px 32px; border-radius: 12px 12px 0 0;'>
+                    <h2 style='color: #ffffff; margin: 0; font-size: 20px;'>📩 Nuovo messaggio dal sito IntuiFy</h2>
+                </div>
+                <div style='background: #f8fafc; padding: 32px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;'>
+                    <table style='width: 100%; border-collapse: collapse;'>
+                        <tr>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155; width: 120px;'>Nome</td>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0; color: #475569;'>{$nombre}</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;'>Azienda</td>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0; color: #475569;'>{$empresa}</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;'>Email</td>
+                            <td style='padding: 12px 0; border-bottom: 1px solid #e2e8f0;'><a href='mailto:{$email}' style='color: #6366F1;'>{$email}</a></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 12px 0; font-weight: bold; color: #334155; vertical-align: top;'>Messaggio</td>
+                            <td style='padding: 12px 0; color: #475569; line-height: 1.6;'>" . nl2br(htmlspecialchars($mensaje)) . "</td>
+                        </tr>
+                    </table>
+                    <div style='margin-top: 24px; padding: 16px; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0;'>
+                        <p style='margin: 0; font-size: 12px; color: #94a3b8;'>
+                            📅 Inviato il: " . date('d/m/Y H:i:s') . " | 🌐 Lingua: {$currentLang}
+                        </p>
+                    </div>
+                </div>
+            </div>";
+        $mail->AltBody = "Nuovo contatto IntuiFy\n\nNome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}\nData: " . date('d/m/Y H:i:s');
 
-    if ($httpCode >= 200 && $httpCode < 300) {
+        $mail->send();
         echo json_encode(['success' => true]);
-    } else {
+    } catch (\PHPMailer\PHPMailer\Exception $e) {
+        error_log("PHPMailer Error: " . $e->getMessage());
         echo json_encode(['success' => false, 'error' => 'Server error. Please try again.']);
     }
     exit;
