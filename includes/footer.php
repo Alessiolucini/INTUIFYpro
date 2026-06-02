@@ -114,8 +114,8 @@ $currentYear = date('Y');
                 </p>
             </div>
             <div class="flex items-center gap-6">
-                <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Privacy Policy</span>
-                <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Terms of Service</span>
+                <a href="/privacy" class="text-slate-400 text-[10px] uppercase font-bold tracking-widest hover:text-slate-600 transition-colors duration-300">Privacy Policy</a>
+                <a href="/terms" class="text-slate-400 text-[10px] uppercase font-bold tracking-widest hover:text-slate-600 transition-colors duration-300">Terms of Service</a>
             </div>
         </div>
     </div>
