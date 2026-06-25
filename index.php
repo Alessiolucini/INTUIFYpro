@@ -1,12 +1,10 @@
 <?php
 /**
- * IntuiFy - Premium Landing Page (Silicon Valley & Apple Style)
+ * IntuiFy - Futuristic Dark Landing Page
  * 
- * DESIGN archetypes (derived from high-end-visual-design skill):
- * - Vibe Archetype: Soft Structuralism (Silver-grey backgrounds, massive bold typography, airy floating components, soft diffused shadows)
- * - Layout Archetype: Asymmetrical Bento CSS Grid & Editorial Centered Hero
- * - Component Architecture: Double-Bezel nested cards (Doppelrand), Button-in-Button CTAs
- * - Motion Choreography: Fluid nav triggers, cubic-bezier transitions, IntersectionObserver fade-ups
+ * DESIGN: Dark futuristic with neon accents, glassmorphism, animated gradients.
+ * BRAND: Fast tech studio that builds and ships apps to Apple Store & Google Play.
+ * STACK: PHP 8.0+, Tailwind CSS (CDN), vanilla JS, PHPMailer, reCAPTCHA v3.
  */
 
 declare(strict_types=1);
@@ -42,7 +40,6 @@ function detectLanguage(): string
     }
 
     $acceptLang = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'en';
-    $lang = substr($acceptLang, 0, 2);
 
     if (str_starts_with($acceptLang, 'es'))
         return 'es';
@@ -222,472 +219,282 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
     exit;
 }
 
-// Inline custom premium SVG paths for Services
+// Service icons
 $serviceIcons = [
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>', // Tech/Software
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 .364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>', // Data & AI
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.003 9.003 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>', // Marketing & Campaign Pie Chart
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3L2 8v8l10 5 10-5V8L12 3zm0 0v18M2 8l10 5 10-5"/>', // 3D/Additive Fabrication Cube
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v11a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>', // Real Estate & Construction Home
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2.5 2.5 0 002.5-2.5V8.5a.5.5 0 01.5-.5h.5A2.5 2.5 0 0021 5.5v-.5M12 21a9 9 0 100-18 9 9 0 000 18z"/>' // Travel & Tourism Globe
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>',
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 .364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>',
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.003 9.003 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>',
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>',
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2.5 2.5 0 002.5-2.5V8.5a.5.5 0 01.5-.5h.5A2.5 2.5 0 0021 5.5v-.5M12 21a9 9 0 100-18 9 9 0 000 18z"/>'
 ];
 
-$benefitIcons = [
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>',
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>',
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>'
+// Project showcase logos and colors
+$projectLogos = [
+    ['file' => 'assets/projects/auterio.png', 'type' => 'png', 'glow' => '#3b82f6'],
+    ['file' => 'assets/projects/orqesia.svg', 'type' => 'svg', 'glow' => '#8b5cf6'],
+    ['file' => 'assets/projects/ecoandratx.png', 'type' => 'png', 'glow' => '#22c55e'],
+    ['file' => 'assets/projects/lingobite.svg', 'type' => 'svg', 'glow' => '#f97316']
 ];
 ?>
 <!DOCTYPE html>
 <html lang="<?= $currentLang ?>" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($t['meta']['title']) ?></title>
     <meta name="description" content="<?= htmlspecialchars($t['meta']['description']) ?>">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png?v=<?= filemtime(__DIR__ . '/assets/favicon.png') ?>">
-    <link rel="shortcut icon" href="assets/favicon.png?v=<?= filemtime(__DIR__ . '/assets/favicon.png') ?>" type="image/png">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://intuify.com/">
+    <link rel="icon" href="logo/intuifylogo.svg" type="image/svg+xml">
 
-    <!-- Premium Google Fonts: Plus Jakarta Sans for body, Outfit for geometric display titles -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google reCAPTCHA v3 (if configured) -->
-    <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
-    <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($config['recaptcha_site_key']) ?>"></script>
-    <?php endif; ?>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        primary: '#0F172A',
-                        accent: '#6366F1',     /* Premium Indigo */
-                        secondary: '#8B5CF6',  /* Premium Purple */
-                        'slate-bg': '#FAFBFD', /* Soft Structuralism base */
-                        'bezel-outer': 'rgba(15, 23, 42, 0.04)',
-                        'bezel-border': 'rgba(15, 23, 42, 0.08)'
-                    },
                     fontFamily: {
-                        display: ['Outfit', 'sans-serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        accent: '#6366f1',
+                        surface: '#0d0d14',
+                        'surface-light': '#13131d'
                     }
                 }
             }
         }
     </script>
 
+    <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
+        <script src="https://www.google.com/recaptcha/api.js?render=<?= $config['recaptcha_site_key'] ?>"></script>
+    <?php endif; ?>
+
     <style>
-        /* Smooth scroll offset for floating island header */
-        html {
-            scroll-padding-top: 6.5rem;
-            background-color: #FAFBFD;
+        *, *::before, *::after { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #06060a; }
+        ::-webkit-scrollbar-thumb { background: #2a2a3d; border-radius: 3px; }
+
+        /* Animated gradient background */
+        .hero-gradient {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent),
+                        radial-gradient(ellipse 60% 40% at 80% 50%, rgba(139, 92, 246, 0.08), transparent),
+                        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(59, 130, 246, 0.06), transparent);
         }
 
-        /* Ambient light diffused grid */
-        .bg-grid-premium {
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.06) 0%, transparent 60%),
-                radial-gradient(circle at 10% 70%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
-                linear-gradient(rgba(15, 23, 42, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 23, 42, 0.015) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+        /* Grid pattern overlay */
+        .grid-pattern {
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
-        /* GPU-safe transition preset using premium cubic-bezier */
-        .premium-transition {
-            transition: all 700ms cubic-bezier(0.32, 0.72, 0, 1);
+        /* Glow card effect */
+        .glow-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .glow-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.15);
+            transform: translateY(-4px);
         }
 
-        /* Double-Bezel card inner core offset shadows */
-        .bezel-inner-core {
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.9),
-                0 4px 20px -2px rgba(15, 23, 42, 0.02);
-        }
-
-        /* Hover animation triggers */
-        .hover-lift {
-            transition: transform 700ms cubic-bezier(0.32, 0.72, 0, 1), box-shadow 700ms cubic-bezier(0.32, 0.72, 0, 1), border-color 700ms cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .hover-lift:hover {
-            transform: translateY(-4px) scale(1.005);
-            box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.06);
-            border-color: rgba(99, 102, 241, 0.15);
-        }
-
-        /* Dynamic active link classes */
-        .nav-link.active {
-            background-color: #FFFFFF;
-            color: #0F172A !important;
-            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
-        }
-
-        /* IntersectionObserver Scroll Entry State */
+        /* Reveal animation */
         .reveal-element {
             opacity: 0;
-            transform: translateY(24px) scale(0.985);
-            filter: blur(4px);
-            transition: opacity 1000ms cubic-bezier(0.32, 0.72, 0, 1), 
-                        transform 1000ms cubic-bezier(0.32, 0.72, 0, 1), 
-                        filter 1000ms cubic-bezier(0.32, 0.72, 0, 1);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+                        transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        .reveal-element.revealed {
+        .reveal-element.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
+            transform: translateY(0);
         }
+
+        /* Shimmer effect for stats */
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Process timeline connector */
+        .timeline-connector {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+        }
+
+        /* Pulse glow */
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(99,102,241,0.2); }
+            100% { box-shadow: 0 0 40px rgba(99,102,241,0.4); }
+        }
+
+        /* Nav active state */
+        .nav-link-active {
+            background: rgba(255,255,255,0.08) !important;
+            color: #fff !important;
+        }
+
+        /* Counter animation */
+        .counter { font-variant-numeric: tabular-nums; }
+
+        /* Form inputs */
+        .form-input {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #f0f0f5;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: rgba(99,102,241,0.5);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+            outline: none;
+        }
+        .form-input::placeholder { color: #4a4a5a; }
     </style>
 </head>
 
-<body class="bg-slate-bg text-slate-600 font-sans antialiased overflow-x-hidden">
+<body class="bg-[#08080e] text-slate-300 font-body antialiased overflow-x-hidden">
 
-    <!-- Premium Sticky Floating Island Header -->
     <?php include __DIR__ . '/includes/header.php'; ?>
 
-    <main class="w-full">
+    <main>
         <!-- ================================================================
-             HERO SECTION: Editorial Centered Archetype
+             HERO SECTION
              ================================================================ -->
-        <section id="inicio" class="relative min-h-[92dvh] flex flex-col justify-center overflow-hidden bg-grid-premium pt-28 pb-16 md:pt-36">
-            <!-- Background mesh orbs -->
-            <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                <div class="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-accent/5 blur-[120px] animate-pulse"></div>
-                <div class="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/3 blur-[140px]"></div>
-            </div>
+        <section id="inicio" class="relative min-h-screen flex items-center justify-center hero-gradient overflow-hidden">
+            <!-- Grid overlay -->
+            <div class="absolute inset-0 grid-pattern opacity-60"></div>
+            
+            <!-- Floating orbs -->
+            <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-500/10 rounded-full blur-[100px] animate-pulse"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/8 rounded-full blur-[120px] animate-pulse" style="animation-delay: 1s"></div>
 
-            <div class="relative max-w-5xl mx-auto px-6 text-center z-10">
-                <!-- Eyebrow Badge Pill -->
-                <div class="reveal-element inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-100 border border-slate-200/60 rounded-full mb-8 shadow-sm">
-                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-ping"></span>
-                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-800">
-                        <?= htmlspecialchars($t['hero']['badge']) ?>
-                    </span>
+            <div class="relative max-w-5xl mx-auto px-6 text-center z-10 pt-32 pb-20">
+                
+                <!-- Store badges -->
+                <div class="reveal-element flex items-center justify-center gap-3 mb-10">
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] backdrop-blur-sm">
+                        <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        <span class="text-xs font-semibold text-slate-400">App Store</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] backdrop-blur-sm">
+                        <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.584 1.496c.906.524.906 1.37 0 1.894l-2.177 1.26-2.536-2.536 2.13-2.115zM5.864 2.658L16.8 8.99l-2.302 2.302-8.635-8.634z"/></svg>
+                        <span class="text-xs font-semibold text-slate-400">Google Play</span>
+                    </div>
                 </div>
 
-                <!-- Main Display Heading -->
-                <h1 class="reveal-element font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.08] mb-8">
+                <!-- Main Heading -->
+                <h1 class="reveal-element font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.08] mb-8">
                     <?= htmlspecialchars($t['hero']['title']) ?>
                 </h1>
 
-                <!-- Professional Subheading -->
-                <p class="reveal-element max-w-3xl mx-auto text-base md:text-lg text-slate-500 leading-relaxed mb-12">
+                <!-- Subtitle -->
+                <p class="reveal-element text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
                     <?= htmlspecialchars($t['hero']['subtitle']) ?>
                 </p>
 
-                <!-- Button-in-Button Primary and Secondary CTAs -->
-                <div class="reveal-element flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+                <!-- CTAs -->
+                <div class="reveal-element flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                     <a href="#contacto"
-                        class="group inline-flex items-center justify-between gap-6 pl-6 pr-2.5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] rounded-full premium-transition shadow-xl shadow-slate-900/10 w-full sm:w-auto">
+                        class="group inline-flex items-center gap-3 px-8 py-4 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-xl shadow-indigo-500/25 pulse-glow">
                         <span><?= htmlspecialchars($t['hero']['cta_primary']) ?></span>
-                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center premium-transition group-hover:translate-x-0.5 group-hover:-translate-y-[0.5px]">
-                            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
-                        </span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
                     </a>
-                    <a href="#servicio"
-                        class="inline-flex items-center justify-center px-6 py-3.5 text-xs font-bold text-slate-700 bg-white border border-slate-200/60 rounded-full hover:bg-slate-50 hover:border-slate-300 active:scale-[0.98] premium-transition w-full sm:w-auto shadow-sm">
+                    <a href="#portfolio"
+                        class="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.12] rounded-full transition-all duration-500">
                         <?= htmlspecialchars($t['hero']['cta_secondary']) ?>
                     </a>
                 </div>
-            </div>
 
-            <!-- Massive Double-Bezel Dashboard Asset Enclosure -->
-            <div class="reveal-element max-w-6xl mx-auto px-6 w-full z-10">
-                <!-- Outer Bezel Shell -->
-                <div class="relative w-full p-2.5 md:p-3.5 rounded-[2rem] md:rounded-[3rem] bg-bezel-outer border border-bezel-border shadow-2xl shadow-slate-200/50">
-                    <!-- Inner Core -->
-                    <div class="relative overflow-hidden rounded-[calc(2rem-0.625rem)] md:rounded-[calc(3rem-0.875rem)] bg-white border border-slate-200/40 shadow-inner bezel-inner-core">
-                        <!-- Top browser toolbar bar -->
-                        <div class="h-8 md:h-11 border-b border-slate-100 bg-slate-50/50 flex items-center px-4 md:px-5 gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                            <span class="mx-auto w-32 md:w-48 h-3.5 md:h-4.5 bg-slate-200/40 border border-slate-200/30 rounded-full"></span>
-                        </div>
-                        <img src="assets/hero_dashboard.png?v=<?= filemtime(__DIR__ . '/assets/hero_dashboard.png') ?>" alt="IntuiFy Premium Dashboard" class="w-full h-auto object-cover transform scale-101 hover:scale-100 duration-1000" loading="eager" width="1152" height="648">
+                <!-- Stats -->
+                <div class="reveal-element grid grid-cols-3 gap-6 max-w-lg mx-auto">
+                    <div class="text-center">
+                        <div class="font-display text-3xl md:text-4xl font-bold text-white counter" data-target="20">0</div>
+                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['projects']) ?></div>
+                    </div>
+                    <div class="text-center border-x border-white/[0.06]">
+                        <div class="font-display text-3xl md:text-4xl font-bold gradient-text counter" data-target="5" data-prefix="<">0</div>
+                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['speed']) ?></div>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-display text-3xl md:text-4xl font-bold text-white counter" data-target="12">0</div>
+                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['stores']) ?></div>
                     </div>
                 </div>
             </div>
+
+            <!-- Bottom fade -->
+            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#08080e] to-transparent"></div>
         </section>
 
         <!-- ================================================================
-             SERVICES / FEATURES SECTION: The Asymmetrical Bento Grid Layout
+             SHOWCASE / PORTFOLIO SECTION
              ================================================================ -->
-        <section id="servicio" class="relative py-32 md:py-40 bg-white border-y border-slate-100">
-            <div class="max-w-7xl mx-auto px-6">
-                <!-- Eyebrow + Title -->
-                <div class="text-center max-w-3xl mx-auto mb-20 md:mb-24">
-                    <div class="reveal-element inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 border border-slate-200/40 rounded-full mb-4">
-                        <span class="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400">Capabilities</span>
-                    </div>
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
-                        <?= htmlspecialchars($t['services']['title']) ?>
-                    </h2>
-                    <p class="reveal-element text-slate-500 leading-relaxed text-base md:text-lg">
-                        <?= htmlspecialchars($t['services']['subtitle']) ?>
-                    </p>
-                </div>
-
-                <!-- Asymmetrical Bento CSS Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-                    
-                    <!-- Card 0: Autonomous Workflows - Spans 8 Columns (Left Asymmetrical Highlight) -->
-                    <?php if (isset($t['services']['items'][0])): 
-                        $srv = $t['services']['items'][0]; ?>
-                        <article class="reveal-element md:col-span-8 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border flex flex-col justify-between">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-10 h-full flex flex-col justify-between gap-8">
-                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                                    <div class="lg:col-span-6 flex flex-col gap-5">
-                                        <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                            <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <?= $serviceIcons[0] ?>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                                <?= htmlspecialchars($srv['description']) ?>
-                                            </span>
-                                            <h3 class="font-display text-2xl font-bold text-slate-950">
-                                                <?= htmlspecialchars($srv['title']) ?>
-                                            </h3>
-                                        </div>
-                                        <ul class="flex flex-col gap-2.5 mt-2">
-                                            <?php foreach ($srv['features'] as $feat): ?>
-                                                <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                    <span class="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
-                                                    <span><?= htmlspecialchars($feat) ?></span>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
-                                    <!-- Embedded visual diagram inside card 0 -->
-                                    <div class="lg:col-span-6 p-2 rounded-3xl bg-slate-50/50 border border-slate-200/30 shadow-inner">
-                                        <img src="assets/bento_integration.png?v=<?= filemtime(__DIR__ . '/assets/bento_integration.png') ?>" alt="Workflow Orchestration Diagram" class="w-full h-auto rounded-2xl object-cover shadow-sm" loading="lazy" width="400" height="280">
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                    <!-- Card 1: Cognitive AI Agents - Spans 4 Columns (Right Asymmetrical) -->
-                    <?php if (isset($t['services']['items'][1])): 
-                        $srv = $t['services']['items'][1]; ?>
-                        <article class="reveal-element md:col-span-4 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border flex flex-col justify-between">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8 h-full flex flex-col justify-between gap-6">
-                                <div class="flex flex-col gap-4">
-                                    <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                        <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <?= $serviceIcons[1] ?>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                            <?= htmlspecialchars($srv['description']) ?>
-                                        </span>
-                                        <h3 class="font-display text-xl font-bold text-slate-950">
-                                            <?= htmlspecialchars($srv['title']) ?>
-                                        </h3>
-                                    </div>
-                                    <ul class="flex flex-col gap-2 mt-2">
-                                        <?php foreach ($srv['features'] as $feat): ?>
-                                            <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
-                                                <span><?= htmlspecialchars($feat) ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                    <!-- Card 2: Predictive Analytics - Spans 4 Columns -->
-                    <?php if (isset($t['services']['items'][2])): 
-                        $srv = $t['services']['items'][2]; ?>
-                        <article class="reveal-element md:col-span-4 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8 h-full flex flex-col justify-between gap-6">
-                                <div class="flex flex-col gap-4">
-                                    <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                        <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <?= $serviceIcons[2] ?>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                            <?= htmlspecialchars($srv['description']) ?>
-                                        </span>
-                                        <h3 class="font-display text-xl font-bold text-slate-950">
-                                            <?= htmlspecialchars($srv['title']) ?>
-                                        </h3>
-                                    </div>
-                                    <ul class="flex flex-col gap-2">
-                                        <?php foreach ($srv['features'] as $feat): ?>
-                                            <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                <span class="mt-1.5 w-1 h-1.5 bg-accent rounded-full flex-shrink-0"></span>
-                                                <span><?= htmlspecialchars($feat) ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                    <!-- Card 3: Smart Data Pipelines - Spans 4 Columns -->
-                    <?php if (isset($t['services']['items'][3])): 
-                        $srv = $t['services']['items'][3]; ?>
-                        <article class="reveal-element md:col-span-4 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8 h-full flex flex-col justify-between gap-6">
-                                <div class="flex flex-col gap-4">
-                                    <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                        <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <?= $serviceIcons[3] ?>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                            <?= htmlspecialchars($srv['description']) ?>
-                                        </span>
-                                        <h3 class="font-display text-xl font-bold text-slate-950">
-                                            <?= htmlspecialchars($srv['title']) ?>
-                                        </h3>
-                                    </div>
-                                    <ul class="flex flex-col gap-2">
-                                        <?php foreach ($srv['features'] as $feat): ?>
-                                            <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
-                                                <span><?= htmlspecialchars($feat) ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                    <!-- Card 4: Growth Automation - Spans 4 Columns -->
-                    <?php if (isset($t['services']['items'][4])): 
-                        $srv = $t['services']['items'][4]; ?>
-                        <article class="reveal-element md:col-span-4 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8 h-full flex flex-col justify-between gap-6">
-                                <div class="flex flex-col gap-4">
-                                    <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                        <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <?= $serviceIcons[4] ?>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                            <?= htmlspecialchars($srv['description']) ?>
-                                        </span>
-                                        <h3 class="font-display text-xl font-bold text-slate-950">
-                                            <?= htmlspecialchars($srv['title']) ?>
-                                        </h3>
-                                    </div>
-                                    <ul class="flex flex-col gap-2">
-                                        <?php foreach ($srv['features'] as $feat): ?>
-                                            <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
-                                                <span><?= htmlspecialchars($feat) ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                    <!-- Card 5: Autonomous Back-Office (Large Editorial Highlight Split) - Spans 12 Columns -->
-                    <?php if (isset($t['services']['items'][5])): 
-                        $srv = $t['services']['items'][5]; ?>
-                        <article class="reveal-element md:col-span-12 group hover-lift p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border">
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-12 h-full flex flex-col lg:flex-row items-center gap-12 justify-between">
-                                <div class="lg:max-w-md flex flex-col gap-5">
-                                    <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 border border-indigo-100 text-accent rounded-2xl">
-                                        <svg class="w-5.5 h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <?= $serviceIcons[5] ?>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <span class="text-[10px] uppercase font-extrabold tracking-widest text-accent mb-1 block">
-                                            <?= htmlspecialchars($srv['description']) ?>
-                                        </span>
-                                        <h3 class="font-display text-3xl font-bold text-slate-950 tracking-tight">
-                                            <?= htmlspecialchars($srv['title']) ?>
-                                        </h3>
-                                    </div>
-                                    <ul class="flex flex-col gap-2.5">
-                                        <?php foreach ($srv['features'] as $feat): ?>
-                                            <li class="flex items-start gap-3 text-sm text-slate-500">
-                                                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
-                                                <span><?= htmlspecialchars($feat) ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                                <!-- Silicon Valley team collaborating photo inside Double-Bezel card -->
-                                <div class="relative w-full lg:max-w-lg p-2.5 rounded-3xl bg-bezel-outer border border-bezel-border shadow-md">
-                                    <div class="overflow-hidden rounded-2xl border border-slate-200/30 shadow-inner">
-                                        <img src="assets/people_work.png?v=<?= filemtime(__DIR__ . '/assets/people_work.png') ?>" alt="Collaborative tech team in modern office environment" class="w-full h-auto object-cover transform group-hover:scale-101 duration-700" loading="lazy" width="480" height="320">
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endif; ?>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ================================================================
-             BENEFITS SECTION: Impatto Operativo Misurabile
-             ================================================================ -->
-        <section id="beneficios" class="relative py-32 md:py-40 bg-slate-50/50 border-b border-slate-100">
-            <div class="max-w-7xl mx-auto px-6">
+        <section id="portfolio" class="relative py-28 bg-[#08080e]">
+            <div class="max-w-6xl mx-auto px-6">
                 <!-- Section header -->
-                <div class="text-center max-w-3xl mx-auto mb-20 md:mb-24">
-                    <div class="reveal-element inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200/30 rounded-full mb-4">
-                        <span class="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400">Impact</span>
-                    </div>
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
-                        <?= htmlspecialchars($t['benefits']['title']) ?>
+                <div class="text-center mb-16">
+                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                        <?= htmlspecialchars($t['showcase']['title']) ?>
                     </h2>
-                    <p class="reveal-element text-slate-500 leading-relaxed text-base md:text-lg">
-                        <?= htmlspecialchars($t['benefits']['subtitle']) ?>
+                    <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
+                        <?= htmlspecialchars($t['showcase']['subtitle']) ?>
                     </p>
                 </div>
 
-                <!-- Benefits grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <?php foreach ($t['benefits']['items'] as $i => $benefit): ?>
-                        <article class="reveal-element group hover-lift p-2.5 rounded-[2rem] bg-bezel-outer border border-bezel-border flex flex-col justify-between h-full">
-                            <div class="bezel-inner-core rounded-[calc(2rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8 h-full flex flex-col gap-6">
-                                <div class="inline-flex items-center justify-center w-11 h-11 bg-indigo-50/50 text-accent border border-indigo-100/30 rounded-2xl">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <?= $benefitIcons[$i] ?? $benefitIcons[0] ?>
-                                    </svg>
+                <!-- Project grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <?php foreach ($t['showcase']['items'] as $i => $project): 
+                        $logo = $projectLogos[$i];
+                    ?>
+                        <article class="reveal-element glow-card rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 group" style="--glow: <?= $logo['glow'] ?>">
+                            <div>
+                                <!-- Tag -->
+                                <span class="inline-block px-3 py-1 text-[10px] uppercase tracking-widest font-bold rounded-full mb-6"
+                                      style="color: <?= $logo['glow'] ?>; background: <?= $logo['glow'] ?>15; border: 1px solid <?= $logo['glow'] ?>20">
+                                    <?= htmlspecialchars($project['tag']) ?>
+                                </span>
+                                <!-- Logo -->
+                                <div class="h-10 md:h-12 mb-5 flex items-center">
+                                    <img src="<?= $logo['file'] ?>" 
+                                         alt="<?= htmlspecialchars($project['name']) ?>" 
+                                         class="h-full w-auto object-contain <?= $logo['type'] === 'svg' ? 'brightness-200' : '' ?>"
+                                         loading="lazy">
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <h3 class="font-display text-lg font-bold text-slate-950 leading-snug">
-                                        <?= htmlspecialchars($benefit['title']) ?>
-                                    </h3>
-                                    <p class="text-xs text-slate-500 leading-relaxed">
-                                        <?= htmlspecialchars($benefit['description']) ?>
-                                    </p>
-                                </div>
+                                <!-- Description -->
+                                <p class="text-sm text-slate-400 leading-relaxed">
+                                    <?= htmlspecialchars($project['description']) ?>
+                                </p>
                             </div>
                         </article>
                     <?php endforeach; ?>
@@ -695,371 +502,430 @@ $benefitIcons = [
             </div>
         </section>
 
-
         <!-- ================================================================
-             DEMO CTA SECTION: Floating action container
+             PROCESS / TIMELINE SECTION
              ================================================================ -->
-        <section id="demo" class="relative py-28 bg-slate-50/70 overflow-hidden border-t border-slate-200/40">
-            <div class="absolute inset-0 pointer-events-none opacity-40" aria-hidden="true">
-                <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
-            </div>
+        <section class="relative py-28 bg-[#0a0a12]">
+            <!-- Gradient accent -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+            
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                        <?= htmlspecialchars($t['process']['title']) ?>
+                    </h2>
+                    <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
+                        <?= htmlspecialchars($t['process']['subtitle']) ?>
+                    </p>
+                </div>
 
-            <div class="relative max-w-4xl mx-auto px-6 text-center z-10">
-                <h2 class="reveal-element font-display text-3xl md:text-5xl font-extrabold text-slate-950 tracking-tight mb-6">
-                    <?= htmlspecialchars($t['demo']['title']) ?>
-                </h2>
-                <p class="reveal-element text-sm md:text-base text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    <?= htmlspecialchars($t['demo']['subtitle']) ?>
-                </p>
-                <button id="demo-cta-btn" type="button"
-                    class="reveal-element group inline-flex items-center justify-between gap-6 pl-6 pr-2.5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] rounded-full premium-transition shadow-xl shadow-slate-900/10">
-                    <span><?= htmlspecialchars($t['demo']['cta']) ?></span>
-                    <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center premium-transition group-hover:translate-x-0.5 group-hover:-translate-y-[0.5px]">
-                        <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </span>
-                </button>
-            </div>
-        </section>
+                <!-- Timeline steps -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                    <!-- Connector line (desktop) -->
+                    <div class="hidden md:block absolute top-[4.5rem] left-[12%] right-[12%] h-px timeline-connector"></div>
 
-        <!-- ================================================================
-             CONTACT SECTION: Design your digital workforce
-             ================================================================ -->
-        <section id="contacto" class="relative py-32 md:py-40 bg-white">
-            <div class="max-w-7xl mx-auto px-6 z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-                    
-                    <!-- Left Column: Key contact metadata -->
-                    <div>
-                        <div class="reveal-element inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 border border-slate-200/40 rounded-full mb-4">
-                            <span class="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400">Connection</span>
-                        </div>
-                        <h2 class="reveal-element font-display text-3xl md:text-5xl font-extrabold text-slate-950 tracking-tight leading-[1.1] mb-6">
-                            <?= htmlspecialchars($t['contact']['title']) ?>
-                        </h2>
-                        <p class="reveal-element text-slate-500 leading-relaxed text-sm md:text-base mb-10">
-                            <?= htmlspecialchars($t['contact']['subtitle']) ?>
-                        </p>
-
-                        <h3 class="reveal-element font-display font-bold text-xs uppercase tracking-widest text-slate-900 mb-6">
-                            <?= htmlspecialchars($t['contact']['reasons_title']) ?>
-                        </h3>
-
-                        <ul class="flex flex-col gap-4 mb-10">
-                            <?php foreach ($t['contact']['reasons'] as $reason): ?>
-                                <li class="reveal-element flex items-center gap-3">
-                                    <div class="flex-shrink-0 w-6 h-6 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center shadow-sm">
-                                        <svg class="w-3.5 h-3.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <span class="text-slate-700 text-sm font-semibold">
-                                        <?= htmlspecialchars($reason) ?>
-                                    </span>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-
-                        <!-- Direct Premium Contact Link -->
-                        <a href="mailto:info@intuify.net"
-                            class="reveal-element group inline-flex items-center gap-3 text-accent hover:text-indigo-800 text-sm font-semibold transition-all duration-300">
-                            <span class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200/40 flex items-center justify-center shadow-sm group-hover:border-slate-300 transition-colors duration-300">
-                                <svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                            </span>
-                            <span class="group-hover:underline decoration-slate-300">info@intuify.net</span>
-                        </a>
-                    </div>
-
-                    <!-- Right Column: Interactive Double-Bezel Contact Form -->
-                    <div class="reveal-element">
-                        <!-- Outer Shell -->
-                        <div class="p-2.5 rounded-[2.5rem] bg-bezel-outer border border-bezel-border shadow-2xl shadow-slate-100">
-                            <!-- Inner Core -->
-                            <div class="bezel-inner-core rounded-[calc(2.5rem-0.625rem)] bg-white border border-slate-200/30 p-6 md:p-8">
-                                <form id="contact-form" class="space-y-6" novalidate>
-                                    <!-- Honeypot -->
-                                    <div class="hidden" aria-hidden="true">
-                                        <label for="website">Website</label>
-                                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-                                    </div>
-
-                                    <!-- Security & Identification inputs -->
-                                    <input type="hidden" name="_timestamp" id="form-timestamp" value="">
-                                    <input type="hidden" name="ajax_submit" value="1">
-                                    <input type="hidden" name="recaptcha_token" id="recaptcha-token" value="">
-
-                                    <!-- Name Field (Double-Bezel Input Structure) -->
-                                    <div class="flex flex-col gap-2">
-                                        <label for="nombre_completo" class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                                            <?= htmlspecialchars($t['contact']['form']['name']) ?> <span class="text-accent">*</span>
-                                        </label>
-                                        <div class="p-1 rounded-2xl bg-bezel-outer border border-bezel-border">
-                                            <input type="text" id="nombre_completo" name="nombre_completo" required
-                                                placeholder="<?= htmlspecialchars($t['contact']['form']['name_placeholder']) ?>"
-                                                class="w-full px-4 py-3 bg-white border border-transparent rounded-[calc(1rem-0.25rem)] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-accent focus:border-transparent transition-all shadow-sm">
-                                        </div>
-                                    </div>
-
-                                    <!-- Company Field -->
-                                    <div class="flex flex-col gap-2">
-                                        <label for="empresa" class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                                            <?= htmlspecialchars($t['contact']['form']['company']) ?> <span class="text-accent">*</span>
-                                        </label>
-                                        <div class="p-1 rounded-2xl bg-bezel-outer border border-bezel-border">
-                                            <input type="text" id="empresa" name="empresa" required
-                                                placeholder="<?= htmlspecialchars($t['contact']['form']['company_placeholder']) ?>"
-                                                class="w-full px-4 py-3 bg-white border border-transparent rounded-[calc(1rem-0.25rem)] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-accent focus:border-transparent transition-all shadow-sm">
-                                        </div>
-                                    </div>
-
-                                    <!-- Email Field -->
-                                    <div class="flex flex-col gap-2">
-                                        <label for="email" class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                                            <?= htmlspecialchars($t['contact']['form']['email']) ?> <span class="text-accent">*</span>
-                                        </label>
-                                        <div class="p-1 rounded-2xl bg-bezel-outer border border-bezel-border">
-                                            <input type="email" id="email" name="email" required
-                                                placeholder="<?= htmlspecialchars($t['contact']['form']['email_placeholder']) ?>"
-                                                class="w-full px-4 py-3 bg-white border border-transparent rounded-[calc(1rem-0.25rem)] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-accent focus:border-transparent transition-all shadow-sm">
-                                        </div>
-                                    </div>
-
-                                    <!-- Message Field -->
-                                    <div class="flex flex-col gap-2">
-                                        <label for="mensaje" class="text-xs font-bold uppercase tracking-wider text-slate-800">
-                                            <?= htmlspecialchars($t['contact']['form']['message']) ?> <span class="text-accent">*</span>
-                                        </label>
-                                        <div class="p-1 rounded-2xl bg-bezel-outer border border-bezel-border">
-                                            <textarea id="mensaje" name="mensaje" rows="4" required
-                                                placeholder="<?= htmlspecialchars($t['contact']['form']['message_placeholder']) ?>"
-                                                class="w-full px-4 py-3 bg-white border border-transparent rounded-[calc(1rem-0.25rem)] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-accent focus:border-transparent transition-all resize-none shadow-sm"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <!-- Button-in-Button Submit CTA -->
-                                    <button type="submit" id="submit-btn"
-                                        class="group w-full inline-flex items-center justify-between gap-6 pl-6 pr-2.5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] rounded-full premium-transition shadow-xl shadow-slate-900/10 disabled:opacity-50 disabled:cursor-not-allowed">
-                                        <span id="btn-text">
-                                            <?= htmlspecialchars($t['contact']['form']['submit']) ?>
-                                        </span>
-                                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center premium-transition group-hover:translate-x-0.5 group-hover:-translate-y-[0.5px]">
-                                            <svg id="btn-svg-arrow" class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                            </svg>
-                                            <svg id="btn-spinner" class="hidden w-4 h-4 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                        </span>
-                                    </button>
-
-                                    <!-- Feedback status alerts -->
-                                    <div id="form-success" class="hidden p-4 bg-green-50 border border-green-200/60 rounded-2xl text-green-700 text-xs font-semibold leading-relaxed">
-                                        <?= htmlspecialchars($t['contact']['form']['success']) ?>
-                                    </div>
-                                    <div id="form-error" class="hidden p-4 bg-red-50 border border-red-200/60 rounded-2xl text-red-700 text-xs font-semibold leading-relaxed">
-                                        <?= htmlspecialchars($t['contact']['form']['error']) ?>
-                                    </div>
-                                </form>
+                    <?php foreach ($t['process']['steps'] as $i => $step): ?>
+                        <div class="reveal-element text-center relative" style="transition-delay: <?= $i * 0.1 ?>s">
+                            <!-- Step number circle -->
+                            <div class="relative mx-auto w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 z-10">
+                                <span class="font-display text-lg font-bold gradient-text"><?= $i + 1 ?></span>
                             </div>
+                            <!-- Day badge -->
+                            <div class="inline-block px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-indigo-400 bg-indigo-500/10 rounded-full mb-3">
+                                <?= htmlspecialchars($step['day']) ?>
+                            </div>
+                            <h3 class="font-display text-lg font-bold text-white mb-2">
+                                <?= htmlspecialchars($step['title']) ?>
+                            </h3>
+                            <p class="text-sm text-slate-500">
+                                <?= htmlspecialchars($step['description']) ?>
+                            </p>
                         </div>
-                    </div>
-
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
+
+        <!-- ================================================================
+             SERVICES SECTION
+             ================================================================ -->
+        <section id="servicio" class="relative py-28 bg-[#08080e]">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                        <?= htmlspecialchars($t['services']['title']) ?>
+                    </h2>
+                    <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
+                        <?= htmlspecialchars($t['services']['subtitle']) ?>
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <?php foreach ($t['services']['items'] as $i => $srv): ?>
+                        <article class="reveal-element glow-card rounded-3xl p-7 md:p-8 flex flex-col gap-5 <?= $i >= 3 ? 'md:col-span-1' : '' ?>">
+                            <!-- Icon -->
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <?= $serviceIcons[$i] ?? $serviceIcons[0] ?>
+                                </svg>
+                            </div>
+                            <!-- Content -->
+                            <div>
+                                <span class="text-[10px] uppercase font-extrabold tracking-widest text-indigo-400 mb-1 block">
+                                    <?= htmlspecialchars($srv['description']) ?>
+                                </span>
+                                <h3 class="font-display text-xl font-bold text-white">
+                                    <?= htmlspecialchars($srv['title']) ?>
+                                </h3>
+                            </div>
+                            <ul class="flex flex-col gap-2">
+                                <?php foreach ($srv['features'] as $feat): ?>
+                                    <li class="flex items-start gap-3 text-sm text-slate-500">
+                                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
+                                        <span><?= htmlspecialchars($feat) ?></span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             BENEFITS SECTION
+             ================================================================ -->
+        <section id="beneficios" class="relative py-28 bg-[#0a0a12]">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                        <?= htmlspecialchars($t['benefits']['title']) ?>
+                    </h2>
+                    <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
+                        <?= htmlspecialchars($t['benefits']['subtitle']) ?>
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <?php 
+                    $benefitIcons = ['⚡', '🏗️', '📱', '🔧', '💎', '🛡️'];
+                    foreach ($t['benefits']['items'] as $i => $benefit): ?>
+                        <div class="reveal-element glow-card rounded-3xl p-7 md:p-8">
+                            <div class="text-3xl mb-4"><?= $benefitIcons[$i] ?? '✨' ?></div>
+                            <h3 class="font-display text-lg font-bold text-white mb-2">
+                                <?= htmlspecialchars($benefit['title']) ?>
+                            </h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                <?= htmlspecialchars($benefit['description']) ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             CTA SECTION
+             ================================================================ -->
+        <section class="relative py-28 bg-[#08080e] overflow-hidden">
+            <div class="absolute inset-0 hero-gradient"></div>
+            <div class="absolute inset-0 grid-pattern opacity-40"></div>
+            
+            <div class="relative max-w-3xl mx-auto px-6 text-center z-10">
+                <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
+                    <?= htmlspecialchars($t['cta_section']['title']) ?>
+                </h2>
+                <p class="reveal-element text-slate-400 mb-10 text-lg">
+                    <?= htmlspecialchars($t['cta_section']['subtitle']) ?>
+                </p>
+                <a href="#contacto"
+                    class="reveal-element group inline-flex items-center gap-3 px-10 py-5 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-xl shadow-indigo-500/25 pulse-glow">
+                    <span><?= htmlspecialchars($t['cta_section']['cta']) ?></span>
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             CONTACT SECTION
+             ================================================================ -->
+        <section id="contacto" class="relative py-28 bg-[#0a0a12]">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <!-- Left: Info -->
+                    <div class="reveal-element">
+                        <h2 class="font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-5">
+                            <?= htmlspecialchars($t['contact']['title']) ?>
+                        </h2>
+                        <p class="text-slate-400 mb-10 leading-relaxed">
+                            <?= htmlspecialchars($t['contact']['subtitle']) ?>
+                        </p>
+
+                        <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-5">
+                            <?= htmlspecialchars($t['contact']['reasons_title']) ?>
+                        </h3>
+                        <ul class="flex flex-col gap-4">
+                            <?php foreach ($t['contact']['reasons'] as $reason): ?>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-6 h-6 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-3 h-3 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm text-slate-400"><?= htmlspecialchars($reason) ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="reveal-element">
+                        <form id="contact-form" class="glow-card rounded-3xl p-8 md:p-10 flex flex-col gap-5">
+                            <input type="hidden" name="ajax_submit" value="1">
+                            <input type="hidden" name="_timestamp" value="<?= time() ?>">
+                            <input type="hidden" name="recaptcha_token" id="recaptcha_token" value="">
+                            <!-- Honeypot -->
+                            <div class="absolute opacity-0 pointer-events-none" aria-hidden="true">
+                                <input type="text" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2"><?= htmlspecialchars($t['contact']['form']['name']) ?></label>
+                                    <input type="text" name="nombre_completo" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm"
+                                        placeholder="<?= htmlspecialchars($t['contact']['form']['name_placeholder']) ?>">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2"><?= htmlspecialchars($t['contact']['form']['company']) ?></label>
+                                    <input type="text" name="empresa" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm"
+                                        placeholder="<?= htmlspecialchars($t['contact']['form']['company_placeholder']) ?>">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2"><?= htmlspecialchars($t['contact']['form']['email']) ?></label>
+                                <input type="email" name="email" required
+                                    class="form-input w-full px-4 py-3 rounded-xl text-sm"
+                                    placeholder="<?= htmlspecialchars($t['contact']['form']['email_placeholder']) ?>">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2"><?= htmlspecialchars($t['contact']['form']['message']) ?></label>
+                                <textarea name="mensaje" required rows="4"
+                                    class="form-input w-full px-4 py-3 rounded-xl text-sm resize-none"
+                                    placeholder="<?= htmlspecialchars($t['contact']['form']['message_placeholder']) ?>"></textarea>
+                            </div>
+
+                            <button type="submit" id="submit-btn"
+                                class="group w-full flex items-center justify-center gap-3 px-8 py-4 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-lg shadow-indigo-500/20 mt-2">
+                                <span id="submit-text"><?= htmlspecialchars($t['contact']['form']['submit']) ?></span>
+                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </button>
+
+                            <!-- Response message -->
+                            <div id="form-response" class="hidden text-center text-sm py-3 rounded-xl"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Premium Footer Component -->
     <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <!-- ================================================================
-         MOTION & CONTROLLER SCRIPT
+         JAVASCRIPT
          ================================================================ -->
     <script>
-        (function () {
-            'use strict';
+    document.addEventListener('DOMContentLoaded', () => {
 
-            // Mobile Navigation Menu Controller
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const line1 = document.getElementById('hamburger-line-1');
-            const line2 = document.getElementById('hamburger-line-2');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        // ---- IntersectionObserver Reveal ----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-            if (menuBtn && mobileMenu) {
-                const toggleMenu = () => {
-                    const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-                    menuBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
-                    
-                    // Toggle drawer opacity, scaling, and interactive properties
-                    mobileMenu.classList.toggle('opacity-0');
-                    mobileMenu.classList.toggle('pointer-events-none');
-                    mobileMenu.classList.toggle('translate-y-4');
-                    mobileMenu.classList.toggle('scale-95');
-                    mobileMenu.classList.toggle('opacity-100');
-                    mobileMenu.classList.toggle('pointer-events-auto');
-                    mobileMenu.classList.toggle('translate-y-0');
-                    mobileMenu.classList.toggle('scale-100');
+        document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
 
-                    // Morph hamburger lines to 'X'
-                    line1.classList.toggle('translate-y-[-3px]');
-                    line1.classList.toggle('translate-y-0');
-                    line1.classList.toggle('rotate-45');
+        // ---- Counter animation ----
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const prefix = el.dataset.prefix || '';
+                    let current = 0;
+                    const duration = 2000;
+                    const step = target / (duration / 16);
 
-                    line2.classList.toggle('translate-y-[3px]');
-                    line2.classList.toggle('translate-y-0');
-                    line2.classList.toggle('-rotate-45');
-                };
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = prefix + Math.floor(current) + '+';
+                    }, 16);
 
-                menuBtn.addEventListener('click', toggleMenu);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
 
-                // Auto-close when clicking any link
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', toggleMenu);
-                });
-            }
+        counters.forEach(c => counterObserver.observe(c));
 
-            // Establish timestamp for form time-trap validation
-            document.getElementById('form-timestamp').value = Math.floor(Date.now() / 1000);
+        // ---- Mobile menu ----
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('hamburger-line-1');
+        const line2 = document.getElementById('hamburger-line-2');
+        let menuOpen = false;
 
-            // Active section highlighting pill with IntersectionObserver
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '-30% 0px -40% 0px',
-                threshold: 0
-            };
-
-            const sectionObserver = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(function (link) {
-                            link.classList.remove('active');
-                            if (link.getAttribute('data-section') === id) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(function (section) {
-                sectionObserver.observe(section);
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                menuBtn.setAttribute('aria-expanded', menuOpen);
+                if (menuOpen) {
+                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4', 'scale-95');
+                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0', 'scale-100');
+                    line1.style.transform = 'rotate(45deg) translateY(0)';
+                    line2.style.transform = 'rotate(-45deg) translateY(0)';
+                } else {
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4', 'scale-95');
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0', 'scale-100');
+                    line1.style.transform = 'translateY(-3px)';
+                    line2.style.transform = 'translateY(3px)';
+                }
             });
 
-            // Fluid Page Entry Animation Observer (GPU-Safe Scroll Reveals)
-            const revealElements = document.querySelectorAll('.reveal-element');
-            const revealObserverOptions = {
-                root: null,
-                rootMargin: '0px 0px -10% 0px',
-                threshold: 0.05
-            };
-
-            const revealObserver = new IntersectionObserver(function (entries, observer) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target); // Trigger exactly once
-                    }
+            // Close on link click
+            mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', () => {
+                    menuOpen = false;
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4', 'scale-95');
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0', 'scale-100');
+                    line1.style.transform = 'translateY(-3px)';
+                    line2.style.transform = 'translateY(3px)';
                 });
-            }, revealObserverOptions);
-
-            revealElements.forEach(function (el) {
-                revealObserver.observe(el);
             });
+        }
 
-            // Smooth Scroll for Demo CTA triggering target auto-focus
-            const demoCta = document.getElementById('demo-cta-btn');
-            const mensajeField = document.getElementById('mensaje');
+        // ---- Active nav highlighting ----
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        const sections = document.querySelectorAll('section[id]');
 
-            if (demoCta && mensajeField) {
-                demoCta.addEventListener('click', function () {
-                    const demoMessages = {
-                        'es': 'Solicito demo gratuita',
-                        'it': 'Richiedo demo gratuita',
-                        'en': 'I request a free demo'
-                    };
-                    const lang = document.documentElement.lang || 'en';
-                    mensajeField.value = demoMessages[lang] || demoMessages['en'];
-                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Smooth delay before focusing
-                    setTimeout(function () {
-                        document.getElementById('nombre_completo').focus();
-                    }, 800);
-                });
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navLinks.forEach(link => {
+                        link.classList.toggle('nav-link-active', link.dataset.section === id);
+                    });
+                }
+            });
+        }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+
+        sections.forEach(s => navObserver.observe(s));
+
+        // ---- Header scroll behavior ----
+        const header = document.getElementById('main-header');
+        let lastScrollY = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 100) {
+                header.style.marginTop = '0.5rem';
+            } else {
+                header.style.marginTop = '';
             }
+            lastScrollY = scrollY;
+        }, { passive: true });
 
-            // AJAX Contact Form Submission Handler
-            const form = document.getElementById('contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const btnText = document.getElementById('btn-text');
-            const btnArrow = document.getElementById('btn-svg-arrow');
-            const btnSpinner = document.getElementById('btn-spinner');
-            const successMsg = document.getElementById('form-success');
-            const errorMsg = document.getElementById('form-error');
+        // ---- Contact Form AJAX ----
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const formResponse = document.getElementById('form-response');
 
-            if (form) {
-                form.addEventListener('submit', async function (e) {
+        const texts = {
+            submit: <?= json_encode($t['contact']['form']['submit']) ?>,
+            sending: <?= json_encode($t['contact']['form']['sending']) ?>,
+            success: <?= json_encode($t['contact']['form']['success']) ?>,
+            error: <?= json_encode($t['contact']['form']['error']) ?>
+        };
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitText.textContent = texts.sending;
+
+                <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
+                try {
+                    const token = await grecaptcha.execute('<?= $config['recaptcha_site_key'] ?>', { action: 'submit' });
+                    document.getElementById('recaptcha_token').value = token;
+                } catch (err) {
+                    console.error('reCAPTCHA error:', err);
+                }
+                <?php endif; ?>
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(window.location.href, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+
+                    formResponse.classList.remove('hidden');
+                    if (data.success) {
+                        formResponse.textContent = texts.success;
+                        formResponse.className = 'text-center text-sm py-3 px-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400';
+                        form.reset();
+                    } else {
+                        formResponse.textContent = data.error || texts.error;
+                        formResponse.className = 'text-center text-sm py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400';
+                    }
+                } catch (err) {
+                    formResponse.classList.remove('hidden');
+                    formResponse.textContent = texts.error;
+                    formResponse.className = 'text-center text-sm py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400';
+                }
+
+                submitBtn.disabled = false;
+                submitText.textContent = texts.submit;
+            });
+        }
+
+        // ---- Smooth scroll ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
                     e.preventDefault();
-
-                    // Flush alert states
-                    successMsg.classList.add('hidden');
-                    errorMsg.classList.add('hidden');
-
-                    // Initiate premium lock state
-                    submitBtn.disabled = true;
-                    btnText.textContent = '<?= addslashes($t['contact']['form']['sending']) ?>';
-                    btnArrow.classList.add('hidden');
-                    btnSpinner.classList.remove('hidden');
-
-                    try {
-                        // Dynamically request v3 reCAPTCHA token if configured
-                        <?php if (!empty($config['recaptcha_site_key']) && $config['recaptcha_site_key'] !== 'YOUR_RECAPTCHA_SITE_KEY'): ?>
-                        if (typeof grecaptcha !== 'undefined') {
-                            const recaptchaToken = await grecaptcha.execute('<?= htmlspecialchars($config['recaptcha_site_key']) ?>', {action: 'contact_form'});
-                            document.getElementById('recaptcha-token').value = recaptchaToken;
-                        }
-                        <?php endif; ?>
-
-                        const formData = new FormData(form);
-                        const response = await fetch(window.location.href, {
-                            method: 'POST',
-                            body: formData
-                        });
-
-                        const result = await response.json();
-
-                        if (result.success) {
-                            successMsg.classList.remove('hidden');
-                            form.reset();
-                            // Reset token timestamp for safe sequential entries
-                            document.getElementById('form-timestamp').value = Math.floor(Date.now() / 1000);
-                        } else {
-                            errorMsg.textContent = result.error || '<?= addslashes($t['contact']['form']['error']) ?>';
-                            errorMsg.classList.remove('hidden');
-                        }
-                    } catch (err) {
-                        errorMsg.textContent = '<?= addslashes($t['contact']['form']['error']) ?>';
-                        errorMsg.classList.remove('hidden');
-                    }
-
-                    // Release premium lock state
-                    submitBtn.disabled = false;
-                    btnText.textContent = '<?= addslashes($t['contact']['form']['submit']) ?>';
-                    btnSpinner.classList.add('hidden');
-                    btnArrow.classList.remove('hidden');
-                });
-            }
-        })();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    });
     </script>
-</body>
 
+</body>
 </html>

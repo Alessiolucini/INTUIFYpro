@@ -1,185 +1,201 @@
 {
     "lang": "en",
     "meta": {
-        "title": "IntuiFy Ventures – Industrial Holding & Multidisciplinary Group",
-        "description": "IntuiFy Ventures S.L. operates as a parent holding company coordinating specialized subsidiaries in custom software, data processing, marketing, 3D manufacturing, real estate, and global travel."
+        "title": "IntuiFy — Software Studio & Digital Innovation",
+        "description": "IntuiFy designs and launches apps for Apple Store and Google Play in under a week. Custom software, AI, digital marketing and cutting-edge tech solutions."
     },
     "nav": {
-        "inicio": "Holding",
-        "servicios": "Companies",
-        "beneficios": "Synergies",
-        "testimonios": "Success",
+        "inicio": "Home",
+        "servicios": "Services",
+        "portfolio": "Portfolio",
+        "beneficios": "Advantages",
         "contacto": "Contact",
-        "cta": "Contact the Holding"
+        "cta": "Start your project"
     },
     "hero": {
-        "badge": "Parent Financial & Industrial Holding Group",
-        "title": "Orchestrating a portfolio of industry-leading companies",
-        "subtitle": "IntuiFy Ventures S.L. is the parent holding company that owns and coordinates specialized subsidiaries in software engineering, data processing, strategic marketing, industrial manufacturing, and global hospitality. A solid ecosystem engineered to unlock high-performance synergies.",
-        "cta_primary": "Schedule a Consultation",
-        "cta_secondary": "Explore Portfolio"
+        "title": "We build the future, one app at a time",
+        "subtitle": "From concept to Apple Store and Google Play in under 7 days. IntuiFy is the tech studio that turns your ideas into real digital products — fast, no compromises.",
+        "cta_primary": "Launch your Project",
+        "cta_secondary": "See our work",
+        "stats": {
+            "projects": "Projects launched",
+            "speed": "Avg. days per project",
+            "stores": "Apps in Stores"
+        }
     },
-    "services": {
-        "title": "Our Group Companies",
-        "subtitle": "A portfolio of specialized subsidiaries, each focused on excellence, innovation, and regulatory compliance in its respective sector",
+    "showcase": {
+        "title": "Our pioneer products",
+        "subtitle": "Platforms and apps we designed, developed and published — from the first line of code to store launch",
         "items": [
             {
-                "title": "Software & IT Solutions",
-                "description": "Software Engineering Company",
+                "name": "Auterio",
+                "description": "Digital platform for car dealerships. Vehicle management, appraisals, digital wallet and analytics dashboard.",
+                "tag": "Automotive SaaS"
+            },
+            {
+                "name": "Orqesia",
+                "description": "Event orchestration and booking app with integrated payment system and calendar management.",
+                "tag": "Event Tech"
+            },
+            {
+                "name": "Eco Andratx",
+                "description": "Civic app for waste management and recycling in Andratx. Collection calendar, reports and green points.",
+                "tag": "GreenTech / Civic"
+            },
+            {
+                "name": "LingoBite",
+                "description": "SaaS platform for restaurants that auto-translates menus into 30+ languages with AI. Dynamic QR codes.",
+                "tag": "FoodTech / AI"
+            }
+        ]
+    },
+    "process": {
+        "title": "From your idea to launch in < 7 days",
+        "subtitle": "Our ultra-fast process is designed for startups, entrepreneurs and companies that can't afford to wait",
+        "steps": [
+            {
+                "day": "Day 1",
+                "title": "Brief & Strategy",
+                "description": "We analyze your idea, define scope and technical architecture"
+            },
+            {
+                "day": "Day 2-3",
+                "title": "Design & Prototype",
+                "description": "Premium UI/UX, interactive wireframes and complete design system"
+            },
+            {
+                "day": "Day 4-5",
+                "title": "Full-Stack Development",
+                "description": "Clean code, API, database, AI integration and scalable backend"
+            },
+            {
+                "day": "Day 6-7",
+                "title": "Test & Launch",
+                "description": "Rigorous QA, deploy to Apple Store and Google Play, go-live"
+            }
+        ]
+    },
+    "services": {
+        "title": "What we build",
+        "subtitle": "From strategic consulting to publication — we cover every phase of your digital product lifecycle",
+        "items": [
+            {
+                "title": "Mobile & Web Apps",
+                "description": "iOS, Android & Web Apps",
                 "features": [
-                    "Custom software & application development",
-                    "Creation of web portals & SaaS platforms",
-                    "Design of custom operating systems & apps",
-                    "Dedicated software maintenance & testing"
+                    "Native and cross-platform apps (React Native, Expo)",
+                    "High-performance Progressive Web Apps",
+                    "Publishing to Apple Store and Google Play",
+                    "Continuous maintenance and updates"
                 ]
             },
             {
-                "title": "Data Intelligence & AI",
-                "description": "Data & AI Platform Company",
+                "title": "Artificial Intelligence",
+                "description": "AI & Machine Learning",
                 "features": [
-                    "Electronic & mechanical data processing",
-                    "Data calculation & programming for third parties",
-                    "Creation of AI platforms and applications",
-                    "Secure data storage, tabulation & registration"
+                    "AI model integration (GPT, Claude, Gemini)",
+                    "Process automation with intelligent agents",
+                    "Data analysis and predictive dashboards",
+                    "Custom chatbots and virtual assistants"
                 ]
             },
             {
-                "title": "Marketing & Communication",
-                "description": "Full-Service Advertising Agency",
+                "title": "Digital Marketing",
+                "description": "Growth & Performance",
                 "features": [
-                    "Strategic positioning & business consulting",
-                    "Creative art direction & advertising design",
-                    "Creation, execution & distribution of campaigns",
-                    "Omnichannel coverage (web, TV, print, radio)"
+                    "Positioning strategy and branding",
+                    "Multichannel campaigns (social, SEO, ads)",
+                    "Content creation and creative direction",
+                    "Analytics and conversion optimization"
                 ]
             },
             {
-                "title": "3D Additive Manufacturing",
-                "description": "Additive Prototyping & Fabrication Company",
+                "title": "SaaS Platforms",
+                "description": "Software as a Service",
                 "features": [
-                    "Fabrication of custom parts & spare components",
-                    "High-precision 3D scanning & inspection",
-                    "Technical consulting on additive technologies",
-                    "Specialized training courses & industrial design"
+                    "Scalable multi-tenant architecture",
+                    "Admin dashboards and control panels",
+                    "Payment systems (Stripe, PayPal)",
+                    "RESTful APIs and third-party integrations"
                 ]
             },
             {
-                "title": "Real Estate & Development",
-                "description": "Real Estate Development & Construction Company",
+                "title": "Industry Solutions",
+                "description": "Real Estate, Tourism & More",
                 "features": [
-                    "Civil and industrial real estate promotion",
-                    "Acquisition and sale of plots and land",
-                    "Leasing & management of real estate assets",
-                    "Specialized third-party brokerage & advisory"
-                ]
-            },
-            {
-                "title": "Travel & Global Tourism",
-                "description": "Global Tour Operator & Travel Agency",
-                "features": [
-                    "Organization of tour packages & custom travel",
-                    "Brokerage & sales of tourist packages",
-                    "Reservation of accommodation, transport & catering",
-                    "Online booking systems & global travel platforms"
+                    "Real estate portals and property management",
+                    "Tourism booking platforms",
+                    "Custom e-commerce and marketplaces",
+                    "IoT solutions and industrial automation"
                 ]
             }
         ]
     },
     "benefits": {
-        "title": "The Strength of Our Group",
-        "subtitle": "The strategic benefits of partnering with a solid holding group to coordinate your enterprise's technology, growth, and manufacturing",
+        "title": "Why choose IntuiFy",
+        "subtitle": "We're not a traditional agency. We're engineers, designers and entrepreneurs who build real products every day",
         "items": [
             {
-                "title": "Subsidiary Synergy",
-                "description": "We seamlessly connect our technology, marketing, additive manufacturing, and hospitality companies to create unique value."
+                "title": "Extreme speed",
+                "description": "From first call to live product in under 7 days. No months of waiting, no bureaucracy."
             },
             {
-                "title": "Specialized Verticals",
-                "description": "Each portfolio company operates independently, guaranteeing dedicated expert teams and vertical specialization."
+                "title": "Full-Stack in-house",
+                "description": "Design, frontend, backend, AI, deploy — all under one roof. Zero third-party dependency."
             },
             {
-                "title": "Global Footprint",
-                "description": "Through our holding structure and operating subsidiaries, we are present globally in key tech, real estate, and tourism sectors."
+                "title": "Guaranteed publication",
+                "description": "Your project ends up on Apple Store and Google Play. We handle the entire review and publishing process."
             },
             {
-                "title": "Governance & Stability",
-                "description": "Our parent company IntuiFy Ventures S.L. guarantees maximum financial, administrative, and legal solidity."
+                "title": "Modern tech stack",
+                "description": "Next.js, React Native, Supabase, Stripe, AI — we use the most advanced technologies on the market."
             },
             {
-                "title": "Intellectual Property",
-                "description": "We design, build, and patent the underlying software and platforms used across our portfolio companies."
+                "title": "Transparent pricing",
+                "description": "Clear budget from the start. No hidden costs, no surprises at the end of the project."
             },
             {
-                "title": "Holding-Level Consulting",
-                "description": "We accompany every engagement with strategic advisory and corporate governance at the parent company level."
+                "title": "Post-launch support",
+                "description": "We don't disappear after deploy. Continuous maintenance, updates and technical support."
             }
         ]
     },
-    "testimonials": {
-        "title": "Shared Success",
-        "subtitle": "How institutional partners and clients across our diverse subsidiaries achieve strategic excellence",
-        "items": [
-            {
-                "quote": "The IntuiFy group coordinated the development of our enterprise SaaS and managed the global marketing campaign through its subsidiaries. Outstanding results.",
-                "name": "Marco Bianchi",
-                "role": "CEO of TechFlow",
-                "company": "TechFlow Systems"
-            },
-            {
-                "quote": "Their additive manufacturing subsidiary produced high-precision 3D spare parts for our logistics fleet, saving us weeks of operational downtime.",
-                "name": "Elena Rossi",
-                "role": "Ops Manager",
-                "company": "Logistics3D International"
-            },
-            {
-                "quote": "We entrusted IntuiFy's real estate arm with land acquisition and the development of our new headquarters. Exceptional contractual security and financial backing.",
-                "name": "Stefano Moretti",
-                "role": "Associate Partner",
-                "company": "RealEstate Hub"
-            },
-            {
-                "quote": "The tour package and accommodation management for our overseas corporate summit were planned and executed without a single issue by their travel subsidiary.",
-                "name": "Laura Verdi",
-                "role": "Head of People",
-                "company": "GlobalTrip Ltd"
-            }
-        ]
-    },
-    "demo": {
-        "title": "Ready to Partner with Our Group?",
-        "subtitle": "Get in touch with our experts to discover how the holding structure of IntuiFy Ventures can accelerate and secure your business.",
-        "cta": "Contact the Holding"
+    "cta_section": {
+        "title": "Got an idea? Let's launch it together",
+        "subtitle": "Tell us about your project and we'll show you how we can make it real in under a week.",
+        "cta": "Book a free call"
     },
     "contact": {
-        "title": "Connect with Our Group",
-        "subtitle": "Select your portfolio company or area of interest to be routed to the appropriate department, or contact the holding directly for strategic partnerships.",
-        "reasons_title": "Why IntuiFy Ventures?",
+        "title": "Let's talk about your project",
+        "subtitle": "Fill the form and we'll get back to you within 24 hours with a tailored proposal and real timeline.",
+        "reasons_title": "What you get with IntuiFy",
         "reasons": [
-            "A single, robust parent group for tech, marketing, and logistics",
-            "Highest contractual security and backing guaranteed by the holding",
-            "Specialized vertical companies with state-of-the-art technologies",
-            "Integrated strategic consulting and corporate governance included"
+            "Detailed proposal within 24 hours",
+            "Real timeline with clear milestones",
+            "Transparent quote with no surprises",
+            "First visible prototype in 48 hours"
         ],
         "form": {
             "name": "Full name",
-            "name_placeholder": "John Doe",
-            "company": "Company / Organization",
-            "company_placeholder": "Acme Corp",
-            "email": "Work email",
-            "email_placeholder": "john@company.com",
-            "message": "Group Company Request / Project Details",
-            "message_placeholder": "Describe your needs, specifying the target subsidiary or area of interest (e.g. Software, Data, Marketing, 3D Printing, Real Estate, or Travel)...",
-            "submit": "Submit Inquiry",
-            "sending": "Initiating connection...",
-            "success": "Inquiry received! Our specialists will contact you shortly.",
-            "error": "Submission error. Please try again."
+            "name_placeholder": "John Smith",
+            "company": "Company / Startup",
+            "company_placeholder": "My startup",
+            "email": "Email",
+            "email_placeholder": "john@startup.com",
+            "message": "Describe your project",
+            "message_placeholder": "I need an app for... (describe your idea, industry, main features, target audience)",
+            "submit": "Send Request",
+            "sending": "Sending...",
+            "success": "Request received! We'll contact you within 24 hours with a tailored proposal.",
+            "error": "Error sending. Please try again."
         }
     },
     "footer": {
-        "tagline": "IntuiFy Ventures S.L. is the parent holding company coordinating a portfolio of specialized subsidiaries operating in software, data processing, advertising, 3D printing, real estate, and global travel.",
-        "nav_title": "Holding",
-        "services_title": "Group Companies",
-        "contact_title": "Connection",
+        "tagline": "IntuiFy designs and launches applications for Apple Store and Google Play in record time. From concept to publication, we're your tech partner.",
+        "nav_title": "Navigation",
+        "services_title": "Services",
+        "contact_title": "Contact",
         "copyright": "© {year} IntuiFy. All rights reserved."
     }
 }
