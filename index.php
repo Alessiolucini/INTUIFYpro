@@ -378,6 +378,9 @@ $projectLogos = [
             outline: none;
         }
         .form-input::placeholder { color: #4a4a5a; }
+
+        /* Hide reCAPTCHA floating badge */
+        .grecaptcha-badge { visibility: hidden !important; }
     </style>
 </head>
 
