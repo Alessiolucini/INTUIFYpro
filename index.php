@@ -560,28 +560,47 @@ $projectLogos = [
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <?php foreach ($t['services']['items'] as $i => $srv): ?>
-                        <article class="reveal-element glow-card rounded-3xl p-7 md:p-8 flex flex-col gap-5 <?= $i >= 3 ? 'md:col-span-1' : '' ?>">
+                <?php
+                    // Accent colors per service card
+                    $cardAccents = [
+                        ['bg' => 'bg-indigo-500/10', 'border' => 'border-indigo-500/20', 'text' => 'text-indigo-400', 'dot' => 'bg-indigo-500', 'glow' => 'rgba(99,102,241,0.15)'],
+                        ['bg' => 'bg-cyan-500/10', 'border' => 'border-cyan-500/20', 'text' => 'text-cyan-400', 'dot' => 'bg-cyan-500', 'glow' => 'rgba(6,182,212,0.15)'],
+                        ['bg' => 'bg-fuchsia-500/10', 'border' => 'border-fuchsia-500/20', 'text' => 'text-fuchsia-400', 'dot' => 'bg-fuchsia-500', 'glow' => 'rgba(217,70,239,0.15)'],
+                        ['bg' => 'bg-amber-500/10', 'border' => 'border-amber-500/20', 'text' => 'text-amber-400', 'dot' => 'bg-amber-500', 'glow' => 'rgba(245,158,11,0.15)'],
+                        ['bg' => 'bg-emerald-500/10', 'border' => 'border-emerald-500/20', 'text' => 'text-emerald-400', 'dot' => 'bg-emerald-500', 'glow' => 'rgba(16,185,129,0.15)']
+                    ];
+                    // Grid span: first 3 = 4 cols, last 2 = 6 cols
+                    $colSpans = ['md:col-span-4', 'md:col-span-4', 'md:col-span-4', 'md:col-span-6', 'md:col-span-6'];
+                ?>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                    <?php foreach ($t['services']['items'] as $i => $srv): 
+                        $accent = $cardAccents[$i] ?? $cardAccents[0];
+                        $span = $colSpans[$i] ?? 'md:col-span-4';
+                    ?>
+                        <article class="reveal-element <?= $span ?> group glow-card rounded-3xl p-7 md:p-8 flex flex-col gap-5 relative overflow-hidden" style="transition-delay: <?= $i * 0.08 ?>s">
+                            <!-- Top gradient line on hover -->
+                            <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(90deg, transparent, <?= str_replace('/10', '', str_replace('bg-', '', $accent['glow'])) ?>, transparent)"></div>
+                            
                             <!-- Icon -->
-                            <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl">
+                            <div class="inline-flex items-center justify-center w-12 h-12 <?= $accent['bg'] ?> <?= $accent['border'] ?> border <?= $accent['text'] ?> rounded-2xl transition-transform duration-500 group-hover:scale-110">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <?= $serviceIcons[$i] ?? $serviceIcons[0] ?>
                                 </svg>
                             </div>
                             <!-- Content -->
                             <div>
-                                <span class="text-[10px] uppercase font-extrabold tracking-widest text-indigo-400 mb-1 block">
+                                <span class="text-[10px] uppercase font-extrabold tracking-widest <?= $accent['text'] ?> mb-1 block">
                                     <?= htmlspecialchars($srv['description']) ?>
                                 </span>
                                 <h3 class="font-display text-xl font-bold text-white">
                                     <?= htmlspecialchars($srv['title']) ?>
                                 </h3>
                             </div>
-                            <ul class="flex flex-col gap-2">
+                            <ul class="flex flex-col gap-2.5">
                                 <?php foreach ($srv['features'] as $feat): ?>
-                                    <li class="flex items-start gap-3 text-sm text-slate-500">
-                                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
+                                    <li class="flex items-start gap-3 text-sm text-slate-500 group-hover:text-slate-400 transition-colors">
+                                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full <?= $accent['dot'] ?> flex-shrink-0"></span>
                                         <span><?= htmlspecialchars($feat) ?></span>
                                     </li>
                                 <?php endforeach; ?>
