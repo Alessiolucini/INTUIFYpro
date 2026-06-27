@@ -227,6 +227,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
             error_log("Lead save to Supabase failed: " . $e->getMessage());
         }
         
+        // AI Auto-Reply: generate and send a personalized welcome email to the lead
+        try {
+            require_once __DIR__ . '/admin/includes/openai.php';
+            $ai = getOpenAI();
+            
+            $systemPrompt = <<<PROMPT
+Sei il segretario virtuale di IntuiFy, uno studio tecnologico specializzato in sviluppo software e innovazione digitale.
+
+I nostri prodotti/servizi:
+- **Auterio**: Piattaforma AI-powered per il settore automotive (gestione concessionarie, preventivi, CRM)
+- **LingoBite**: App di apprendimento linguistico con AI (micro-lezioni, gamification, podcast AI)
+- **Orqesia**: Piattaforma di gestione orchestrale ed eventi musicali
+- **Eco Andratx**: Progetto di sostenibilità ambientale digitale
+- **Sviluppo Custom**: App iOS/Android, SaaS, AAAS, siti web, e-commerce, integrazioni AI
+
+Scrivi una email di risposta personalizzata, professionale ma calorosa, in italiano. La mail deve:
+1. Ringraziare per il contatto
+2. Dimostrare di aver capito la loro richiesta specifica
+3. Suggerire il servizio/prodotto IntuiFy più adatto
+4. Proporre una call conoscitiva
+5. Firmare come "Il Team IntuiFy"
+
+NON usare markdown. Scrivi in HTML semplice con stile inline per email (font: Arial, colori neutri).
+La mail deve essere concisa (max 200 parole) e professionale.
+PROMPT;
+
+            $userMsg = "Nome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}";
+            
+            $aiReply = $ai->chat($systemPrompt, $userMsg, 0.7);
+            
+            if ($aiReply) {
+                // Send AI-generated reply to the lead
+                $replyMail = new PHPMailer\PHPMailer\PHPMailer(true);
+                $replyMail->isSMTP();
+                $replyMail->Host = $config['smtp_host'];
+                $replyMail->SMTPAuth = true;
+                $replyMail->Username = $config['smtp_username'];
+                $replyMail->Password = $config['smtp_password'];
+                $replyMail->SMTPSecure = $config['smtp_encryption'];
+                $replyMail->Port = $config['smtp_port'];
+                $replyMail->CharSet = 'UTF-8';
+                
+                $replyMail->setFrom($config['mail_from'], 'IntuiFy');
+                $replyMail->addAddress($email, $nombre);
+                $replyMail->addBCC($config['mail_to']); // BCC to ourselves
+                
+                $replyMail->isHTML(true);
+                $replyMail->Subject = "Grazie per averci contattato, {$nombre}! — IntuiFy";
+                $replyMail->Body = "
+                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                        <div style='background: linear-gradient(135deg, #6366F1, #8B5CF6); padding: 24px 32px; border-radius: 12px 12px 0 0;'>
+                            <h2 style='color: #ffffff; margin: 0; font-size: 20px;'>IntuiFy — Il tuo progetto digitale inizia qui</h2>
+                        </div>
+                        <div style='background: #ffffff; padding: 32px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;'>
+                            {$aiReply}
+                        </div>
+                    </div>";
+                $replyMail->AltBody = strip_tags($aiReply);
+                
+                $replyMail->send();
+            }
+        } catch (\Throwable $e) {
+            // Don't fail if AI reply fails
+            error_log("AI auto-reply failed: " . $e->getMessage());
+        }
+        
         echo json_encode(['success' => true]);
     } catch (\PHPMailer\PHPMailer\Exception $e) {
         error_log("PHPMailer Error: " . $e->getMessage());

@@ -13,6 +13,7 @@ require_once __DIR__ . '/includes/supabase.php';
 $pageTitle = 'Leads';
 $breadcrumb = 'Gestione leads';
 $sb = getSupabase();
+require_once __DIR__ . '/includes/openai.php';
 
 $action = $_GET['action'] ?? 'list';
 $id = $_GET['id'] ?? '';
@@ -57,6 +58,75 @@ if ($action === 'convert' && $id) {
             ]);
             $message = 'Lead convertito in cliente!';
             $messageType = 'success';
+        }
+    }
+    $action = 'list';
+}
+
+// AI GENERATE REPLY
+if ($action === 'ai-reply' && $id) {
+    $lead = $sb->find('leads', $id);
+    if ($lead && $lead['email']) {
+        $ai = getOpenAI();
+        $config = require dirname(__DIR__) . '/config.php';
+        
+        $systemPrompt = <<<PROMPT
+Sei il segretario virtuale di IntuiFy, uno studio tecnologico specializzato in sviluppo software.
+
+I nostri prodotti/servizi:
+- **Auterio**: Piattaforma AI-powered per il settore automotive
+- **LingoBite**: App di apprendimento linguistico con AI
+- **Orqesia**: Piattaforma gestione orchestrale ed eventi
+- **Eco Andratx**: Progetto sostenibilità ambientale digitale
+- **Sviluppo Custom**: App iOS/Android, SaaS, AAAS, siti web, integrazioni AI
+
+Scrivi una email di risposta professionale ma calorosa in italiano.
+Ringrazia, capisci la richiesta, suggerisci il servizio adatto, proponi una call.
+Firma come "Il Team IntuiFy".
+Scrivi in HTML con stile inline (font: Arial). Max 200 parole.
+PROMPT;
+
+        $userMsg = "Nome: {$lead['name']}\nAzienda: {$lead['company']}\nEmail: {$lead['email']}\nMessaggio: {$lead['message']}";
+        $aiReply = $ai->chat($systemPrompt, $userMsg, 0.7);
+        
+        if ($aiReply) {
+            try {
+                require_once dirname(__DIR__) . '/vendor/autoload.php';
+                $replyMail = new PHPMailer\PHPMailer\PHPMailer(true);
+                $replyMail->isSMTP();
+                $replyMail->Host = $config['smtp_host'];
+                $replyMail->SMTPAuth = true;
+                $replyMail->Username = $config['smtp_username'];
+                $replyMail->Password = $config['smtp_password'];
+                $replyMail->SMTPSecure = $config['smtp_encryption'];
+                $replyMail->Port = $config['smtp_port'];
+                $replyMail->CharSet = 'UTF-8';
+                
+                $replyMail->setFrom($config['mail_from'], 'IntuiFy');
+                $replyMail->addAddress($lead['email'], $lead['name']);
+                $replyMail->addBCC($config['mail_to']);
+                
+                $replyMail->isHTML(true);
+                $replyMail->Subject = "Grazie per averci contattato, {$lead['name']}! — IntuiFy";
+                $replyMail->Body = "<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto'>
+                    <div style='background:linear-gradient(135deg,#6366F1,#8B5CF6);padding:24px 32px;border-radius:12px 12px 0 0'>
+                        <h2 style='color:#fff;margin:0;font-size:20px'>IntuiFy — Il tuo progetto digitale inizia qui</h2>
+                    </div>
+                    <div style='background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px'>{$aiReply}</div>
+                </div>";
+                $replyMail->AltBody = strip_tags($aiReply);
+                $replyMail->send();
+                
+                $sb->update('leads', $id, ['status' => 'contacted']);
+                $message = '✅ Email AI inviata a ' . htmlspecialchars($lead['email']);
+                $messageType = 'success';
+            } catch (\Throwable $e) {
+                $message = '❌ Errore invio email: ' . htmlspecialchars($e->getMessage());
+                $messageType = 'error';
+            }
+        } else {
+            $message = '❌ Errore generazione AI. Controlla la chiave OpenAI.';
+            $messageType = 'error';
         }
     }
     $action = 'list';
@@ -204,6 +274,9 @@ $sourceLabels = [
                                             <td>
                                                 <div class="flex items-center gap-1 flex-wrap">
                                                     <a href="?action=edit&id=<?= $l['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
+                                                    <?php if ($l['email'] && $l['status'] === 'new'): ?>
+                                                        <a href="?action=ai-reply&id=<?= $l['id'] ?>" class="btn btn-sm" style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.2)" onclick="return confirm('Inviare email AI personalizzata a <?= htmlspecialchars($l['name']) ?>?')">🤖 Rispondi</a>
+                                                    <?php endif; ?>
                                                     <?php if ($l['status'] !== 'converted'): ?>
                                                         <a href="?action=convert&id=<?= $l['id'] ?>" class="btn btn-sm" style="background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.2)" onclick="return confirm('Convertire questo lead in cliente?')">→ Cliente</a>
                                                     <?php endif; ?>
