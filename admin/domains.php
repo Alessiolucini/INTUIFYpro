@@ -119,23 +119,23 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
             <?php if ($action === 'list'): ?>
                 <!-- Summary -->
                 <div class="flex flex-wrap items-center gap-4 mb-6">
-                    <div class="kpi-card inline-flex items-center gap-4">
+                    <div class="kpi-card inline-flex items-center gap-4 kpi-filter" data-year-filter="all" style="cursor:pointer" title="Mostra tutti">
                         <span class="text-sm text-slate-400">Domini totali:</span>
                         <span class="text-xl font-bold text-white"><?= count($domains) ?></span>
                     </div>
-                    <div class="kpi-card inline-flex items-center gap-4">
+                    <div class="kpi-card inline-flex items-center gap-4 kpi-filter" data-year-filter="<?= $currentYear ?>" style="cursor:pointer" title="Filtra domini <?= $currentYear ?>">
                         <span class="text-sm text-slate-400">Costo <?= $currentYear ?>:</span>
                         <span class="text-xl font-bold text-emerald-400 font-mono">€<?= number_format($currentYearCost, 2, ',', '.') ?></span>
                     </div>
                     <?php foreach ($costsByYear as $year => $cost): ?>
                         <?php if ($year !== $currentYear && $year > 0): ?>
-                        <div class="kpi-card inline-flex items-center gap-4">
+                        <div class="kpi-card inline-flex items-center gap-4 kpi-filter" data-year-filter="<?= $year ?>" style="cursor:pointer" title="Filtra domini <?= $year ?>">
                             <span class="text-sm text-slate-400">Costo <?= $year ?>:</span>
                             <span class="text-xl font-bold text-amber-400 font-mono">€<?= number_format($cost, 2, ',', '.') ?></span>
                         </div>
                         <?php endif; ?>
                     <?php endforeach; ?>
-                    <div class="kpi-card inline-flex items-center gap-4">
+                    <div class="kpi-card inline-flex items-center gap-4 kpi-filter" data-year-filter="all" style="cursor:pointer" title="Mostra tutti">
                         <span class="text-sm text-slate-400">Totale tutti:</span>
                         <span class="text-xl font-bold text-slate-300 font-mono">€<?= number_format($totalAnnualCost, 2, ',', '.') ?></span>
                     </div>
@@ -182,7 +182,7 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
                                         $isUrgent = $daysLeft !== null && $daysLeft >= 0 && $daysLeft < 30;
                                         $isWarning = $daysLeft !== null && $daysLeft >= 30 && $daysLeft < 60;
                                         ?>
-                                        <tr>
+                                        <tr data-year="<?= $exp ? date('Y', $exp) : '' ?>">
                                             <td>
                                                 <span class="font-semibold"><?= htmlspecialchars($d['domain_name']) ?></span>
                                             </td>
@@ -283,6 +283,9 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
 .sortable.asc .sort-arrow::after{content:'↑';opacity:1}
 .sortable.desc .sort-arrow::after{content:'↓';opacity:1}
 .sortable.asc .sort-arrow, .sortable.desc .sort-arrow{font-size:0}
+.kpi-filter{transition:all .2s;border:2px solid transparent}
+.kpi-filter:hover{border-color:rgba(96,165,250,.4);transform:translateY(-1px)}
+.kpi-filter.active{border-color:#60a5fa;box-shadow:0 0 12px rgba(96,165,250,.25)}
 </style>
 <script>
 // Search
@@ -328,6 +331,39 @@ document.querySelectorAll('#domainsTable th.sortable').forEach(th => {
         });
 
         rows.forEach(r => tbody.appendChild(r));
+    });
+});
+// Year filter via KPI cards
+let activeFilter = 'all';
+document.querySelectorAll('.kpi-filter').forEach(card => {
+    card.addEventListener('click', function() {
+        const year = this.dataset.yearFilter;
+        
+        // Toggle: click same card again → reset
+        if (activeFilter === year && year !== 'all') {
+            activeFilter = 'all';
+        } else {
+            activeFilter = year;
+        }
+        
+        // Update active style
+        document.querySelectorAll('.kpi-filter').forEach(c => c.classList.remove('active'));
+        if (activeFilter !== 'all') {
+            this.classList.add('active');
+        }
+        
+        // Filter rows
+        document.querySelectorAll('#domainsTable tbody tr').forEach(row => {
+            if (activeFilter === 'all') {
+                row.style.display = '';
+            } else {
+                row.style.display = (row.dataset.year === activeFilter) ? '' : 'none';
+            }
+        });
+        
+        // Clear search when filtering by year
+        const search = document.getElementById('domainSearch');
+        if (search) search.value = '';
     });
 });
 </script>
