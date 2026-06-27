@@ -144,26 +144,32 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Domini Registrati</h3>
-                        <a href="?action=new" class="btn btn-primary btn-sm">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-                            Nuovo Dominio
-                        </a>
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                                <input type="text" id="domainSearch" placeholder="Cerca dominio..." class="form-input pl-9 !py-1.5 !text-sm" style="min-width:220px">
+                            </div>
+                            <a href="?action=new" class="btn btn-primary btn-sm">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                                Nuovo Dominio
+                            </a>
+                        </div>
                     </div>
 
                     <?php if (empty($domains)): ?>
                         <div class="empty-state"><p>Nessun dominio registrato.</p></div>
                     <?php else: ?>
                         <div class="overflow-x-auto">
-                            <table class="admin-table">
+                            <table class="admin-table" id="domainsTable">
                                 <thead>
                                     <tr>
-                                        <th>Dominio</th>
-                                        <th>Registrar</th>
-                                        <th>Prodotto</th>
-                                        <th>Acquisto</th>
-                                        <th>Scadenza</th>
+                                        <th class="sortable" data-col="0" data-type="text">Dominio <span class="sort-arrow">⇅</span></th>
+                                        <th class="sortable" data-col="1" data-type="text">Registrar <span class="sort-arrow">⇅</span></th>
+                                        <th class="sortable" data-col="2" data-type="text">Prodotto <span class="sort-arrow">⇅</span></th>
+                                        <th class="sortable" data-col="3" data-type="date">Acquisto <span class="sort-arrow">⇅</span></th>
+                                        <th class="sortable" data-col="4" data-type="date">Scadenza <span class="sort-arrow">⇅</span></th>
                                         <th>Rinnovo</th>
-                                        <th>Costo/anno</th>
+                                        <th class="sortable" data-col="6" data-type="num">Costo/anno <span class="sort-arrow">⇅</span></th>
                                         <th>Azioni</th>
                                     </tr>
                                 </thead>
@@ -270,5 +276,60 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
             <?php endif; ?>
         </main>
     </div>
+<style>
+.sortable{cursor:pointer;user-select:none;position:relative}
+.sortable:hover{color:#60a5fa}
+.sort-arrow{font-size:10px;opacity:.4;margin-left:2px}
+.sortable.asc .sort-arrow::after{content:'↑';opacity:1}
+.sortable.desc .sort-arrow::after{content:'↓';opacity:1}
+.sortable.asc .sort-arrow, .sortable.desc .sort-arrow{font-size:0}
+</style>
+<script>
+// Search
+document.getElementById('domainSearch')?.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#domainsTable tbody tr').forEach(row => {
+        row.style.display = (!q || row.textContent.toLowerCase().includes(q)) ? '' : 'none';
+    });
+});
+
+// Sort
+let currentSort = {col: -1, asc: true};
+document.querySelectorAll('#domainsTable th.sortable').forEach(th => {
+    th.addEventListener('click', function() {
+        const col = parseInt(this.dataset.col);
+        const type = this.dataset.type;
+        const asc = (currentSort.col === col) ? !currentSort.asc : true;
+        currentSort = {col, asc};
+
+        // Update arrows
+        document.querySelectorAll('#domainsTable th.sortable').forEach(h => h.classList.remove('asc','desc'));
+        this.classList.add(asc ? 'asc' : 'desc');
+
+        const tbody = document.querySelector('#domainsTable tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort((a, b) => {
+            let va = a.cells[col]?.textContent.trim() || '';
+            let vb = b.cells[col]?.textContent.trim() || '';
+
+            if (type === 'date') {
+                // dd/mm/yyyy → sortable
+                const pa = va.split('/').reverse().join('') || '0';
+                const pb = vb.split('/').reverse().join('') || '0';
+                return asc ? pa.localeCompare(pb) : pb.localeCompare(pa);
+            } else if (type === 'num') {
+                const na = parseFloat(va.replace(/[^\d.,-]/g,'').replace(',','.')) || 0;
+                const nb = parseFloat(vb.replace(/[^\d.,-]/g,'').replace(',','.')) || 0;
+                return asc ? na - nb : nb - na;
+            } else {
+                return asc ? va.localeCompare(vb,'it') : vb.localeCompare(va,'it');
+            }
+        });
+
+        rows.forEach(r => tbody.appendChild(r));
+    });
+});
+</script>
 </body>
 </html>
