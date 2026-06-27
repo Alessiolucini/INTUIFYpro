@@ -1,0 +1,16 @@
+# IntuiFy - Robots.txt
+# https://intuify.net
+
+User-agent: *
+Allow: /
+
+# Disallow admin and internal files
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /i18n/
+Disallow: /vendor/
+Disallow: /config.php
+Disallow: /test_*.php
+
+# Sitemap location
+Sitemap: https://intuify.net/sitemap.xml
