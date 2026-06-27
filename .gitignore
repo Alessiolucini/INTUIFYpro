@@ -20,3 +20,12 @@ sess_*
 
 # Agents
 .agents/
+
+# Credentials — NEVER commit
+config.php
+
+# Composer dependencies
+vendor/
+
+# Rate limit temp files
+tmp/

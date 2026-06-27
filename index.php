@@ -211,6 +211,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         $mail->AltBody = "Nuovo contatto IntuiFy\n\nNome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}\nData: " . date('d/m/Y H:i:s');
 
         $mail->send();
+        
+        // Save lead to Supabase for admin panel tracking
+        try {
+            require_once __DIR__ . '/admin/includes/supabase.php';
+            $sb = getSupabase();
+            $sb->insert('leads', [
+                'name' => $nombre,
+                'email' => $email,
+                'company' => $empresa,
+                'message' => $mensaje,
+                'source' => 'landing_form',
+                'status' => 'new',
+            ]);
+        } catch (\Throwable $e) {
+            // Don't fail the form submission if Supabase is unavailable
+            error_log("Lead save to Supabase failed: " . $e->getMessage());
+        }
+        
         echo json_encode(['success' => true]);
     } catch (\PHPMailer\PHPMailer\Exception $e) {
         error_log("PHPMailer Error: " . $e->getMessage());

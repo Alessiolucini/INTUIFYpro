@@ -1,0 +1,10 @@
+{
+    "name": "intuify/admin",
+    "description": "IntuiFy Admin Panel dependencies",
+    "require": {
+        "dompdf/dompdf": "^3.0"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
