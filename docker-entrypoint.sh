@@ -1,7 +1,14 @@
 #!/bin/bash
 # Generate config.php from environment variables if it doesn't exist
-if [ ! -f /var/www/html/config.php ]; then
-    cat > /var/www/html/config.php << 'PHPCONFIG'
+
+# Detect app directory (Dokploy may use /app instead of /var/www/html)
+APP_DIR="/var/www/html"
+if [ -f /app/admin/index.php ] && [ ! -f /app/config.php ]; then
+    APP_DIR="/app"
+fi
+
+if [ ! -f "${APP_DIR}/config.php" ]; then
+    cat > "${APP_DIR}/config.php" << 'PHPCONFIG'
 <?php
 return [
     'smtp_host' => 'smtp.hostinger.com',
@@ -41,8 +48,20 @@ return [
     'openai_vision_model' => 'gpt-4o',
 ];
 PHPCONFIG
-    chown www-data:www-data /var/www/html/config.php
-    echo "✅ config.php generated from environment"
+    chown www-data:www-data "${APP_DIR}/config.php" 2>/dev/null || true
+    echo "✅ config.php generated in ${APP_DIR}"
+fi
+
+# Also symlink if both dirs exist
+if [ -d /app ] && [ -d /var/www/html ] && [ "/app" != "/var/www/html" ]; then
+    if [ -f /var/www/html/config.php ] && [ ! -f /app/config.php ]; then
+        cp /var/www/html/config.php /app/config.php
+        echo "✅ config.php copied to /app"
+    fi
+    if [ -f /app/config.php ] && [ ! -f /var/www/html/config.php ]; then
+        cp /app/config.php /var/www/html/config.php
+        echo "✅ config.php copied to /var/www/html"
+    fi
 fi
 
 # Start Apache
