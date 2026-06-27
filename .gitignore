@@ -21,8 +21,8 @@ sess_*
 # Agents
 .agents/
 
-# Credentials — NEVER commit
-config.php
+# Credentials — config.example.php for reference
+# config.php uses env vars, safe to commit
 
 # Composer dependencies
 vendor/
