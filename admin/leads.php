@@ -71,28 +71,44 @@ if ($action === 'ai-reply' && $id) {
         $config = require dirname(__DIR__) . '/config.php';
         
         $systemPrompt = <<<PROMPT
-Sei il segretario virtuale di IntuiFy, uno studio tecnologico specializzato in sviluppo software.
+Sei il segretario virtuale di IntuiFy, uno studio tecnologico specializzato in sviluppo software e innovazione digitale.
 
 I nostri prodotti/servizi:
-- **Auterio**: Piattaforma AI-powered per il settore automotive
-- **LingoBite**: App di apprendimento linguistico con AI
-- **Orqesia**: Piattaforma gestione orchestrale ed eventi
-- **Eco Andratx**: Progetto sostenibilità ambientale digitale
-- **Sviluppo Custom**: App iOS/Android, SaaS, AAAS, siti web, integrazioni AI
+- Auterio: Piattaforma AI-powered per il settore automotive (gestione concessionarie, preventivi, CRM)
+- LingoBite: App di apprendimento linguistico con AI (micro-lezioni, gamification, podcast AI)
+- Orqesia: Piattaforma gestione orchestrale ed eventi musicali
+- Eco Andratx: Progetto sostenibilità ambientale digitale
+- Sviluppo Custom: App iOS/Android, SaaS, AAAS, siti web, e-commerce, integrazioni AI
 
-Scrivi una email di risposta professionale ma calorosa in italiano.
-Ringrazia, capisci la richiesta, suggerisci il servizio adatto, proponi una call.
-Firma come "Il Team IntuiFy".
-Scrivi in HTML con stile inline (font: Arial). Max 200 parole.
+Scrivi SOLO il corpo della email (senza oggetto, senza intestazione, senza firma).
+La mail deve:
+1. Ringraziare per il contatto usando il nome del cliente
+2. Dimostrare di aver capito la loro richiesta specifica
+3. Suggerire il servizio/prodotto IntuiFy più adatto
+4. Proporre una call conoscitiva
+
+REGOLE IMPORTANTI:
+- Scrivi DIRETTAMENTE in HTML con tag <p> e stile inline (font-family: Arial; color: #334155; line-height: 1.7).
+- NON aggiungere firma, NON scrivere "Il Team IntuiFy" alla fine.
+- NON usare markdown, NON usare ```, NON usare **bold**, NON usare intestazioni.
+- NON avvolgere il codice in blocchi di codice.
+- Rispondi SOLO con i tag HTML, nient'altro prima o dopo.
+- La mail deve essere concisa (max 150 parole) e professionale ma calorosa.
 PROMPT;
 
         $userMsg = "Nome: {$lead['name']}\nAzienda: {$lead['company']}\nEmail: {$lead['email']}\nMessaggio: {$lead['message']}";
         $aiReply = $ai->chat($systemPrompt, $userMsg, 0.7);
         
         if ($aiReply) {
+            // Clean up: strip markdown code fences that GPT sometimes adds
+            $aiReply = trim($aiReply);
+            $aiReply = preg_replace('/^```\s*html?\s*/i', '', $aiReply);
+            $aiReply = preg_replace('/\s*```\s*$/', '', $aiReply);
+            $aiReply = trim($aiReply);
+            
             try {
                 require_once dirname(__DIR__) . '/vendor/autoload.php';
-                $replyMail = new PHPMailer\PHPMailer\PHPMailer(true);
+                $replyMail = new \PHPMailer\PHPMailer\PHPMailer(true);
                 $replyMail->isSMTP();
                 $replyMail->Host = $config['smtp_host'];
                 $replyMail->SMTPAuth = true;
@@ -101,6 +117,7 @@ PROMPT;
                 $replyMail->SMTPSecure = $config['smtp_encryption'];
                 $replyMail->Port = $config['smtp_port'];
                 $replyMail->CharSet = 'UTF-8';
+                $replyMail->Timeout = 15;
                 
                 $replyMail->setFrom($config['mail_from'], 'IntuiFy');
                 $replyMail->addAddress($lead['email'], $lead['name']);
@@ -108,13 +125,26 @@ PROMPT;
                 
                 $replyMail->isHTML(true);
                 $replyMail->Subject = "Grazie per averci contattato, {$lead['name']}! — IntuiFy";
-                $replyMail->Body = "<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto'>
-                    <div style='background:linear-gradient(135deg,#6366F1,#8B5CF6);padding:24px 32px;border-radius:12px 12px 0 0'>
-                        <h2 style='color:#fff;margin:0;font-size:20px'>IntuiFy — Il tuo progetto digitale inizia qui</h2>
-                    </div>
-                    <div style='background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px'>{$aiReply}</div>
-                </div>";
-                $replyMail->AltBody = strip_tags($aiReply);
+                
+                $logoUrl = 'https://intuify.net/assets/logo_email.png';
+                
+                $replyMail->Body = "
+                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;'>
+                        <div style='padding: 32px 32px 24px 32px; text-align: center; border-bottom: 1px solid #e2e8f0;'>
+                            <img src='{$logoUrl}' alt='IntuiFy' width='160' height='auto' style='display: inline-block;'>
+                        </div>
+                        <div style='padding: 32px; color: #334155; font-size: 15px; line-height: 1.7;'>
+                            {$aiReply}
+                        </div>
+                        <div style='padding: 24px 32px; border-top: 1px solid #e2e8f0; text-align: center;'>
+                            <p style='margin: 0 0 4px 0; font-size: 14px; font-weight: bold; color: #334155;'>Il Team IntuiFy</p>
+                            <p style='margin: 0; font-size: 12px; color: #94a3b8;'>
+                                <a href='https://intuify.net' style='color: #6366F1; text-decoration: none;'>intuify.net</a> · 
+                                <a href='mailto:info@intuify.net' style='color: #6366F1; text-decoration: none;'>info@intuify.net</a>
+                            </p>
+                        </div>
+                    </div>";
+                $replyMail->AltBody = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $aiReply)) . "\n\n— Il Team IntuiFy\nintuify.net";
                 $replyMail->send();
                 
                 $sb->update('leads', $id, ['status' => 'contacted']);
