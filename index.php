@@ -153,9 +153,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
     $ipSubmissions[] = $now;
     file_put_contents($rateLimitFile, json_encode($ipSubmissions));
 
-    // Send email via PHPMailer SMTP
+    // ========================================================================
+    // STEP 1: Save lead to Supabase FIRST (always, regardless of email)
+    // ========================================================================
+    $leadSaved = false;
     try {
+        require_once __DIR__ . '/admin/includes/supabase.php';
+        $sb = getSupabase();
+        $result = $sb->insert('leads', [
+            'name' => $nombre,
+            'email' => $email,
+            'company' => $empresa,
+            'message' => $mensaje,
+            'source' => 'landing_form',
+            'status' => 'new',
+        ]);
+        $leadSaved = ($result !== null);
+        if (!$leadSaved) {
+            error_log("CONTACT FORM [LEAD] Insert returned null — check Supabase service key and table RLS policies");
+        } else {
+            error_log("CONTACT FORM [LEAD] Saved successfully: {$nombre} <{$email}>");
+        }
+    } catch (\Throwable $e) {
+        error_log("CONTACT FORM [LEAD] Supabase insert failed: " . $e->getMessage());
+    }
+
+    // ========================================================================
+    // STEP 2: Send notification email to IntuiFy (info@intuify.net)
+    // ========================================================================
+    $emailSent = false;
+    try {
+        // Sanity check: SMTP password must be configured
+        if (empty($config['smtp_password'])) {
+            error_log("CONTACT FORM [EMAIL] SMTP_PASSWORD is EMPTY — set it in Dokploy env vars");
+            throw new \RuntimeException('SMTP password not configured');
+        }
+
         $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        $mail->SMTPDebug = 0; // Set to 2 for verbose debug output in error_log
+        $mail->Debugoutput = 'error_log';
 
         // SMTP Configuration
         $mail->isSMTP();
@@ -166,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         $mail->SMTPSecure = $config['smtp_encryption'];
         $mail->Port       = $config['smtp_port'];
         $mail->CharSet    = 'UTF-8';
+        $mail->Timeout    = 15;
 
         // Sender & Recipient
         $mail->setFrom($config['mail_from'], $config['mail_from_name']);
@@ -209,30 +246,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
         $mail->AltBody = "Nuovo contatto IntuiFy\n\nNome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}\nData: " . date('d/m/Y H:i:s');
 
         $mail->send();
+        $emailSent = true;
+        error_log("CONTACT FORM [EMAIL] Notification sent successfully to {$config['mail_to']}");
+    } catch (\Throwable $e) {
+        error_log("CONTACT FORM [EMAIL] Failed: " . $e->getMessage());
+    }
         
-        // Save lead to Supabase for admin panel tracking
-        try {
-            require_once __DIR__ . '/admin/includes/supabase.php';
-            $sb = getSupabase();
-            $sb->insert('leads', [
-                'name' => $nombre,
-                'email' => $email,
-                'company' => $empresa,
-                'message' => $mensaje,
-                'source' => 'landing_form',
-                'status' => 'new',
-            ]);
-        } catch (\Throwable $e) {
-            // Don't fail the form submission if Supabase is unavailable
-            error_log("Lead save to Supabase failed: " . $e->getMessage());
-        }
+    // ========================================================================
+    // STEP 3: AI Auto-Reply to the lead (non-blocking)
+    // ========================================================================
+    try {
+        require_once __DIR__ . '/admin/includes/openai.php';
+        $ai = getOpenAI();
         
-        // AI Auto-Reply: generate and send a personalized welcome email to the lead
-        try {
-            require_once __DIR__ . '/admin/includes/openai.php';
-            $ai = getOpenAI();
-            
-            $systemPrompt = <<<PROMPT
+        $systemPrompt = <<<PROMPT
 Sei il segretario virtuale di IntuiFy, uno studio tecnologico specializzato in sviluppo software e innovazione digitale.
 
 I nostri prodotti/servizi:
@@ -253,49 +280,56 @@ NON usare markdown. Scrivi in HTML semplice con stile inline per email (font: Ar
 La mail deve essere concisa (max 200 parole) e professionale.
 PROMPT;
 
-            $userMsg = "Nome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}";
-            
-            $aiReply = $ai->chat($systemPrompt, $userMsg, 0.7);
-            
-            if ($aiReply) {
-                // Send AI-generated reply to the lead
-                $replyMail = new PHPMailer\PHPMailer\PHPMailer(true);
-                $replyMail->isSMTP();
-                $replyMail->Host = $config['smtp_host'];
-                $replyMail->SMTPAuth = true;
-                $replyMail->Username = $config['smtp_username'];
-                $replyMail->Password = $config['smtp_password'];
-                $replyMail->SMTPSecure = $config['smtp_encryption'];
-                $replyMail->Port = $config['smtp_port'];
-                $replyMail->CharSet = 'UTF-8';
-                
-                $replyMail->setFrom($config['mail_from'], 'IntuiFy');
-                $replyMail->addAddress($email, $nombre);
-                $replyMail->addBCC($config['mail_to']); // BCC to ourselves
-                
-                $replyMail->isHTML(true);
-                $replyMail->Subject = "Grazie per averci contattato, {$nombre}! — IntuiFy";
-                $replyMail->Body = "
-                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
-                        <div style='background: linear-gradient(135deg, #6366F1, #8B5CF6); padding: 24px 32px; border-radius: 12px 12px 0 0;'>
-                            <h2 style='color: #ffffff; margin: 0; font-size: 20px;'>IntuiFy — Il tuo progetto digitale inizia qui</h2>
-                        </div>
-                        <div style='background: #ffffff; padding: 32px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;'>
-                            {$aiReply}
-                        </div>
-                    </div>";
-                $replyMail->AltBody = strip_tags($aiReply);
-                
-                $replyMail->send();
-            }
-        } catch (\Throwable $e) {
-            // Don't fail if AI reply fails
-            error_log("AI auto-reply failed: " . $e->getMessage());
-        }
+        $userMsg = "Nome: {$nombre}\nAzienda: {$empresa}\nEmail: {$email}\nMessaggio: {$mensaje}";
         
+        $aiReply = $ai->chat($systemPrompt, $userMsg, 0.7);
+        
+        if ($aiReply) {
+            // Send AI-generated reply to the lead
+            $replyMail = new \PHPMailer\PHPMailer\PHPMailer(true);
+            $replyMail->isSMTP();
+            $replyMail->Host = $config['smtp_host'];
+            $replyMail->SMTPAuth = true;
+            $replyMail->Username = $config['smtp_username'];
+            $replyMail->Password = $config['smtp_password'];
+            $replyMail->SMTPSecure = $config['smtp_encryption'];
+            $replyMail->Port = $config['smtp_port'];
+            $replyMail->CharSet = 'UTF-8';
+            $replyMail->Timeout = 15;
+            
+            $replyMail->setFrom($config['mail_from'], 'IntuiFy');
+            $replyMail->addAddress($email, $nombre);
+            $replyMail->addBCC($config['mail_to']); // BCC to ourselves
+            
+            $replyMail->isHTML(true);
+            $replyMail->Subject = "Grazie per averci contattato, {$nombre}! — IntuiFy";
+            $replyMail->Body = "
+                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                    <div style='background: linear-gradient(135deg, #6366F1, #8B5CF6); padding: 24px 32px; border-radius: 12px 12px 0 0;'>
+                        <h2 style='color: #ffffff; margin: 0; font-size: 20px;'>IntuiFy — Il tuo progetto digitale inizia qui</h2>
+                    </div>
+                    <div style='background: #ffffff; padding: 32px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;'>
+                        {$aiReply}
+                    </div>
+                </div>";
+            $replyMail->AltBody = strip_tags($aiReply);
+            
+            $replyMail->send();
+            error_log("CONTACT FORM [AI-REPLY] Auto-reply sent to {$email}");
+        } else {
+            error_log("CONTACT FORM [AI-REPLY] OpenAI returned empty response");
+        }
+    } catch (\Throwable $e) {
+        error_log("CONTACT FORM [AI-REPLY] Failed: " . $e->getMessage());
+    }
+    
+    // ========================================================================
+    // STEP 4: Return response (success if at least the lead was saved)
+    // ========================================================================
+    if ($emailSent || $leadSaved) {
         echo json_encode(['success' => true]);
-    } catch (\PHPMailer\PHPMailer\Exception $e) {
-        error_log("PHPMailer Error: " . $e->getMessage());
+    } else {
+        error_log("CONTACT FORM [RESULT] TOTAL FAILURE — neither lead saved nor email sent for: {$nombre} <{$email}>");
         echo json_encode(['success' => false, 'error' => 'Server error. Please try again.']);
     }
     exit;
