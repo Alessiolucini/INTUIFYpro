@@ -75,6 +75,23 @@ if ($action === 'list') {
 }
 
 $totalAnnualCost = array_sum(array_column($domains, 'annual_cost'));
+
+// Group costs by expiry year
+$costsByYear = [];
+$currentYear = (int) date('Y');
+foreach ($domains as $d) {
+    if (!empty($d['expiry_date'])) {
+        $year = (int) date('Y', strtotime($d['expiry_date']));
+    } else {
+        $year = 0; // unknown
+    }
+    if (!isset($costsByYear[$year])) {
+        $costsByYear[$year] = 0;
+    }
+    $costsByYear[$year] += (float) ($d['annual_cost'] ?? 0);
+}
+ksort($costsByYear);
+$currentYearCost = $costsByYear[$currentYear] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -101,14 +118,26 @@ $totalAnnualCost = array_sum(array_column($domains, 'annual_cost'));
 
             <?php if ($action === 'list'): ?>
                 <!-- Summary -->
-                <div class="flex items-center gap-6 mb-6">
+                <div class="flex flex-wrap items-center gap-4 mb-6">
                     <div class="kpi-card inline-flex items-center gap-4">
                         <span class="text-sm text-slate-400">Domini totali:</span>
                         <span class="text-xl font-bold text-white"><?= count($domains) ?></span>
                     </div>
                     <div class="kpi-card inline-flex items-center gap-4">
-                        <span class="text-sm text-slate-400">Costo annuale:</span>
-                        <span class="text-xl font-bold text-amber-400 font-mono">€<?= number_format($totalAnnualCost, 2, ',', '.') ?></span>
+                        <span class="text-sm text-slate-400">Costo <?= $currentYear ?>:</span>
+                        <span class="text-xl font-bold text-emerald-400 font-mono">€<?= number_format($currentYearCost, 2, ',', '.') ?></span>
+                    </div>
+                    <?php foreach ($costsByYear as $year => $cost): ?>
+                        <?php if ($year !== $currentYear && $year > 0): ?>
+                        <div class="kpi-card inline-flex items-center gap-4">
+                            <span class="text-sm text-slate-400">Costo <?= $year ?>:</span>
+                            <span class="text-xl font-bold text-amber-400 font-mono">€<?= number_format($cost, 2, ',', '.') ?></span>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <div class="kpi-card inline-flex items-center gap-4">
+                        <span class="text-sm text-slate-400">Totale tutti:</span>
+                        <span class="text-xl font-bold text-slate-300 font-mono">€<?= number_format($totalAnnualCost, 2, ',', '.') ?></span>
                     </div>
                 </div>
 
