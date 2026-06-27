@@ -14,10 +14,8 @@ session_start();
 // Load configuration
 $config = require __DIR__ . '/config.php';
 
-// PHPMailer (for contact form SMTP)
-require_once __DIR__ . '/vendor/phpmailer/Exception.php';
-require_once __DIR__ . '/vendor/phpmailer/PHPMailer.php';
-require_once __DIR__ . '/vendor/phpmailer/SMTP.php';
+// Composer autoloader (PHPMailer, DomPDF, etc.)
+require_once __DIR__ . '/vendor/autoload.php';
 
 // Rate limiting for form (session + IP based)
 if (!isset($_SESSION['form_submissions'])) {
