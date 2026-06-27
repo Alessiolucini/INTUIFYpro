@@ -39,5 +39,11 @@ RUN cd /var/www/html && composer install --no-dev --optimize-autoloader --no-int
 # Set proper ownership
 RUN chown -R www-data:www-data /var/www/html
 
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Expose port 80
 EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint.sh"]
