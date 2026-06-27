@@ -59,7 +59,12 @@ class SupabaseClient
         }
 
         $response = $this->request('GET', $url);
-        return $response['data'] ?? [];
+        $data = $response['data'] ?? [];
+        // Ensure we always return an array of rows (not an error object)
+        if (!is_array($data) || (isset($data['message']) || isset($data['error']))) {
+            return [];
+        }
+        return $data;
     }
 
     /**
