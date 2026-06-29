@@ -7,15 +7,16 @@
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 
 $navItems = [
-    ['page' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'chart'],
-    ['page' => 'leads',     'label' => 'Leads',     'icon' => 'users-incoming'],
-    ['page' => 'clients',   'label' => 'Clienti',   'icon' => 'building'],
-    ['page' => 'contracts', 'label' => 'Contratti',  'icon' => 'document'],
-    ['page' => 'invoices',  'label' => 'Fatture',    'icon' => 'banknote'],
-    ['page' => 'expenses',  'label' => 'Spese',      'icon' => 'receipt'],
-    ['page' => 'domains',   'label' => 'Domini',     'icon' => 'globe'],
-    ['page' => 'products',  'label' => 'Prodotti',   'icon' => 'cube'],
-    ['page' => 'ai-assistant', 'label' => '🤖 AI Assistente', 'icon' => 'sparkle'],
+    ['page' => 'dashboard',     'label' => 'Dashboard',     'icon' => 'chart'],
+    ['page' => 'leads',         'label' => 'Leads',         'icon' => 'users-incoming'],
+    ['page' => 'clients',       'label' => 'Clienti',       'icon' => 'building'],
+    ['page' => 'contracts',     'label' => 'Contratti',     'icon' => 'document'],
+    ['page' => 'subscriptions', 'label' => 'Abbonamenti',   'icon' => 'refresh'],
+    ['page' => 'invoices',      'label' => 'Fatture',       'icon' => 'banknote'],
+    ['page' => 'expenses',      'label' => 'Spese',         'icon' => 'receipt'],
+    ['page' => 'domains',       'label' => 'Domini',        'icon' => 'globe'],
+    ['page' => 'products',      'label' => 'Prodotti',      'icon' => 'cube'],
+    ['page' => 'ai-assistant',  'label' => '🤖 AI Assistente', 'icon' => 'sparkle'],
 ];
 
 $icons = [
@@ -23,6 +24,7 @@ $icons = [
     'users-incoming' => '<path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/>',
     'building' => '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5M3.75 3v18m4.5-18v18m4.5-18v18m4.5-18v18M5.25 6h.008v.008H5.25V6zm0 3h.008v.008H5.25V9zm0 3h.008v.008H5.25V12zm4.5-6h.008v.008H9.75V6zm0 3h.008v.008H9.75V9zm0 3h.008v.008H9.75V12zm4.5-6h.008v.008h-.008V6zm0 3h.008v.008h-.008V9zm0 3h.008v.008h-.008V12z"/>',
     'document' => '<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>',
+    'refresh' => '<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M21.015 4.356v4.992"/>',
     'banknote' => '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>',
     'receipt' => '<path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185zM9.75 9h.008v.008H9.75V9zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 4.5h.008v.008h-.008V13.5zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>',
     'globe' => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>',

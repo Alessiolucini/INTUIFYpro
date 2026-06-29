@@ -258,3 +258,36 @@ ON CONFLICT DO NOTHING;
 -- Run this separately if needed:
 -- INSERT INTO storage.buckets (id, name, public) VALUES ('expenses', 'expenses', false);
 -- INSERT INTO storage.buckets (id, name, public) VALUES ('documents', 'documents', false);
+
+-- ============================================================================
+-- 9. SUBSCRIPTIONS
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS subscriptions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    client_id UUID NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
+    product_id UUID REFERENCES products(id) ON DELETE SET NULL,
+    plan_name TEXT NOT NULL,
+    amount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    currency TEXT NOT NULL DEFAULT 'EUR',
+    billing_cycle TEXT NOT NULL DEFAULT 'monthly' CHECK (billing_cycle IN ('monthly', 'quarterly', 'semiannual', 'annual', 'one_time')),
+    start_date DATE,
+    end_date DATE,
+    next_billing DATE,
+    auto_renew BOOLEAN NOT NULL DEFAULT true,
+    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'trial', 'paused', 'cancelled', 'expired')),
+    notes TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Indexes for subscriptions
+CREATE INDEX IF NOT EXISTS idx_subscriptions_client ON subscriptions(client_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_product ON subscriptions(product_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_status ON subscriptions(status);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_next_billing ON subscriptions(next_billing);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_end_date ON subscriptions(end_date);
+
+-- Apply updated_at trigger to subscriptions
+DROP TRIGGER IF EXISTS set_updated_at ON subscriptions;
+CREATE TRIGGER set_updated_at BEFORE UPDATE ON subscriptions
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
