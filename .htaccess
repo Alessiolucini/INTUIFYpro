@@ -5,7 +5,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Force HTTPS
+    # Force HTTPS (via reverse proxy header — Traefik handles TLS)
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
