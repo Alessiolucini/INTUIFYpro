@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'due_date' => $_POST['due_date'] ?: null,
         'status' => $_POST['status'] ?? 'draft',
         'notes' => trim($_POST['notes'] ?? ''),
+        'payment_details' => trim($_POST['payment_details'] ?? ''),
     ];
 
     if ($invoiceNumber) {
@@ -142,7 +143,7 @@ if ($action === 'list') {
     if ($action === 'edit' && $id) {
         $invoice = $sb->find('invoices', $id);
     }
-    $clients = $sb->select('clients', ['select' => 'id,company_name', 'order' => 'company_name.asc']);
+    $clients = $sb->select('clients', ['select' => 'id,company_name,vat_number,address,email', 'order' => 'company_name.asc']);
     $contracts = $sb->select('contracts', ['select' => 'id,contract_number,title', 'order' => 'created_at.desc']);
 }
 
@@ -261,12 +262,18 @@ $statusLabels = [
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                             <div class="form-group">
                                 <label class="form-label">Cliente *</label>
-                                <select name="client_id" class="form-select" required>
+                                <select name="client_id" class="form-select" required id="client-select">
                                     <option value="">Seleziona...</option>
                                     <?php foreach ($clients as $cl): ?>
                                         <option value="<?= $cl['id'] ?>" <?= ($invoice['client_id'] ?? '') === $cl['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cl['company_name']) ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
+                            <div class="form-group md:col-span-2">
+                                <label class="form-label">Dati Cliente</label>
+                                <div id="client-info" style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:8px;padding:10px 14px;font-size:12px;color:#94a3b8;min-height:40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                                    <span style="color:#64748b">Seleziona un cliente per vedere CIF e indirizzo</span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Data Emissione</label>
@@ -340,6 +347,21 @@ $statusLabels = [
                             </div>
                         </div>
 
+                        <?php
+                        // Default payment details for new invoices
+                        $defaultPayment = '';
+                        if (!$invoice) {
+                            $companyLegal = $config['company_legal_name'] ?? 'IntuiFy';
+                            $companyIban = $config['company_iban'] ?? '';
+                            $defaultPayment = "Beneficiario: {$companyLegal}\nIBAN: {$companyIban}";
+                        }
+                        ?>
+                        <div class="form-group">
+                            <label class="form-label">💳 Dati di Pagamento</label>
+                            <textarea name="payment_details" class="form-textarea" rows="3" placeholder="Beneficiario, IBAN, BIC..."><?= htmlspecialchars($invoice['payment_details'] ?? $defaultPayment) ?></textarea>
+                            <p style="font-size:11px;color:#64748b;margin-top:4px">Questi dati appariranno nel PDF della fattura</p>
+                        </div>
+
                         <div class="form-group">
                             <label class="form-label">Note</label>
                             <textarea name="notes" class="form-textarea"><?= htmlspecialchars($invoice['notes'] ?? '') ?></textarea>
@@ -353,6 +375,36 @@ $statusLabels = [
                 </div>
 
                 <script>
+                // Client data for dynamic CIF/address display
+                const clientsData = <?= json_encode(array_combine(
+                    array_column($clients, 'id'),
+                    array_map(fn($c) => [
+                        'vat' => $c['vat_number'] ?? '',
+                        'address' => $c['address'] ?? '',
+                        'email' => $c['email'] ?? '',
+                        'name' => $c['company_name'] ?? '',
+                    ], $clients)
+                )) ?>;
+
+                function updateClientInfo() {
+                    const sel = document.getElementById('client-select');
+                    const box = document.getElementById('client-info');
+                    const id = sel?.value;
+                    if (!id || !clientsData[id]) {
+                        box.innerHTML = '<span style="color:#64748b">Seleziona un cliente per vedere CIF e indirizzo</span>';
+                        return;
+                    }
+                    const c = clientsData[id];
+                    const parts = [];
+                    if (c.vat) parts.push('<span style="color:#e2e8f0"><strong style="color:#818cf8">CIF/P.IVA:</strong> ' + c.vat + '</span>');
+                    if (c.address) parts.push('<span style="color:#e2e8f0"><strong style="color:#818cf8">Indirizzo:</strong> ' + c.address + '</span>');
+                    if (c.email) parts.push('<span style="color:#e2e8f0"><strong style="color:#818cf8">Email:</strong> ' + c.email + '</span>');
+                    box.innerHTML = parts.length ? parts.join('<span style="color:#334155">|</span>') : '<span style="color:#64748b">Nessun dato disponibile</span>';
+                }
+
+                document.getElementById('client-select')?.addEventListener('change', updateClientInfo);
+                updateClientInfo();
+
                 function calcTotals() {
                     let subtotal = 0;
                     document.querySelectorAll('.item-row').forEach(row => {

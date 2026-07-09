@@ -51,6 +51,8 @@ function outputPDF(string $html, string $filename): void
  */
 function buildContractHTML(array $contract, ?array $client, array $config): string
 {
+    $styles = pdfStyles();
+
     $companyName = $config['company_legal_name'] ?? 'IntuiFy';
     $companyVat = $config['company_vat'] ?? '';
     $companyAddr = $config['company_address'] ?? '';
@@ -59,6 +61,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
     $clientName = $client['company_name'] ?? 'N/A';
     $clientVat = $client['vat_number'] ?? '';
     $clientAddr = $client['address'] ?? '';
+    $clientVatLine = $clientVat ? 'CIF: ' . $clientVat : '';
     
     $contractNum = htmlspecialchars($contract['contract_number'] ?? '');
     $title = htmlspecialchars($contract['title'] ?? '');
@@ -74,7 +77,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
     <head>
         <meta charset="UTF-8">
         <style>
-            {$pdfStyles()}
+            {$styles}
         </style>
     </head>
     <body>
@@ -99,7 +102,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
             </div>
             <div class="party">
                 <h3>Cliente</h3>
-                <p><strong>{$clientName}</strong><br>{$clientAddr}<br>{$clientVat}</p>
+                <p><strong>{$clientName}</strong><br>{$clientAddr}<br>{$clientVatLine}</p>
             </div>
         </div>
 
@@ -140,15 +143,17 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
  */
 function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
 {
+    $styles = pdfStyles();
+
     $companyName = $config['company_legal_name'] ?? 'IntuiFy';
     $companyVat = $config['company_vat'] ?? '';
     $companyAddr = $config['company_address'] ?? '';
     $companyEmail = $config['company_email'] ?? '';
-    $companyIban = $config['company_iban'] ?? '';
     
     $clientName = htmlspecialchars($client['company_name'] ?? 'N/A');
     $clientVat = htmlspecialchars($client['vat_number'] ?? '');
     $clientAddr = htmlspecialchars($client['address'] ?? '');
+    $clientVatLine = $clientVat ? 'CIF: ' . $clientVat : '';
     
     $invoiceNum = htmlspecialchars($invoice['invoice_number'] ?? '');
     $issueDate = $invoice['issue_date'] ? date('d/m/Y', strtotime($invoice['issue_date'])) : date('d/m/Y');
@@ -160,6 +165,20 @@ function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
     $taxAmount = number_format((float)($invoice['tax_amount'] ?? 0), 2, ',', '.');
     $total = number_format((float)($invoice['total'] ?? 0), 2, ',', '.');
     $notes = htmlspecialchars($invoice['notes'] ?? '');
+
+    // Build payment info from invoice field, fallback to config
+    $paymentRaw = trim($invoice['payment_details'] ?? '');
+    if (!$paymentRaw) {
+        $companyIban = $config['company_iban'] ?? '';
+        $paymentRaw = "Beneficiario: {$companyName}\nIBAN: {$companyIban}\nCausale: " . ($invoice['invoice_number'] ?? '');
+    }
+    $paymentHTML = nl2br(htmlspecialchars($paymentRaw));
+
+    // Build notes section
+    $notesSection = '';
+    if ($notes) {
+        $notesSection = "<div class='section'><h3>Note</h3><p style='font-size:10px'>{$notes}</p></div>";
+    }
 
     $itemsHTML = '';
     foreach ($items as $item) {
@@ -176,7 +195,7 @@ function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
     <head>
         <meta charset="UTF-8">
         <style>
-            {$pdfStyles()}
+            {$styles}
             .items-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
             .items-table th { background: #f0f0f5; padding: 10px 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #ddd; }
             .items-table td { padding: 10px 12px; border-bottom: 1px solid #eee; font-size: 11px; }
@@ -210,7 +229,7 @@ function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
             </div>
             <div class="party">
                 <h3>A</h3>
-                <p><strong>{$clientName}</strong><br>{$clientAddr}<br>{$clientVat}</p>
+                <p><strong>{$clientName}</strong><br>{$clientAddr}<br>{$clientVatLine}</p>
             </div>
         </div>
 
@@ -236,12 +255,10 @@ function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
 
         <div class="payment-info">
             <strong>Dati di pagamento</strong><br>
-            Beneficiario: {$companyName}<br>
-            IBAN: {$companyIban}<br>
-            Causale: {$invoiceNum}
+            {$paymentHTML}
         </div>
 
-        {$notes ? "<div class='section'><h3>Note</h3><p style='font-size:10px'>{$notes}</p></div>" : ''}
+        {$notesSection}
 
         <div class="footer">
             <p>{$companyName} — {$companyAddr} — CIF: {$companyVat}</p>

@@ -291,3 +291,9 @@ CREATE INDEX IF NOT EXISTS idx_subscriptions_end_date ON subscriptions(end_date)
 DROP TRIGGER IF EXISTS set_updated_at ON subscriptions;
 CREATE TRIGGER set_updated_at BEFORE UPDATE ON subscriptions
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================================================
+-- 10. INVOICE PAYMENT DETAILS
+-- ============================================================================
+-- Stores per-invoice banking/payment info (IBAN, beneficiary, etc.)
+ALTER TABLE invoices ADD COLUMN IF NOT EXISTS payment_details TEXT;
