@@ -12,6 +12,27 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 /**
+ * Get the IntuiFy logo as a base64 data-URI string for embedding in PDFs.
+ * Falls back to a simple text placeholder if the file is missing.
+ */
+function getLogoDataUri(): string
+{
+    // Try SVG logo first (already in black #1d1d1b)
+    $svgPath = dirname(__DIR__, 2) . '/assets/logo.svg';
+    if (file_exists($svgPath)) {
+        $svgContent = file_get_contents($svgPath);
+        return 'data:image/svg+xml;base64,' . base64_encode($svgContent);
+    }
+    // Fallback to PNG
+    $pngPath = dirname(__DIR__, 2) . '/assets/logo.png';
+    if (file_exists($pngPath)) {
+        $pngContent = file_get_contents($pngPath);
+        return 'data:image/png;base64,' . base64_encode($pngContent);
+    }
+    return '';
+}
+
+/**
  * Generate and output a Contract PDF.
  */
 function generateContractPDF(array $contract, ?array $client, array $config): void
@@ -52,6 +73,8 @@ function outputPDF(string $html, string $filename): void
 function buildContractHTML(array $contract, ?array $client, array $config): string
 {
     $styles = pdfStyles();
+    $logoUri = getLogoDataUri();
+    $logoTag = $logoUri ? '<img class="brand-logo" src="' . $logoUri . '" alt="IntuiFy">' : '<h1>INTUIFY</h1>';
 
     $companyName = $config['company_legal_name'] ?? 'IntuiFy';
     $companyVat = $config['company_vat'] ?? '';
@@ -83,7 +106,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
     <body>
         <div class="header">
             <div class="brand">
-                <h1>INTUIFY</h1>
+                {$logoTag}
                 <p>{$companyName}<br>{$companyAddr}<br>CIF: {$companyVat}<br>{$companyEmail}</p>
             </div>
             <div class="doc-info">
@@ -144,6 +167,8 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
 function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
 {
     $styles = pdfStyles();
+    $logoUri = getLogoDataUri();
+    $logoTag = $logoUri ? '<img class="brand-logo" src="' . $logoUri . '" alt="IntuiFy">' : '<h1>INTUIFY</h1>';
 
     $companyName = $config['company_legal_name'] ?? 'IntuiFy';
     $companyVat = $config['company_vat'] ?? '';
@@ -209,7 +234,7 @@ function buildInvoiceHTML(array $invoice, ?array $client, array $config): string
     <body>
         <div class="header">
             <div class="brand">
-                <h1>INTUIFY</h1>
+                {$logoTag}
                 <p>{$companyName}<br>{$companyAddr}<br>CIF: {$companyVat}<br>{$companyEmail}</p>
             </div>
             <div class="doc-info">
@@ -278,12 +303,13 @@ function pdfStyles(): string
     body { font-family: Helvetica, Arial, sans-serif; color: #1a1a2e; font-size: 11px; line-height: 1.5; padding: 40px; }
     .header { display: table; width: 100%; margin-bottom: 20px; }
     .brand { display: table-cell; width: 60%; vertical-align: top; }
-    .brand h1 { font-size: 28px; font-weight: 800; letter-spacing: 3px; color: #6366f1; margin-bottom: 8px; }
+    .brand h1 { font-size: 28px; font-weight: 800; letter-spacing: 3px; color: #1a1a2e; margin-bottom: 8px; }
+    .brand-logo { height: 32px; width: auto; margin-bottom: 8px; }
     .brand p { font-size: 9px; color: #666; line-height: 1.6; }
     .doc-info { display: table-cell; width: 40%; vertical-align: top; text-align: right; }
     .doc-info h2 { font-size: 18px; color: #1a1a2e; margin-bottom: 8px; }
     .doc-info p { font-size: 10px; color: #555; margin: 2px 0; }
-    .divider { border-top: 3px solid #6366f1; margin: 15px 0 25px; }
+    .divider { border-top: 3px solid #1a1a2e; margin: 15px 0 25px; }
     .parties { display: table; width: 100%; margin-bottom: 25px; }
     .party { display: table-cell; width: 50%; vertical-align: top; }
     .party h3 { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 6px; }
