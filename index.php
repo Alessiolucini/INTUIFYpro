@@ -381,7 +381,7 @@ $projectLogos = [
     <title><?= htmlspecialchars($t['meta']['title']) ?></title>
     <meta name="description" content="<?= htmlspecialchars($t['meta']['description']) ?>">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://intuify.com/">
+    <link rel="canonical" href="https://intuify.net/">
     <link rel="icon" href="logo/intuifylogo.svg" type="image/svg+xml">
 
     <!-- Fonts -->

@@ -5,9 +5,13 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Force HTTPS (uncomment in production)
-    # RewriteCond %{HTTPS} off
-    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirect www to non-www (canonical domain: intuify.net)
+    RewriteCond %{HTTP_HOST} ^www\.intuify\.net$ [NC]
+    RewriteRule ^(.*)$ https://intuify.net/$1 [L,R=301]
     
     # Remove trailing slash
     RewriteCond %{REQUEST_FILENAME} !-d
