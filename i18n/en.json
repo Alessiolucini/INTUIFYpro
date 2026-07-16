@@ -1,8 +1,8 @@
 {
     "lang": "en",
     "meta": {
-        "title": "IntuiFy — Software Studio & Digital Innovation",
-        "description": "IntuiFy designs and launches apps for Apple Store and Google Play in under a week. Custom software, AI, digital marketing and cutting-edge tech solutions."
+        "title": "IntuiFy — AI-Driven Venture Builder",
+        "description": "IntuiFy is the AI-driven venture builder launching the next generation of proprietary SaaS platforms. We build, own, and scale high-velocity vertical software designed to automate industries."
     },
     "nav": {
         "inicio": "Home",
@@ -13,9 +13,9 @@
         "cta": "Start your project"
     },
     "hero": {
-        "title": "We build the future, one app at a time",
-        "subtitle": "From concept to Apple Store and Google Play in under 7 days. IntuiFy is the tech studio that turns your ideas into real digital products — fast, no compromises.",
-        "cta_primary": "Launch your Project",
+        "title": "IntuiFy is the AI-driven venture builder launching the next generation of proprietary SaaS platforms.",
+        "subtitle": "From concept to App Store & Google Play in under 7 days. We build, own, and scale high-velocity vertical software designed to automate industries.",
+        "cta_primary": "Explore Our Ventures",
         "cta_secondary": "See our work",
         "stats": {
             "projects": "Projects launched",
@@ -25,6 +25,7 @@
     },
     "showcase": {
         "title": "Our pioneer products",
+        "tagline": "We hold 100% equity in our ecosystem of autonomous digital products.",
         "subtitle": "Platforms and apps we designed, developed and published — from the first line of code to store launch",
         "items": [
             {
@@ -162,13 +163,13 @@
         ]
     },
     "cta_section": {
-        "title": "Got an idea? Let's launch it together",
-        "subtitle": "Tell us about your project and we'll show you how we can make it real in under a week.",
-        "cta": "Book a free call"
+        "title": "Partner with us or invest in our ventures",
+        "subtitle": "Let's build the future together.",
+        "cta": "Get in Touch"
     },
     "contact": {
-        "title": "Let's talk about your project",
-        "subtitle": "Fill the form and we'll get back to you within 24 hours with a tailored proposal and real timeline.",
+        "title": "Partner with us or invest in our ventures",
+        "subtitle": "Let's build the future together. Fill the form and we'll get back to you within 24 hours.",
         "reasons_title": "What you get with IntuiFy",
         "reasons": [
             "Detailed proposal within 24 hours",
@@ -192,7 +193,7 @@
         }
     },
     "footer": {
-        "tagline": "IntuiFy designs and launches applications for Apple Store and Google Play in record time. From concept to publication, we're your tech partner.",
+        "tagline": "IntuiFy is the AI-driven venture builder launching the next generation of proprietary SaaS platforms. We build, own, and scale vertical software designed to automate industries.",
         "nav_title": "Navigation",
         "services_title": "Services",
         "contact_title": "Contact",

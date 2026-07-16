@@ -563,7 +563,7 @@ $projectLogos = [
 
                 <!-- CTAs -->
                 <div class="reveal-element flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <a href="#contacto"
+                    <a href="#portfolio"
                         class="group inline-flex items-center gap-3 px-8 py-4 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-xl shadow-indigo-500/25 pulse-glow">
                         <span><?= htmlspecialchars($t['hero']['cta_primary']) ?></span>
                         <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -607,6 +607,11 @@ $projectLogos = [
                     <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
                         <?= htmlspecialchars($t['showcase']['title']) ?>
                     </h2>
+                    <?php if (!empty($t['showcase']['tagline'])): ?>
+                    <p class="reveal-element text-indigo-400 font-semibold text-sm md:text-base tracking-wide uppercase mb-4">
+                        <?= htmlspecialchars($t['showcase']['tagline']) ?>
+                    </p>
+                    <?php endif; ?>
                     <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
                         <?= htmlspecialchars($t['showcase']['subtitle']) ?>
                     </p>
