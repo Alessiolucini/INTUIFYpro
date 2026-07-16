@@ -14,7 +14,7 @@
     },
     "hero": {
         "title": "IntuiFy is the AI-driven venture builder launching the next generation of proprietary SaaS platforms.",
-        "subtitle": "From concept to App Store & Google Play in under 7 days. We build, own, and scale high-velocity vertical software designed to automate industries.",
+        "subtitle": "From concept to App Store & Google Play in under 5 days. We engineer, own, and scale high-velocity vertical software designed to automate industries.",
         "cta_primary": "Explore Our Ventures",
         "cta_secondary": "See our work",
         "stats": {
@@ -25,7 +25,7 @@
     },
     "showcase": {
         "title": "Our pioneer products",
-        "tagline": "We hold 100% equity in our ecosystem of autonomous digital products.",
+        "tagline": "We hold 100% equity in our fast-growing ecosystem of autonomous digital products.",
         "subtitle": "Platforms and apps we designed, developed and published — from the first line of code to store launch",
         "items": [
             {
@@ -164,12 +164,12 @@
     },
     "cta_section": {
         "title": "Partner with us or invest in our ventures",
-        "subtitle": "Let's build the future together.",
+        "subtitle": "Let's build the future of vertical SaaS together.",
         "cta": "Get in Touch"
     },
     "contact": {
         "title": "Partner with us or invest in our ventures",
-        "subtitle": "Let's build the future together. Fill the form and we'll get back to you within 24 hours.",
+        "subtitle": "Let's build the future of vertical SaaS together. Fill the form and we'll get back to you within 24 hours.",
         "reasons_title": "What you get with IntuiFy",
         "reasons": [
             "Detailed proposal within 24 hours",
