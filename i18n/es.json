@@ -13,14 +13,16 @@
         "cta": "Inicia tu proyecto"
     },
     "hero": {
-        "title": "IntuiFy es el venture builder impulsado por AI que lanza la próxima generación de plataformas SaaS propietarias.",
+        "badge": "AI-Driven Venture Builder",
+        "title_line1": "Ingeniamos, poseemos y escalamos",
+        "title_line2": "plataformas SaaS propietarias.",
         "subtitle": "Del concepto al App Store y Google Play en menos de 5 días. Ingeniamos, poseemos y escalamos software vertical de alta velocidad diseñado para automatizar industrias.",
         "cta_primary": "Explora Nuestros Ventures",
-        "cta_secondary": "Descubre nuestros trabajos",
+        "cta_secondary": "Invierte con Nosotros",
         "stats": {
-            "projects": "Proyectos lanzados",
-            "speed": "Días promedio por proyecto",
-            "stores": "Apps en los Stores"
+            "products": "Productos Propios",
+            "speed": "Días al Lanzamiento",
+            "equity": "Equity Retenido"
         }
     },
     "showcase": {

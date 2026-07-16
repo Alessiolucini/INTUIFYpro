@@ -539,21 +539,21 @@ $projectLogos = [
 
             <div class="relative max-w-5xl mx-auto px-6 text-center z-10 pt-32 pb-20">
                 
-                <!-- Store badges -->
+                <!-- Venture Builder Badge -->
                 <div class="reveal-element flex items-center justify-center gap-3 mb-10">
-                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] backdrop-blur-sm">
-                        <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        <span class="text-xs font-semibold text-slate-400">App Store</span>
-                    </div>
-                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] backdrop-blur-sm">
-                        <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.584 1.496c.906.524.906 1.37 0 1.894l-2.177 1.26-2.536-2.536 2.13-2.115zM5.864 2.658L16.8 8.99l-2.302 2.302-8.635-8.634z"/></svg>
-                        <span class="text-xs font-semibold text-slate-400">Google Play</span>
+                    <div class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-500/[0.08] border border-indigo-500/[0.15] backdrop-blur-sm">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                        <span class="text-xs font-semibold text-indigo-300 tracking-wider uppercase"><?= htmlspecialchars($t['hero']['badge'] ?? 'AI-Driven Venture Builder') ?></span>
                     </div>
                 </div>
 
                 <!-- Main Heading -->
                 <h1 class="reveal-element font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.08] mb-8">
-                    <?= htmlspecialchars($t['hero']['title']) ?>
+                    <?= htmlspecialchars($t['hero']['title_line1'] ?? 'We build, own & scale') ?><br>
+                    <span class="gradient-text"><?= htmlspecialchars($t['hero']['title_line2'] ?? 'proprietary SaaS platforms.') ?></span>
                 </h1>
 
                 <!-- Subtitle -->
@@ -570,7 +570,7 @@ $projectLogos = [
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </a>
-                    <a href="#portfolio"
+                    <a href="#contacto"
                         class="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.12] rounded-full transition-all duration-500">
                         <?= htmlspecialchars($t['hero']['cta_secondary']) ?>
                     </a>
@@ -579,16 +579,16 @@ $projectLogos = [
                 <!-- Stats -->
                 <div class="reveal-element grid grid-cols-3 gap-6 max-w-lg mx-auto">
                     <div class="text-center">
-                        <div class="font-display text-3xl md:text-4xl font-bold text-white counter" data-target="20">0</div>
-                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['projects']) ?></div>
+                        <div class="font-display text-3xl md:text-4xl font-bold text-white counter" data-target="4" data-suffix="+">0</div>
+                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['products'] ?? 'Products Owned') ?></div>
                     </div>
                     <div class="text-center border-x border-white/[0.06]">
                         <div class="font-display text-3xl md:text-4xl font-bold gradient-text counter" data-target="5" data-prefix="<">0</div>
                         <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['speed']) ?></div>
                     </div>
                     <div class="text-center">
-                        <div class="font-display text-3xl md:text-4xl font-bold text-white counter" data-target="12">0</div>
-                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['stores']) ?></div>
+                        <div class="font-display text-3xl md:text-4xl font-bold text-white">100%</div>
+                        <div class="text-xs text-slate-500 mt-1"><?= htmlspecialchars($t['hero']['stats']['equity'] ?? 'Equity Retained') ?></div>
                     </div>
                 </div>
             </div>
@@ -934,6 +934,7 @@ $projectLogos = [
                     const el = entry.target;
                     const target = parseInt(el.dataset.target);
                     const prefix = el.dataset.prefix || '';
+                    const suffix = el.dataset.suffix || '+';
                     let current = 0;
                     const duration = 2000;
                     const step = target / (duration / 16);
@@ -944,7 +945,7 @@ $projectLogos = [
                             current = target;
                             clearInterval(timer);
                         }
-                        el.textContent = prefix + Math.floor(current) + '+';
+                        el.textContent = prefix + Math.floor(current) + suffix;
                     }, 16);
 
                     counterObserver.unobserve(el);
