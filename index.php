@@ -372,6 +372,14 @@ $projectLogos = [
     ['file' => 'assets/projects/ecoandratx.png', 'type' => 'png', 'glow' => '#22c55e'],
     ['file' => 'assets/projects/lingobite.svg', 'type' => 'svg', 'glow' => '#f97316']
 ];
+
+// External landing page URLs (same order as $projectLogos)
+$projectUrls = [
+    'https://auterio.net/',
+    'https://orqesia.com',
+    'https://ecoandratx.es',
+    'https://lingobite.net',
+];
 ?>
 <!DOCTYPE html>
 <html lang="<?= $currentLang ?>" class="scroll-smooth">
@@ -621,8 +629,10 @@ $projectLogos = [
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <?php foreach ($t['showcase']['items'] as $i => $project): 
                         $logo = $projectLogos[$i];
+                        $url  = $projectUrls[$i] ?? '#';
                     ?>
-                        <article class="reveal-element glow-card rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 group" style="--glow: <?= $logo['glow'] ?>">
+                        <a href="<?= htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer" class="block">
+                        <article class="glow-card rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 group cursor-pointer h-full reveal-element" style="--glow: <?= $logo['glow'] ?>">
                             <div>
                                 <!-- Tag -->
                                 <span class="inline-block px-3 py-1 text-[10px] uppercase tracking-widest font-bold rounded-full mb-6"
@@ -641,7 +651,15 @@ $projectLogos = [
                                     <?= htmlspecialchars($project['description']) ?>
                                 </p>
                             </div>
+                            <!-- Visit hint -->
+                            <div class="flex items-center gap-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="color: <?= $logo['glow'] ?>">
+                                <span>Visita il sito</span>
+                                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </div>
                         </article>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
