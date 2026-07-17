@@ -653,7 +653,7 @@ $projectUrls = [
                             </div>
                             <!-- Visit hint -->
                             <div class="flex items-center gap-2 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="color: <?= $logo['glow'] ?>">
-                                <span>Visita il sito</span>
+                                <span><?= htmlspecialchars($t['showcase']['visit_site'] ?? 'Visit website') ?></span>
                                 <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
