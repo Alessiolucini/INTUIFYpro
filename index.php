@@ -641,7 +641,7 @@ $projectUrls = [
                                 </span>
                                 <!-- Logo -->
                                 <div class="h-10 md:h-12 mb-5 flex items-center">
-                                    <img src="<?= $logo['file'] ?>" 
+                                    <img src="<?= $logo['file'] ?>?v=<?= filemtime($logo['file']) ?>" 
                                          alt="<?= htmlspecialchars($project['name']) ?>" 
                                          class="h-full w-auto object-contain <?= $logo['type'] === 'svg' ? 'brightness-200' : '' ?>"
                                          loading="lazy">
