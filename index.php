@@ -380,9 +380,61 @@ $projectUrls = [
     'https://ecoandratx.es',
     'https://lingobite.net',
 ];
+
+// ============================================================================
+// "NOVA" UI COMPONENTS — frosted-glass pieces that sit over the WebGL scene
+// ============================================================================
+
+/** Frosted eyebrow pill with an animated 1px gradient ring and a layers icon. */
+function novaEyebrow(string $label): string
+{
+    return '<span class="top-label">'
+        . '<span class="nova-ring" aria-hidden="true"></span>'
+        . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
+        . 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        . '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>'
+        . '<span>' . htmlspecialchars($label) . '</span>'
+        . '</span>';
+}
+
+/** Glass pill button with the accent gradient ring and a trailing arrow badge. */
+function novaBtnPrimary(string $href, string $label, string $extraClass = ''): string
+{
+    $cls = trim('btn-primary ' . $extraClass);
+    return '<a href="' . htmlspecialchars($href) . '" class="' . $cls . '">'
+        . '<span class="nova-ring" aria-hidden="true"></span>'
+        . '<span>' . htmlspecialchars($label) . '</span>'
+        . novaArrowBadge()
+        . '</a>';
+}
+
+/** 32px circular arrow badge used inside the primary button. */
+function novaArrowBadge(): string
+{
+    return '<span class="btn-arrow" aria-hidden="true">'
+        . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
+        . 'stroke-linecap="round" stroke-linejoin="round">'
+        . '<path d="M7 17L17 7M17 7H7M17 7v10"/></svg>'
+        . '</span>';
+}
+
+/** Outlined glass pill button. */
+function novaBtnSecondary(string $href, string $label): string
+{
+    return '<a href="' . htmlspecialchars($href) . '" class="btn-secondary">'
+        . htmlspecialchars($label)
+        . '</a>';
+}
+
+/** Cache-busting version stamp for local assets. */
+function novaAsset(string $path): string
+{
+    $full = __DIR__ . '/' . ltrim($path, '/');
+    return $path . '?v=' . (file_exists($full) ? filemtime($full) : time());
+}
 ?>
 <!DOCTYPE html>
-<html lang="<?= $currentLang ?>" class="scroll-smooth">
+<html lang="<?= $currentLang ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -395,7 +447,19 @@ $projectUrls = [
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- WebGL scene dependencies (ES modules, no build step) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/",
+            "lenis": "https://unpkg.com/lenis@1.3.19/dist/lenis.mjs"
+        }
+    }
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -527,9 +591,19 @@ $projectUrls = [
         /* Hide reCAPTCHA floating badge */
         .grecaptcha-badge { visibility: hidden !important; }
     </style>
+
+    <!-- Nova layer: must come last so it can override the rules above -->
+    <link rel="stylesheet" href="<?= novaAsset('assets/css/nova.css') ?>">
 </head>
 
-<body class="bg-[#08080e] text-slate-300 font-body antialiased overflow-x-hidden">
+<body class="text-slate-300 font-body antialiased overflow-x-hidden">
+
+    <!-- ================================================================
+         WEBGL SCENE — fixed behind every section (z-index: -10)
+         ================================================================ -->
+    <canvas id="nova-canvas" aria-hidden="true"></canvas>
+    <div id="nova-fallback" aria-hidden="true"></div>
+    <div id="nova-glow" aria-hidden="true"></div>
 
     <?php include __DIR__ . '/includes/header.php'; ?>
 
@@ -537,51 +611,33 @@ $projectUrls = [
         <!-- ================================================================
              HERO SECTION
              ================================================================ -->
-        <section id="inicio" class="relative min-h-screen flex items-center justify-center hero-gradient overflow-hidden">
-            <!-- Grid overlay -->
-            <div class="absolute inset-0 grid-pattern opacity-60"></div>
-            
-            <!-- Floating orbs -->
-            <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-500/10 rounded-full blur-[100px] animate-pulse"></div>
-            <div class="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/8 rounded-full blur-[120px] animate-pulse" style="animation-delay: 1s"></div>
+        <section id="inicio" data-nova="start:0.00"
+                 class="relative min-h-screen flex items-center justify-center">
+            <!-- Grid overlay (kept very faint — the particle sphere is the subject now) -->
+            <div class="absolute inset-0 grid-pattern opacity-25 pointer-events-none"></div>
 
-            <div class="relative max-w-5xl mx-auto px-6 text-center z-10 pt-32 pb-20">
-                
-                <!-- Venture Builder Badge -->
-                <div class="reveal-element flex items-center justify-center gap-3 mb-10">
-                    <div class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-500/[0.08] border border-indigo-500/[0.15] backdrop-blur-sm">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                        </span>
-                        <span class="text-xs font-semibold text-indigo-300 tracking-wider uppercase"><?= htmlspecialchars($t['hero']['badge'] ?? 'AI-Driven Venture Builder') ?></span>
-                    </div>
+            <div class="nova-scrim nova-scrim-hero relative max-w-5xl mx-auto px-6 text-center z-10 pt-28 pb-14">
+
+                <!-- Venture Builder eyebrow -->
+                <div class="reveal-element flex items-center justify-center mb-8">
+                    <?= novaEyebrow($t['hero']['badge'] ?? 'AI-Driven Venture Builder') ?>
                 </div>
 
-                <!-- Main Heading -->
-                <h1 class="reveal-element font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.08] mb-8">
+                <!-- Main Heading (per-letter cascade) -->
+                <h1 class="cascade font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.08] mb-6">
                     <?= htmlspecialchars($t['hero']['title_line1'] ?? 'We build, own & scale') ?><br>
                     <span class="gradient-text"><?= htmlspecialchars($t['hero']['title_line2'] ?? 'proprietary SaaS platforms.') ?></span>
                 </h1>
 
                 <!-- Subtitle -->
-                <p class="reveal-element text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
+                <p class="reveal-element text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-9">
                     <?= htmlspecialchars($t['hero']['subtitle']) ?>
                 </p>
 
                 <!-- CTAs -->
-                <div class="reveal-element flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <a href="#portfolio"
-                        class="group inline-flex items-center gap-3 px-8 py-4 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-xl shadow-indigo-500/25 pulse-glow">
-                        <span><?= htmlspecialchars($t['hero']['cta_primary']) ?></span>
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </a>
-                    <a href="#contacto"
-                        class="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold text-slate-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.12] rounded-full transition-all duration-500">
-                        <?= htmlspecialchars($t['hero']['cta_secondary']) ?>
-                    </a>
+                <div class="reveal-element flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                    <?= novaBtnPrimary('#portfolio', $t['hero']['cta_primary']) ?>
+                    <?= novaBtnSecondary('#contacto', $t['hero']['cta_secondary']) ?>
                 </div>
 
                 <!-- Stats -->
@@ -600,19 +656,20 @@ $projectUrls = [
                     </div>
                 </div>
             </div>
-
-            <!-- Bottom fade -->
-            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#08080e] to-transparent"></div>
         </section>
 
         <!-- ================================================================
              SHOWCASE / PORTFOLIO SECTION
              ================================================================ -->
-        <section id="portfolio" class="relative py-28 bg-[#08080e]">
+        <!-- Breathing room: the sphere folds into the funnel and twists into the
+             DNA helix across this gap, with nothing competing for attention. -->
+        <div class="h-[40vh] md:h-[60vh]" aria-hidden="true"></div>
+
+        <section id="portfolio" data-nova="start:0.17;end:0.30" class="nova-scrim relative py-28 md:py-40">
             <div class="max-w-6xl mx-auto px-6">
                 <!-- Section header -->
                 <div class="text-center mb-16">
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                    <h2 class="cascade font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
                         <?= htmlspecialchars($t['showcase']['title']) ?>
                     </h2>
                     <?php if (!empty($t['showcase']['tagline'])): ?>
@@ -668,13 +725,13 @@ $projectUrls = [
         <!-- ================================================================
              PROCESS / TIMELINE SECTION
              ================================================================ -->
-        <section class="relative py-28 bg-[#0a0a12]">
+        <section data-nova="end:0.45" class="nova-scrim relative py-28 md:py-40">
             <!-- Gradient accent -->
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
-            
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
             <div class="max-w-6xl mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                    <h2 class="cascade font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
                         <?= htmlspecialchars($t['process']['title']) ?>
                     </h2>
                     <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
@@ -712,10 +769,13 @@ $projectUrls = [
         <!-- ================================================================
              SERVICES SECTION
              ================================================================ -->
-        <section id="servicio" class="relative py-28 bg-[#08080e]">
+        <!-- The helix melts into the rolling ocean wave here. -->
+        <div class="h-[32vh] md:h-[50vh]" aria-hidden="true"></div>
+
+        <section id="servicio" data-nova="center:0.56" class="nova-scrim relative py-28 md:py-40">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                    <h2 class="cascade font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
                         <?= htmlspecialchars($t['services']['title']) ?>
                     </h2>
                     <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
@@ -777,12 +837,15 @@ $projectUrls = [
         <!-- ================================================================
              BENEFITS SECTION
              ================================================================ -->
-        <section id="beneficios" class="relative py-28 bg-[#0a0a12]">
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+        <!-- The wave curls up into the cylindrical tunnel here. -->
+        <div class="h-[40vh] md:h-[60vh]" aria-hidden="true"></div>
+
+        <section id="beneficios" data-nova="start:0.68" class="nova-scrim relative py-28 md:py-40">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
             <div class="max-w-6xl mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
+                    <h2 class="cascade font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-5">
                         <?= htmlspecialchars($t['benefits']['title']) ?>
                     </h2>
                     <p class="reveal-element text-slate-400 max-w-2xl mx-auto">
@@ -811,48 +874,45 @@ $projectUrls = [
         <!-- ================================================================
              CTA SECTION
              ================================================================ -->
-        <section class="relative py-28 bg-[#08080e] overflow-hidden">
-            <div class="absolute inset-0 hero-gradient"></div>
-            <div class="absolute inset-0 grid-pattern opacity-40"></div>
-            
-            <div class="relative max-w-3xl mx-auto px-6 text-center z-10">
-                <h2 class="reveal-element font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
-                    <?= htmlspecialchars($t['cta_section']['title']) ?>
-                </h2>
-                <p class="reveal-element text-slate-400 mb-10 text-lg">
-                    <?= htmlspecialchars($t['cta_section']['subtitle']) ?>
-                </p>
-                <a href="#contacto"
-                    class="reveal-element group inline-flex items-center gap-3 px-10 py-5 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-xl shadow-indigo-500/25 pulse-glow">
-                    <span><?= htmlspecialchars($t['cta_section']['cta']) ?></span>
-                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
+        <!-- Tall on purpose: the tunnel needs room to pinch into a singularity
+             while the copy stays pinned in the middle of the viewport. -->
+        <section data-nova="start:0.82;center:0.90" class="relative min-h-[170vh]">
+            <div class="sticky top-0 h-screen flex items-center justify-center">
+                <div class="nova-scrim max-w-3xl mx-auto px-6 text-center py-20">
+                    <h2 class="cascade font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
+                        <?= htmlspecialchars($t['cta_section']['title']) ?>
+                    </h2>
+                    <p class="reveal-element text-slate-400 mb-10 text-lg">
+                        <?= htmlspecialchars($t['cta_section']['subtitle']) ?>
+                    </p>
+                    <div class="reveal-element flex justify-center">
+                        <?= novaBtnPrimary('#contacto', $t['cta_section']['cta']) ?>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- ================================================================
              CONTACT SECTION
              ================================================================ -->
-        <section id="contacto" class="relative py-28 bg-[#0a0a12]">
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+        <section id="contacto" data-nova="start:0.96" class="nova-scrim relative py-28 md:py-36">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
             <div class="max-w-6xl mx-auto px-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     <!-- Left: Info -->
-                    <div class="reveal-element">
-                        <h2 class="font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-5">
+                    <div>
+                        <h2 class="cascade title-fade font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-5">
                             <?= htmlspecialchars($t['contact']['title']) ?>
                         </h2>
-                        <p class="text-slate-400 mb-10 leading-relaxed">
+                        <p class="reveal-element text-slate-400 mb-10 leading-relaxed">
                             <?= htmlspecialchars($t['contact']['subtitle']) ?>
                         </p>
 
-                        <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-5">
+                        <h3 class="reveal-element text-sm font-bold text-white uppercase tracking-widest mb-5">
                             <?= htmlspecialchars($t['contact']['reasons_title']) ?>
                         </h3>
-                        <ul class="flex flex-col gap-4">
+                        <ul class="reveal-element flex flex-col gap-4">
                             <?php foreach ($t['contact']['reasons'] as $reason): ?>
                                 <li class="flex items-center gap-3">
                                     <div class="w-6 h-6 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
@@ -906,12 +966,10 @@ $projectUrls = [
                                     placeholder="<?= htmlspecialchars($t['contact']['form']['message_placeholder']) ?>"></textarea>
                             </div>
 
-                            <button type="submit" id="submit-btn"
-                                class="group w-full flex items-center justify-center gap-3 px-8 py-4 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-all duration-500 shadow-lg shadow-indigo-500/20 mt-2">
+                            <button type="submit" id="submit-btn" class="btn-primary btn-block mt-2">
+                                <span class="nova-ring" aria-hidden="true"></span>
                                 <span id="submit-text"><?= htmlspecialchars($t['contact']['form']['submit']) ?></span>
-                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                </svg>
+                                <?= novaArrowBadge() ?>
                             </button>
 
                             <!-- Response message -->
@@ -1097,18 +1155,13 @@ $projectUrls = [
             });
         }
 
-        // ---- Smooth scroll ----
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+        // NOTE: anchor smooth-scrolling now lives in assets/js/nova.js so it can
+        // be routed through Lenis (and falls back to scrollTo when Lenis is off).
     });
     </script>
+
+    <!-- WebGL scroll experience -->
+    <script type="module" src="<?= novaAsset('assets/js/nova.js') ?>"></script>
 
 </body>
 </html>
