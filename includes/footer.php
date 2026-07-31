@@ -6,7 +6,7 @@
         <!-- ================================================================
              FOOTER
              ================================================================ -->
-        <footer class="relative bg-[#06060a] border-t border-white/[0.04] pt-20 pb-8">
+        <footer class="relative bg-[#06060a]/75 backdrop-blur-xl border-t border-white/[0.04] pt-20 pb-8">
             <div class="max-w-6xl mx-auto px-6">
                 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
