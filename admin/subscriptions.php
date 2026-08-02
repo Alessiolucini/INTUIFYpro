@@ -66,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $editId = $_POST['id'] ?? '';
         if ($editId) {
-            $result = $sb->update('subscriptions', $editId, $data);
-            if ($result === null && $sb->getLastError()) {
+            $sb->update('subscriptions', $editId, $data);
+            if ($sb->getLastError()) {
                 $message = 'Errore aggiornamento: ' . $sb->getLastError();
                 $messageType = 'error';
             } else {
@@ -76,9 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $action = 'list';
             }
         } else {
-            $result = $sb->insert('subscriptions', $data);
-            if ($result === null) {
-                $errDetail = $sb->getLastError() ?? 'Risposta vuota dal server.';
+            $sb->insert('subscriptions', $data);
+            if ($sb->getLastError()) {
+                $errDetail = $sb->getLastError();
                 $message = 'Errore salvataggio abbonamento: ' . $errDetail;
                 $messageType = 'error';
                 // Stay on form — reload clients/products for re-display

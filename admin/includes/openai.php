@@ -164,7 +164,6 @@ class OpenAIClient
 
         return json_decode($response, true);
     }
-}
 
     /**
      * Generate a professional Italian business contract via AI.
