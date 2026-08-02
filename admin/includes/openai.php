@@ -166,6 +166,154 @@ class OpenAIClient
     }
 }
 
+    /**
+     * Generate a professional Italian business contract via AI.
+     *
+     * @param string $userDescription  Free-text description of the contract scope
+     * @param array  $companyInfo      Company config fields (company_legal_name, company_vat, company_address, company_email, company_iban)
+     * @param array  $clientInfo       Client data (company_name, vat_number, address, contact_person)
+     * @param string $contractNumber   Pre-generated contract number (e.g. CTR-2026-001)
+     * @return array|null Structured contract data or null on failure
+     *   Keys: title, amount, currency, start_date, end_date, billing_cycle, payment_terms, clauses[]
+     */
+    public function generateContract(
+        string $userDescription,
+        array  $companyInfo,
+        array  $clientInfo,
+        string $contractNumber
+    ): ?array {
+        $companyName  = $companyInfo['company_legal_name'] ?? 'IntuiFy Ventures SL';
+        $companyVat   = $companyInfo['company_vat'] ?? '';
+        $companyAddr  = $companyInfo['company_address'] ?? '';
+        $companyEmail = $companyInfo['company_email'] ?? '';
+        $companyIban  = $companyInfo['company_iban'] ?? '';
+
+        $clientName   = $clientInfo['company_name'] ?? '';
+        $clientVat    = $clientInfo['vat_number'] ?? '';
+        $clientAddr   = $clientInfo['address'] ?? '';
+        $clientPerson = $clientInfo['contact_person'] ?? '';
+
+        $today = date('d/m/Y');
+
+        $systemPrompt = <<<SYSTEM
+Sei un esperto legale specializzato nella redazione di contratti di servizi digitali e SaaS per aziende europee.
+Generi contratti professionali, completi e vincolanti in italiano, adatti ad essere firmati e consegnati ai clienti.
+
+AZIENDA FORNITRICE (Prestatore):
+- Ragione Sociale: {$companyName}
+- CIF/P.IVA: {$companyVat}
+- Indirizzo: {$companyAddr}
+- Email: {$companyEmail}
+- IBAN per pagamenti: {$companyIban}
+
+Regole assolute:
+1. Rispondi SOLO con un oggetto JSON valido, senza markdown, senza ```json, senza testo prima o dopo.
+2. Il contratto deve essere professionale, completo e legalmente solido.
+3. Usa un linguaggio formale e preciso in italiano.
+4. Include SEMPRE tutte le sezioni obbligatorie elencate sotto.
+5. Personalizza le clausole in base alla descrizione fornita dall'utente.
+6. L'IBAN da usare nelle condizioni di pagamento è quello del Prestatore indicato sopra.
+
+Struttura JSON obbligatoria:
+{
+  "title": "string — titolo contratto (es. Contratto di Servizi SaaS)",
+  "amount": number — importo numerico in EUR,
+  "billing_cycle": "monthly|quarterly|semiannual|annual|one_time",
+  "start_date": "YYYY-MM-DD",
+  "end_date": "YYYY-MM-DD or null",
+  "payment_terms": "string — paragrafo completo sulle modalità di pagamento, incluso IBAN, intestatario, causale suggerita, scadenza mensile",
+  "clauses": [
+    {
+      "number": 1,
+      "title": "Oggetto del Contratto",
+      "text": "string — testo completo della clausola"
+    },
+    {
+      "number": 2,
+      "title": "Durata",
+      "text": "..."
+    },
+    {
+      "number": 3,
+      "title": "Corrispettivo e Modalità di Pagamento",
+      "text": "..."
+    },
+    {
+      "number": 4,
+      "title": "Obblighi del Prestatore",
+      "text": "..."
+    },
+    {
+      "number": 5,
+      "title": "Obblighi del Cliente",
+      "text": "..."
+    },
+    {
+      "number": 6,
+      "title": "Riservatezza e Protezione dei Dati",
+      "text": "..."
+    },
+    {
+      "number": 7,
+      "title": "Limitazione di Responsabilità",
+      "text": "..."
+    },
+    {
+      "number": 8,
+      "title": "Risoluzione Anticipata",
+      "text": "..."
+    },
+    {
+      "number": 9,
+      "title": "Proprietà Intellettuale",
+      "text": "..."
+    },
+    {
+      "number": 10,
+      "title": "Disposizioni Finali e Foro Competente",
+      "text": "..."
+    }
+  ]
+}
+SYSTEM;
+
+        $userMessage = <<<MSG
+Genera un contratto professionale con i seguenti dati:
+
+NUMERO CONTRATTO: {$contractNumber}
+DATA ODIERNA: {$today}
+
+CLIENTE (Committente):
+- Ragione Sociale: {$clientName}
+- P.IVA/CIF: {$clientVat}
+- Indirizzo: {$clientAddr}
+- Referente: {$clientPerson}
+
+DESCRIZIONE DEL CONTRATTO (fornita dall'utente):
+{$userDescription}
+
+Genera il contratto completo rispettando esattamente la struttura JSON richiesta.
+MSG;
+
+        $raw = $this->chat($systemPrompt, $userMessage, 0.3);
+        if (!$raw) return null;
+
+        // Strip possible markdown wrapping
+        $raw = trim($raw);
+        $raw = preg_replace('/^```json\s*/i', '', $raw);
+        $raw = preg_replace('/^```\s*/i', '', $raw);
+        $raw = preg_replace('/\s*```$/', '', $raw);
+
+        $data = json_decode($raw, true);
+        if (!is_array($data) || empty($data['clauses'])) {
+            error_log('OpenAI generateContract: invalid JSON response — ' . substr($raw, 0, 500));
+            return null;
+        }
+
+        return $data;
+    }
+}
+
 /**
  * Factory: get a configured OpenAI client.
  */

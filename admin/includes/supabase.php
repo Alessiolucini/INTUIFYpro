@@ -11,12 +11,21 @@ class SupabaseClient
     private string $url;
     private string $key;
     private string $serviceKey;
+    private ?string $lastError = null;
 
     public function __construct(array $config)
     {
         $this->url = rtrim($config['supabase_url'], '/');
         $this->key = $config['supabase_anon_key'];
         $this->serviceKey = $config['supabase_service_key'];
+    }
+
+    /**
+     * Return the last error message from the most recent API call.
+     */
+    public function getLastError(): ?string
+    {
+        return $this->lastError;
     }
 
     // =========================================================================
@@ -82,13 +91,20 @@ class SupabaseClient
 
     /**
      * INSERT a row.
+     * Returns the inserted row or null on failure.
+     * Check getLastError() if null is returned.
      */
     public function insert(string $table, array $data): ?array
     {
+        $this->lastError = null;
         $url = $this->url . '/rest/v1/' . $table;
         $response = $this->request('POST', $url, $data, [
             'Prefer: return=representation',
         ]);
+        if ($response['status'] >= 400 || $response['data'] === null) {
+            $this->lastError = $response['error'] ?? 'Errore sconosciuto (HTTP ' . $response['status'] . ')';
+            return null;
+        }
         return $response['data'][0] ?? null;
     }
 
@@ -97,10 +113,14 @@ class SupabaseClient
      */
     public function update(string $table, string $id, array $data): ?array
     {
+        $this->lastError = null;
         $url = $this->url . '/rest/v1/' . $table . '?id=eq.' . $id;
         $response = $this->request('PATCH', $url, $data, [
             'Prefer: return=representation',
         ]);
+        if ($response['status'] >= 400) {
+            $this->lastError = $response['error'] ?? 'Errore aggiornamento (HTTP ' . $response['status'] . ')';
+        }
         return $response['data'][0] ?? null;
     }
 
@@ -251,8 +271,19 @@ class SupabaseClient
         $decoded = json_decode($body, true);
 
         if ($httpCode >= 400) {
-            $msg = $decoded['message'] ?? $decoded['error'] ?? $body;
+            $msg = '';
+            if (is_array($decoded)) {
+                $msg = $decoded['message'] ?? $decoded['error'] ?? $decoded['hint'] ?? '';
+            }
+            if (!$msg) $msg = $body;
             error_log("Supabase API error ($httpCode): $msg — URL: $url");
+            // Store error for callers
+            return [
+                'status'  => $httpCode,
+                'data'    => $decoded,
+                'headers' => $responseHeaders,
+                'error'   => $msg,
+            ];
         }
 
         return [

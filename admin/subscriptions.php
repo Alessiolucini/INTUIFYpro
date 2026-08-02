@@ -55,20 +55,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'notes'         => trim($_POST['notes'] ?? ''),
     ];
 
-    if (empty($data['plan_name']) || empty($data['client_id'])) {
-        $message = 'Nome piano e cliente sono obbligatori.';
+    $validUuid = fn(string $s) => (bool) preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $s);
+
+    if (empty($data['plan_name'])) {
+        $message = 'Il nome del piano è obbligatorio.';
+        $messageType = 'error';
+    } elseif (empty($data['client_id']) || !$validUuid($data['client_id'])) {
+        $message = 'Seleziona un cliente valido.';
         $messageType = 'error';
     } else {
         $editId = $_POST['id'] ?? '';
         if ($editId) {
-            $sb->update('subscriptions', $editId, $data);
-            $message = 'Abbonamento aggiornato.';
+            $result = $sb->update('subscriptions', $editId, $data);
+            if ($result === null && $sb->getLastError()) {
+                $message = 'Errore aggiornamento: ' . $sb->getLastError();
+                $messageType = 'error';
+            } else {
+                $message = 'Abbonamento aggiornato.';
+                $messageType = 'success';
+                $action = 'list';
+            }
         } else {
-            $sb->insert('subscriptions', $data);
-            $message = 'Abbonamento creato.';
+            $result = $sb->insert('subscriptions', $data);
+            if ($result === null) {
+                $errDetail = $sb->getLastError() ?? 'Risposta vuota dal server.';
+                $message = 'Errore salvataggio abbonamento: ' . $errDetail;
+                $messageType = 'error';
+                // Stay on form — reload clients/products for re-display
+                $clients = $sb->select('clients', ['select' => 'id,company_name', 'order' => 'company_name.asc']);
+                $products = $sb->select('products', ['select' => 'id,name', 'order' => 'name.asc']);
+            } else {
+                $message = 'Abbonamento creato con successo.';
+                $messageType = 'success';
+                $action = 'list';
+            }
         }
-        $messageType = 'success';
-        $action = 'list';
     }
 }
 

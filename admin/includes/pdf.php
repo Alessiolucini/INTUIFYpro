@@ -69,6 +69,7 @@ function outputPDF(string $html, string $filename): void
 
 /**
  * Build HTML for a contract document.
+ * Supports both manual (free-text description) and AI-generated (structured clauses) contracts.
  */
 function buildContractHTML(array $contract, ?array $client, array $config): string
 {
@@ -76,23 +77,54 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
     $logoUri = getLogoDataUri();
     $logoTag = $logoUri ? '<img class="brand-logo" src="' . $logoUri . '" alt="IntuiFy">' : '<h1>INTUIFY</h1>';
 
-    $companyName = $config['company_legal_name'] ?? 'IntuiFy';
-    $companyVat = $config['company_vat'] ?? '';
-    $companyAddr = $config['company_address'] ?? '';
+    $companyName  = $config['company_legal_name'] ?? 'IntuiFy';
+    $companyVat   = $config['company_vat'] ?? '';
+    $companyAddr  = $config['company_address'] ?? '';
     $companyEmail = $config['company_email'] ?? '';
-    
-    $clientName = $client['company_name'] ?? 'N/A';
-    $clientVat = $client['vat_number'] ?? '';
-    $clientAddr = $client['address'] ?? '';
-    $clientVatLine = $clientVat ? 'CIF: ' . $clientVat : '';
-    
+    $companyIban  = $config['company_iban'] ?? '';
+
+    $clientName  = htmlspecialchars($client['company_name'] ?? 'N/A');
+    $clientVat   = htmlspecialchars($client['vat_number'] ?? '');
+    $clientAddr  = htmlspecialchars($client['address'] ?? '');
+    $clientVatLine = $clientVat ? 'CIF/P.IVA: ' . $clientVat : '';
+
     $contractNum = htmlspecialchars($contract['contract_number'] ?? '');
-    $title = htmlspecialchars($contract['title'] ?? '');
-    $description = nl2br(htmlspecialchars($contract['description'] ?? ''));
-    $amount = number_format((float)($contract['amount'] ?? 0), 2, ',', '.');
-    $startDate = $contract['start_date'] ? date('d/m/Y', strtotime($contract['start_date'])) : '—';
-    $endDate = $contract['end_date'] ? date('d/m/Y', strtotime($contract['end_date'])) : '—';
-    $today = date('d/m/Y');
+    $title       = htmlspecialchars($contract['title'] ?? '');
+    $amount      = number_format((float)($contract['amount'] ?? 0), 2, ',', '.');
+    $startDate   = $contract['start_date'] ? date('d/m/Y', strtotime($contract['start_date'])) : '—';
+    $endDate     = $contract['end_date']   ? date('d/m/Y', strtotime($contract['end_date']))   : '—';
+    $today       = date('d/m/Y');
+
+    // --- Clausole ---
+    // Prefer AI-generated structured clauses; fallback to free-text description
+    $clausesData = $contract['clauses'] ?? null;
+    if (is_string($clausesData)) {
+        $clausesData = json_decode($clausesData, true);
+    }
+
+    $clausesHTML = '';
+    if (!empty($clausesData) && is_array($clausesData)) {
+        foreach ($clausesData as $clause) {
+            $num    = (int) ($clause['number'] ?? 0);
+            $ctitle = htmlspecialchars($clause['title'] ?? '');
+            $ctext  = nl2br(htmlspecialchars($clause['text'] ?? ''));
+            $clausesHTML .= "<div class=\"clause\"><h4>Art. {$num} &mdash; {$ctitle}</h4><p>{$ctext}</p></div>";
+        }
+    } else {
+        // Fallback: plain description
+        $description = nl2br(htmlspecialchars($contract['description'] ?? ''));
+        if ($description) {
+            $clausesHTML = "<div class=\"clause\"><p>{$description}</p></div>";
+        }
+    }
+
+    // --- Pagamento / IBAN ---
+    $paymentRaw = trim($contract['payment_terms'] ?? '');
+    if (!$paymentRaw) {
+        $ibanLine = $companyIban ? "\nIBAN: {$companyIban}\nBeneficiario: {$companyName}" : '';
+        $paymentRaw = "Il pagamento del corrispettivo pattuito dovrà essere effettuato tramite bonifico bancario entro il 5 di ogni mese (o data concordata), indicando come causale il numero del contratto {$contractNum}.{$ibanLine}";
+    }
+    $paymentHTML = nl2br(htmlspecialchars($paymentRaw));
 
     return <<<HTML
     <!DOCTYPE html>
@@ -101,6 +133,11 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
         <meta charset="UTF-8">
         <style>
             {$styles}
+            .clause { margin: 0 0 18px 0; page-break-inside: avoid; }
+            .clause h4 { font-size: 11px; font-weight: 700; color: #1a1a2e; margin-bottom: 5px; border-left: 3px solid #1a1a2e; padding-left: 8px; }
+            .clause p { font-size: 10px; line-height: 1.7; color: #333; margin-left: 11px; }
+            .payment-box { background: #f8f8fc; border: 1px solid #ddd; border-radius: 4px; padding: 14px 16px; margin: 24px 0; font-size: 10px; line-height: 1.7; }
+            .payment-box strong { display: block; font-size: 11px; margin-bottom: 6px; color: #1a1a2e; }
         </style>
     </head>
     <body>
@@ -111,7 +148,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
             </div>
             <div class="doc-info">
                 <h2>CONTRATTO</h2>
-                <p><strong>N°:</strong> {$contractNum}</p>
+                <p><strong>N&deg;:</strong> {$contractNum}</p>
                 <p><strong>Data:</strong> {$today}</p>
             </div>
         </div>
@@ -124,21 +161,29 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
                 <p><strong>{$companyName}</strong><br>{$companyAddr}<br>CIF: {$companyVat}</p>
             </div>
             <div class="party">
-                <h3>Cliente</h3>
+                <h3>Cliente / Committente</h3>
                 <p><strong>{$clientName}</strong><br>{$clientAddr}<br>{$clientVatLine}</p>
             </div>
         </div>
 
         <div class="section">
             <h3>{$title}</h3>
-            <div class="content">{$description}</div>
         </div>
 
         <table class="details-table">
-            <tr><td class="label">Importo</td><td>€{$amount}</td></tr>
+            <tr><td class="label">Importo</td><td>&euro;{$amount}</td></tr>
             <tr><td class="label">Data Inizio</td><td>{$startDate}</td></tr>
             <tr><td class="label">Data Fine</td><td>{$endDate}</td></tr>
         </table>
+
+        <div class="section" style="margin-top:24px;">
+            {$clausesHTML}
+        </div>
+
+        <div class="payment-box">
+            <strong>Modalita&grave; di Pagamento e Coordinate Bancarie</strong>
+            {$paymentHTML}
+        </div>
 
         <div class="signatures">
             <div class="sig-box">
@@ -154,7 +199,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
         </div>
 
         <div class="footer">
-            <p>{$companyName} — {$companyAddr} — CIF: {$companyVat}</p>
+            <p>{$companyName} &mdash; {$companyAddr} &mdash; CIF: {$companyVat}</p>
         </div>
     </body>
     </html>
