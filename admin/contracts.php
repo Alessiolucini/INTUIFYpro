@@ -81,7 +81,7 @@ if ($action === 'ai-generate' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset(
         $aiGenerated  = $ai->generateContract($userPrompt, $config, $clientInfo, $contractNum);
 
         if (!$aiGenerated) {
-            $aiError = 'L\'AI non ha potuto generare il contratto. Verifica che la chiave OpenAI sia configurata e riprova.';
+            $aiError = $ai->getLastError() ?? 'L\'AI non ha potuto generare il contratto. Verifica che la chiave OpenAI sia configurata e riprova.';
         }
     }
 }

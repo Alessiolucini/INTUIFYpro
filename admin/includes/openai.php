@@ -11,12 +11,18 @@ class OpenAIClient
     private string $apiKey;
     private string $model;
     private string $visionModel;
+    private ?string $lastError = null;
 
     public function __construct(array $config)
     {
-        $this->apiKey = $config['openai_api_key'] ?? '';
-        $this->model = $config['openai_model'] ?? 'gpt-4o';
-        $this->visionModel = $config['openai_vision_model'] ?? 'gpt-4o';
+        $this->apiKey       = $config['openai_api_key'] ?? '';
+        $this->model        = $config['openai_model'] ?? 'gpt-4o';
+        $this->visionModel  = $config['openai_vision_model'] ?? 'gpt-4o';
+    }
+
+    public function getLastError(): ?string
+    {
+        return $this->lastError;
     }
 
     /**
@@ -126,38 +132,45 @@ class OpenAIClient
     /**
      * Send request to OpenAI API.
      */
-    private function request(string $url, array $payload): ?array
+    private function request(string $url, array $payload, int $timeout = 60): ?array
     {
+        $this->lastError = null;
+
         if (empty($this->apiKey)) {
+            $this->lastError = 'Chiave API OpenAI non configurata. Imposta OPENAI_API_KEY in Dokploy.';
             error_log('OpenAI: API key not configured');
             return null;
         }
 
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
+            CURLOPT_URL            => $url,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_HTTPHEADER => [
+            CURLOPT_CUSTOMREQUEST  => 'POST',
+            CURLOPT_POSTFIELDS     => json_encode($payload),
+            CURLOPT_HTTPHEADER     => [
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $this->apiKey,
             ],
-            CURLOPT_TIMEOUT => 60,
+            CURLOPT_TIMEOUT        => $timeout,
             CURLOPT_SSL_VERIFYPEER => true,
         ]);
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $error = curl_error($ch);
+        $error    = curl_error($ch);
         curl_close($ch);
 
         if ($error) {
+            $this->lastError = 'Errore di rete: ' . $error;
             error_log("OpenAI cURL error: {$error}");
             return null;
         }
 
         if ($httpCode !== 200) {
+            $decoded = json_decode($response, true);
+            $msg = $decoded['error']['message'] ?? $response;
+            $this->lastError = "OpenAI HTTP {$httpCode}: " . $msg;
             error_log("OpenAI API error (HTTP {$httpCode}): {$response}");
             return null;
         }
@@ -294,8 +307,30 @@ DESCRIZIONE DEL CONTRATTO (fornita dall'utente):
 Genera il contratto completo rispettando esattamente la struttura JSON richiesta.
 MSG;
 
-        $raw = $this->chat($systemPrompt, $userMessage, 0.3);
-        if (!$raw) return null;
+        // Use request() directly to allow a longer timeout (120s)
+        // Large contract generation can take 60-90s with GPT-4o
+        @set_time_limit(180);
+
+        $payload = [
+            'model'       => $this->model,
+            'temperature' => 0.3,
+            'messages'    => [
+                ['role' => 'system', 'content' => $systemPrompt],
+                ['role' => 'user',   'content' => $userMessage],
+            ],
+        ];
+
+        $response = $this->request('https://api.openai.com/v1/chat/completions', $payload, 120);
+        if (!$response) {
+            // lastError already set by request()
+            return null;
+        }
+
+        $raw = $response['choices'][0]['message']['content'] ?? null;
+        if (!$raw) {
+            $this->lastError = 'Risposta vuota da OpenAI.';
+            return null;
+        }
 
         // Strip possible markdown wrapping
         $raw = trim($raw);
@@ -305,7 +340,8 @@ MSG;
 
         $data = json_decode($raw, true);
         if (!is_array($data) || empty($data['clauses'])) {
-            error_log('OpenAI generateContract: invalid JSON response — ' . substr($raw, 0, 500));
+            $this->lastError = 'Il modello non ha restituito JSON valido. Riprova.';
+            error_log('OpenAI generateContract: invalid JSON — ' . substr($raw, 0, 500));
             return null;
         }
 
