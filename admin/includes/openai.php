@@ -211,7 +211,7 @@ class OpenAIClient
 Sei un esperto legale specializzato nella redazione di contratti di servizi digitali e SaaS per aziende europee.
 Generi contratti professionali, completi e vincolanti in italiano, adatti ad essere firmati e consegnati ai clienti.
 
-AZIENDA FORNITRICE (Prestatore):
+AZIENDA FORNITRICE (Fornitore):
 - Ragione Sociale: {$companyName}
 - CIF/P.IVA: {$companyVat}
 - Indirizzo: {$companyAddr}
@@ -224,7 +224,7 @@ Regole assolute:
 3. Usa un linguaggio formale e preciso in italiano.
 4. Include SEMPRE tutte le sezioni obbligatorie elencate sotto.
 5. Personalizza le clausole in base alla descrizione fornita dall'utente.
-6. L'IBAN da usare nelle condizioni di pagamento è quello del Prestatore indicato sopra.
+6. L'IBAN da usare nelle condizioni di pagamento è quello del Fornitore indicato sopra.
 
 Struttura JSON obbligatoria:
 {
@@ -252,7 +252,7 @@ Struttura JSON obbligatoria:
     },
     {
       "number": 4,
-      "title": "Obblighi del Prestatore",
+      "title": "Obblighi del Fornitore",
       "text": "..."
     },
     {

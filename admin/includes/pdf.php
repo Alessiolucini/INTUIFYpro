@@ -157,7 +157,7 @@ function buildContractHTML(array $contract, ?array $client, array $config): stri
 
         <div class="parties">
             <div class="party">
-                <h3>Prestatore</h3>
+                <h3>Fornitore</h3>
                 <p><strong>{$companyName}</strong><br>{$companyAddr}<br>CIF: {$companyVat}</p>
             </div>
             <div class="party">
