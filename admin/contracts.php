@@ -316,7 +316,7 @@ $cycleLabels = [
                         <!-- Error banner (shown by JS) -->
                         <div id="aiErrorBanner" class="hidden mx-6 mb-4 p-3 rounded-lg text-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171"></div>
 
-                        <!-- STEP 1: Descrizione base -->
+                        <!-- STEP 1: Descrizione in linguaggio naturale -->
                         <div class="p-6" id="step1">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div class="form-group">
@@ -339,32 +339,17 @@ $cycleLabels = [
                                 </div>
                             </div>
                             <div class="form-group mb-5">
-                                <label class="form-label">Descrivi il contratto *</label>
-                                <textarea id="ai_description" class="form-textarea" style="min-height:8rem" required
-                                    placeholder="Es: Contratto fornitura software CRM SaaS per il cliente Rossi Srl. Abbonamento mensile 500€ + setup una tantum 1.000€. Durata minima 2 anni. Il servizio include assistenza telefonica lun-ven 9-18. Pagamenti entro 5 giorni dall'inizio mese. Foro di Milano."></textarea>
-                                <p class="text-xs text-slate-500 mt-1">Scrivi tutto quello che sai: importo, durata, servizi inclusi, SLA, condizioni speciali. L'AI ti farà domande per completare i dettagli mancanti.</p>
+                                <label class="form-label">Descrivi il contratto in linguaggio naturale *</label>
+                                <textarea id="ai_description" class="form-textarea" style="min-height:10rem" required
+                                    placeholder="Esempio:
+Al cliente gli diamo il nostro SaaS di gestione HR. Paga 1.500€ al mese di abbonamento più 1.500€ una tantum per l'installazione e la configurazione iniziale. Durata minima 2 anni. Se vuole uscire prima paga 3 mesi di penale. I pagamenti mensili vanno fatti entro il 5 di ogni mese. Se non paga entro 15 giorni sospendiamo il servizio. Il supporto è telefonico dal lunedì al venerdì 9-18. Foro di Milano."></textarea>
+                                <p class="text-xs text-slate-500 mt-1">Scrivi liberamente: importi, durata, penali, pagamenti, SLA, condizioni speciali. L'AI converte tutto in un contratto professionale.
+                                </p>
                             </div>
-                            <button type="button" onclick="loadQuestions()" class="btn btn-primary" id="analyzeBtn">
-                                <span id="analyzeLabel">🔍 Analizza e prepara le domande</span>
-                                <span id="analyzeSpinner" class="hidden">⏳ Analisi in corso…</span>
+                            <button type="button" onclick="generateWithAI()" class="btn btn-primary" id="generateBtn">
+                                <span id="generateLabel">✦ Redigi il Contratto</span>
+                                <span id="generateSpinner" class="hidden">⏳ Redazione in corso… (60–90 sec)</span>
                             </button>
-                        </div>
-
-                        <!-- STEP 2: Domande AI -->
-                        <div id="step2" class="hidden p-6 border-t border-white/[0.06]">
-                            <div class="flex items-center gap-2 mb-4">
-                                <span style="color:#a78bfa;font-size:1.1rem">✦</span>
-                                <h4 class="text-sm font-semibold text-slate-200">Domande del consulente</h4>
-                                <span class="text-xs text-slate-500">Rispondi per ottenere un contratto più preciso</span>
-                            </div>
-                            <div id="questionsContainer" class="space-y-4 mb-5"></div>
-                            <div class="flex items-center gap-3">
-                                <button type="button" onclick="generateWithAI()" class="btn btn-primary" id="generateBtn">
-                                    <span id="generateLabel">✦ Redigi il Contratto</span>
-                                    <span id="generateSpinner" class="hidden">⏳ Redazione in corso… (60–90 sec)</span>
-                                </button>
-                                <button type="button" onclick="generateWithAI(true)" class="btn btn-secondary btn-sm">Salta domande e genera subito</button>
-                            </div>
                         </div>
                     </div>
 
@@ -498,77 +483,14 @@ $cycleLabels = [
     </div>
 
     <script>
-    // ── State ────────────────────────────────────────────────────────────────
-    let _questions = [];   // [{id, question, type, placeholder, options, required}]
-
-    // ── Step 1 → 2: Load clarifying questions ────────────────────────────────
-    async function loadQuestions() {
-        const clientId    = document.getElementById('ai_client_id')?.value;
-        const description = document.getElementById('ai_description')?.value?.trim();
-        if (!clientId)                      { alert('Seleziona un cliente');                        return; }
-        if (!description || description.length < 30) { alert('Descrivi il contratto (almeno 30 caratteri)'); return; }
-
-        setBusy('analyzeBtn', 'analyzeLabel', 'analyzeSpinner', true);
-        hideError();
-
-        try {
-            const fd = new FormData();
-            fd.append('client_id',   clientId);
-            fd.append('description', description);
-            const res  = await fetch('/admin/api/contract-questions.php', { method:'POST', body:fd, signal: AbortSignal.timeout(50000) });
-            const data = await res.json();
-            if (!res.ok || data.error) throw new Error(data.error || `Errore HTTP ${res.status}`);
-
-            _questions = data.questions || [];
-            renderQuestions(_questions);
-            document.getElementById('step2').classList.remove('hidden');
-            document.getElementById('step2').scrollIntoView({ behavior:'smooth', block:'start' });
-        } catch(err) {
-            showError(err.message);
-        } finally {
-            setBusy('analyzeBtn', 'analyzeLabel', 'analyzeSpinner', false);
-        }
-    }
-
-    function renderQuestions(questions) {
-        const wrap = document.getElementById('questionsContainer');
-        wrap.innerHTML = '';
-        questions.forEach(q => {
-            const div = document.createElement('div');
-            div.className = 'form-group';
-            let inputHtml = '';
-            if (q.type === 'textarea') {
-                inputHtml = `<textarea id="qa_${q.id}" class="form-textarea" style="min-height:5rem" placeholder="${escHtml(q.placeholder||'')}"></textarea>`;
-            } else if (q.type === 'select' && q.options?.length) {
-                const opts = q.options.map(o => `<option value="${escHtml(o)}">${escHtml(o)}</option>`).join('');
-                inputHtml = `<select id="qa_${q.id}" class="form-select"><option value="">Seleziona…</option>${opts}</select>`;
-            } else {
-                const t = q.type === 'number' ? 'number' : 'text';
-                inputHtml = `<input type="${t}" id="qa_${q.id}" class="form-input" placeholder="${escHtml(q.placeholder||'')}">`;
-            }
-            div.innerHTML = `
-                <label class="form-label" style="color:#c4b5fd">
-                    ${escHtml(q.question)} ${q.required ? '<span style="color:#f87171">*</span>' : '<span style="color:#64748b;font-weight:normal">(opzionale)</span>'}
-                </label>
-                ${inputHtml}`;
-            wrap.appendChild(div);
-        });
-    }
-
-    // ── Step 2 → 3: Generate the full professional contract ───────────────────
-    async function generateWithAI(skipQuestions = false) {
+    // ── Generate professional contract from natural language description ────────
+    async function generateWithAI() {
         const clientId    = document.getElementById('ai_client_id')?.value;
         const productId   = document.getElementById('ai_product_id')?.value;
         const description = document.getElementById('ai_description')?.value?.trim();
 
-        // Collect Q&A answers
-        const answers = {};
-        if (!skipQuestions) {
-            _questions.forEach(q => {
-                const el = document.getElementById('qa_' + q.id);
-                if (el) answers[q.question] = el.value.trim();
-            });
-        }
+        if (!clientId)                             { alert('Seleziona un cliente'); return; }
+        if (!description || description.length < 20) { alert('Descrivi il contratto (almeno 20 caratteri)'); return; }
 
         setBusy('generateBtn', 'generateLabel', 'generateSpinner', true);
         hideError();
@@ -577,24 +499,24 @@ $cycleLabels = [
             const fd = new FormData();
             fd.append('client_id',   clientId);
             fd.append('description', description);
-            fd.append('answers',     JSON.stringify(answers));
+            fd.append('answers',     '{}'); // no Q&A — AI infers everything from description
             const res  = await fetch('/admin/api/generate-contract.php', { method:'POST', body:fd, signal: AbortSignal.timeout(150000) });
             const data = await res.json();
             if (!res.ok || data.error) throw new Error(data.error || `Errore HTTP ${res.status}`);
 
             // Populate save form
-            document.getElementById('save_client_id').value    = clientId;
-            document.getElementById('save_product_id').value   = productId || '';
+            document.getElementById('save_client_id').value      = clientId;
+            document.getElementById('save_product_id').value     = productId || '';
             document.getElementById('save_contract_number').value = data.contract_number || '';
-            document.getElementById('save_num_display').value    = data.contract_number || '';
-            document.getElementById('save_title').value          = data.title || '';
-            document.getElementById('save_amount').value         = data.amount || '';
-            document.getElementById('save_start').value          = data.start_date || '';
-            document.getElementById('save_end').value            = data.end_date   || '';
-            document.getElementById('save_payment').value        = data.payment_terms || '';
-            document.getElementById('save_clauses_json').value   = JSON.stringify(data.clauses || []);
+            document.getElementById('save_num_display').value     = data.contract_number || '';
+            document.getElementById('save_title').value           = data.title || '';
+            document.getElementById('save_amount').value          = data.amount || '';
+            document.getElementById('save_start').value           = data.start_date || '';
+            document.getElementById('save_end').value             = data.end_date   || '';
+            document.getElementById('save_payment').value         = data.payment_terms || '';
+            document.getElementById('save_clauses_json').value    = JSON.stringify(data.clauses || []);
 
-            // Render clauses
+            // Render clauses preview
             const container = document.getElementById('clausesContainer');
             container.innerHTML = '';
             const clauses = data.clauses || [];
@@ -602,7 +524,7 @@ $cycleLabels = [
             clauses.forEach(c => {
                 const div = document.createElement('div');
                 div.className = 'rounded-xl p-4';
-                div.style.cssText = 'border:1px solid rgba(99,102,241,0.2);background:rgba(99,102,241,0.03)';
+                div.style.cssText = 'border:1px solid rgba(99,102,241,0.2);background:rgba(99,102,241,0.03);margin-bottom:.5rem';
                 div.innerHTML = `
                     <p class="text-xs font-bold mb-2" style="color:#818cf8;text-transform:uppercase;letter-spacing:.05em">
                         Art. ${c.number} — ${escHtml(c.title)}
@@ -621,7 +543,6 @@ $cycleLabels = [
     }
 
     function resetFlow() {
-        document.getElementById('step2').classList.add('hidden');
         document.getElementById('step3').classList.add('hidden');
         document.getElementById('step1').scrollIntoView({ behavior:'smooth' });
     }
@@ -649,6 +570,5 @@ $cycleLabels = [
             .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     </script>
-</body>
-</html>
+
 
