@@ -316,8 +316,8 @@ $cycleLabels = [
                         <!-- Error banner (shown by JS) -->
                         <div id="aiErrorBanner" class="hidden mx-6 mb-4 p-3 rounded-lg text-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171"></div>
 
-                        <!-- Step 1: Input form (pure HTML — no PHP POST) -->
-                        <div class="p-6" id="generateFormWrap">
+                        <!-- STEP 1: Descrizione base -->
+                        <div class="p-6" id="step1">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div class="form-group">
                                     <label class="form-label">Cliente *</label>
@@ -338,35 +338,49 @@ $cycleLabels = [
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-5">
                                 <label class="form-label">Descrivi il contratto *</label>
-                                <textarea id="ai_description" class="form-textarea" style="min-height:9rem" required
-                                    placeholder="Es: Contratto di abbonamento mensile per il servizio SaaS LingoBite. Importo 299€/mese. Durata 12 mesi a partire da settembre 2026. Il cliente ha diritto ad assistenza tecnica 5×8 e aggiornamenti inclusi. Preavviso di recesso 30 giorni."></textarea>
-                                <p class="text-xs text-slate-500 mt-1">Includi: tipo di servizio, importo, durata, condizioni particolari, SLA, modalità di pagamento…</p>
+                                <textarea id="ai_description" class="form-textarea" style="min-height:8rem" required
+                                    placeholder="Es: Contratto fornitura software CRM SaaS per il cliente Rossi Srl. Abbonamento mensile 500€ + setup una tantum 1.000€. Durata minima 2 anni. Il servizio include assistenza telefonica lun-ven 9-18. Pagamenti entro 5 giorni dall'inizio mese. Foro di Milano."></textarea>
+                                <p class="text-xs text-slate-500 mt-1">Scrivi tutto quello che sai: importo, durata, servizi inclusi, SLA, condizioni speciali. L'AI ti farà domande per completare i dettagli mancanti.</p>
                             </div>
-
-                            <button type="button" onclick="generateWithAI()" class="btn btn-primary" id="generateBtn">
-                                <span id="generateLabel">✦ Genera Contratto</span>
-                                <span id="generateSpinner" class="hidden">⏳ Generazione in corso… (60–90 secondi)</span>
+                            <button type="button" onclick="loadQuestions()" class="btn btn-primary" id="analyzeBtn">
+                                <span id="analyzeLabel">🔍 Analizza e prepara le domande</span>
+                                <span id="analyzeSpinner" class="hidden">⏳ Analisi in corso…</span>
                             </button>
+                        </div>
+
+                        <!-- STEP 2: Domande AI -->
+                        <div id="step2" class="hidden p-6 border-t border-white/[0.06]">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span style="color:#a78bfa;font-size:1.1rem">✦</span>
+                                <h4 class="text-sm font-semibold text-slate-200">Domande del consulente</h4>
+                                <span class="text-xs text-slate-500">Rispondi per ottenere un contratto più preciso</span>
+                            </div>
+                            <div id="questionsContainer" class="space-y-4 mb-5"></div>
+                            <div class="flex items-center gap-3">
+                                <button type="button" onclick="generateWithAI()" class="btn btn-primary" id="generateBtn">
+                                    <span id="generateLabel">✦ Redigi il Contratto</span>
+                                    <span id="generateSpinner" class="hidden">⏳ Redazione in corso… (60–90 sec)</span>
+                                </button>
+                                <button type="button" onclick="generateWithAI(true)" class="btn btn-secondary btn-sm">Salta domande e genera subito</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Step 2: Preview & Save (rendered by JS after AJAX response) -->
-                    <div id="previewSection" class="hidden">
+                    <!-- STEP 3: Anteprima + Salva -->
+                    <div id="step3" class="hidden">
                         <div class="card" style="border-color:rgba(167,139,250,0.25)">
                             <div class="card-header" style="background:rgba(139,92,246,0.05)">
-                                <h3 class="card-title text-purple-400">✦ Contratto Generato — Anteprima e Salvataggio</h3>
+                                <h3 class="card-title text-purple-400">✦ Contratto Redatto — Anteprima e Salvataggio</h3>
+                                <button type="button" onclick="resetFlow()" class="btn btn-secondary btn-sm">Rigenera</button>
                             </div>
-
                             <form method="POST" action="?action=ai-generate" class="p-6" id="saveForm">
                                 <input type="hidden" name="save_ai" value="1">
                                 <input type="hidden" name="client_id"       id="save_client_id">
                                 <input type="hidden" name="product_id"      id="save_product_id">
                                 <input type="hidden" name="contract_number" id="save_contract_number">
                                 <input type="hidden" name="clauses_json"    id="save_clauses_json">
-
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                                     <div class="form-group md:col-span-2">
                                         <label class="form-label">Titolo Contratto</label>
@@ -374,7 +388,7 @@ $cycleLabels = [
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">N° Contratto</label>
-                                        <input type="text" id="save_contract_number_display" class="form-input" readonly style="opacity:0.6">
+                                        <input type="text" id="save_num_display" class="form-input" readonly style="opacity:0.6">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Importo (€)</label>
@@ -382,119 +396,33 @@ $cycleLabels = [
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Data Inizio</label>
-                                        <input type="date" name="start_date" id="save_start_date" class="form-input">
+                                        <input type="date" name="start_date" id="save_start" class="form-input">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Data Fine</label>
-                                        <input type="date" name="end_date" id="save_end_date" class="form-input">
-                                    </div>
-                                    <div class="form-group md:col-span-2">
-                                        <label class="form-label">Descrizione / Note brevi</label>
-                                        <input type="text" name="description" class="form-input" placeholder="Descrizione breve (opzionale)">
+                                        <input type="date" name="end_date" id="save_end" class="form-input">
                                     </div>
                                     <div class="form-group md:col-span-2">
                                         <label class="form-label">Condizioni di Pagamento & IBAN</label>
-                                        <textarea name="payment_terms" id="save_payment_terms" class="form-textarea" style="min-height:5rem"></textarea>
+                                        <textarea name="payment_terms" id="save_payment" class="form-textarea" style="min-height:5rem"></textarea>
+                                    </div>
+                                    <div class="form-group md:col-span-2">
+                                        <label class="form-label">Note interne (non nel PDF)</label>
+                                        <input type="text" name="description" class="form-input" placeholder="Opzionale">
                                     </div>
                                 </div>
-
-                                <!-- Clausole preview -->
+                                <!-- Clausole -->
                                 <div class="mb-6">
-                                    <h4 class="text-sm font-semibold text-slate-300 mb-3">Clausole generate</h4>
+                                    <h4 class="text-sm font-semibold text-slate-300 mb-3" id="clauseCount">Articoli</h4>
                                     <div class="space-y-3" id="clausesContainer"></div>
                                 </div>
-
                                 <div class="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
                                     <button type="submit" class="btn btn-primary">💾 Salva e Scarica PDF</button>
-                                    <button type="button" onclick="location.reload()" class="btn btn-secondary">Rigenera</button>
                                     <a href="?action=list" class="btn btn-secondary">Annulla</a>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-
-                    <?php if ($aiGenerated): ?>
-                    <!-- ─── Step 2: Preview & Save ──────────────────────────── -->
-                    <?php
-                        $previewClauses = $aiGenerated['clauses'] ?? [];
-                        $previewTitle   = htmlspecialchars($aiGenerated['title'] ?? '');
-                        $previewAmount  = $aiGenerated['amount'] ?? 0;
-                        $previewCycle   = $aiGenerated['billing_cycle'] ?? 'monthly';
-                        $previewStart   = $aiGenerated['start_date'] ?? date('Y-m-d');
-                        $previewEnd     = $aiGenerated['end_date'] ?? '';
-                        $previewPayment = $aiGenerated['payment_terms'] ?? '';
-                        $clausesJson    = json_encode($previewClauses, JSON_UNESCAPED_UNICODE);
-                        $contractNum    = nextContractNumber($sb, $config);
-                    ?>
-                    <div class="card" style="border-color:rgba(167,139,250,0.25)">
-                        <div class="card-header" style="background:rgba(139,92,246,0.05)">
-                            <h3 class="card-title text-purple-400">✦ Contratto Generato — Anteprima e Salvataggio</h3>
-                        </div>
-
-                        <form method="POST" class="p-6">
-                            <input type="hidden" name="save_ai" value="1">
-                            <input type="hidden" name="client_id" value="<?= htmlspecialchars($_POST['client_id'] ?? '') ?>">
-                            <input type="hidden" name="product_id" value="<?= htmlspecialchars($_POST['product_id'] ?? '') ?>">
-                            <input type="hidden" name="contract_number" value="<?= htmlspecialchars($contractNum) ?>">
-                            <input type="hidden" name="clauses_json" id="clausesJson" value="<?= htmlspecialchars($clausesJson) ?>">
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                <div class="form-group md:col-span-2">
-                                    <label class="form-label">Titolo Contratto</label>
-                                    <input type="text" name="title" class="form-input" value="<?= $previewTitle ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">N° Contratto</label>
-                                    <input type="text" class="form-input" value="<?= htmlspecialchars($contractNum) ?>" readonly style="opacity:0.6">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Importo (€)</label>
-                                    <input type="number" name="amount" step="0.01" class="form-input" value="<?= $previewAmount ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Data Inizio</label>
-                                    <input type="date" name="start_date" class="form-input" value="<?= htmlspecialchars($previewStart) ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Data Fine</label>
-                                    <input type="date" name="end_date" class="form-input" value="<?= htmlspecialchars($previewEnd) ?>">
-                                </div>
-                                <div class="form-group md:col-span-2">
-                                    <label class="form-label">Descrizione / Note brevi</label>
-                                    <input type="text" name="description" class="form-input" placeholder="Descrizione breve (opzionale)">
-                                </div>
-                                <div class="form-group md:col-span-2">
-                                    <label class="form-label">Condizioni di Pagamento & IBAN</label>
-                                    <textarea name="payment_terms" class="form-textarea" style="min-height:5rem"><?= htmlspecialchars($previewPayment) ?></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Clausole preview -->
-                            <div class="mb-6">
-                                <h4 class="text-sm font-semibold text-slate-300 mb-3">Clausole generate (<?= count($previewClauses) ?>)</h4>
-                                <div class="space-y-3" id="clausesContainer">
-                                    <?php foreach ($previewClauses as $i => $clause): ?>
-                                        <div class="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4" data-clause="<?= $i ?>">
-                                            <div class="flex items-start justify-between gap-3 mb-2">
-                                                <p class="text-xs font-bold text-indigo-400">Art. <?= $clause['number'] ?> — <?= htmlspecialchars($clause['title']) ?></p>
-                                            </div>
-                                            <p class="text-xs text-slate-400 leading-relaxed"><?= nl2br(htmlspecialchars($clause['text'])) ?></p>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                                <button type="submit" class="btn btn-primary">
-                                    💾 Salva e Scarica PDF
-                                </button>
-                                <a href="?action=ai-generate" class="btn btn-secondary">Rigenera</a>
-                                <a href="?action=list" class="btn btn-secondary">Annulla</a>
-                            </div>
-                        </form>
-                    </div>
-                    <?php endif; ?>
                 </div>
 
             <?php elseif ($action === 'new' || $action === 'edit'): ?>
@@ -570,96 +498,157 @@ $cycleLabels = [
     </div>
 
     <script>
-    async function generateWithAI() {
-        const clientId   = document.getElementById('ai_client_id')?.value;
-        const productId  = document.getElementById('ai_product_id')?.value;
-        const description = document.getElementById('ai_description')?.value;
+    // ── State ────────────────────────────────────────────────────────────────
+    let _questions = [];   // [{id, question, type, placeholder, options, required}]
 
-        if (!clientId) { alert('Seleziona un cliente'); return; }
-        if (!description || description.trim().length < 20) {
-            alert('Inserisci una descrizione più dettagliata (almeno 20 caratteri)');
-            return;
-        }
+    // ── Step 1 → 2: Load clarifying questions ────────────────────────────────
+    async function loadQuestions() {
+        const clientId    = document.getElementById('ai_client_id')?.value;
+        const description = document.getElementById('ai_description')?.value?.trim();
+        if (!clientId)                      { alert('Seleziona un cliente');                        return; }
+        if (!description || description.length < 30) { alert('Descrivi il contratto (almeno 30 caratteri)'); return; }
 
-        // Show spinner
-        const btn     = document.getElementById('generateBtn');
-        const label   = document.getElementById('generateLabel');
-        const spinner = document.getElementById('generateSpinner');
-        const errorBanner = document.getElementById('aiErrorBanner');
-
-        btn.disabled = true;
-        label.classList.add('hidden');
-        spinner.classList.remove('hidden');
-        errorBanner.classList.add('hidden');
+        setBusy('analyzeBtn', 'analyzeLabel', 'analyzeSpinner', true);
+        hideError();
 
         try {
-            const formData = new FormData();
-            formData.append('client_id',   clientId);
-            formData.append('description', description.trim());
-
-            const res = await fetch('/admin/api/generate-contract.php', {
-                method: 'POST',
-                body: formData,
-                signal: AbortSignal.timeout(120000), // 2 min browser-side timeout
-            });
-
+            const fd = new FormData();
+            fd.append('client_id',   clientId);
+            fd.append('description', description);
+            const res  = await fetch('/admin/api/contract-questions.php', { method:'POST', body:fd, signal: AbortSignal.timeout(50000) });
             const data = await res.json();
+            if (!res.ok || data.error) throw new Error(data.error || `Errore HTTP ${res.status}`);
 
-            if (!res.ok || data.error) {
-                throw new Error(data.error || `Errore HTTP ${res.status}`);
-            }
-
-            // Populate the save form
-            document.getElementById('save_client_id').value         = clientId;
-            document.getElementById('save_product_id').value        = productId || '';
-            document.getElementById('save_contract_number').value   = data.contract_number || '';
-            document.getElementById('save_contract_number_display').value = data.contract_number || '';
-            document.getElementById('save_title').value             = data.title || '';
-            document.getElementById('save_amount').value            = data.amount || '';
-            document.getElementById('save_start_date').value        = data.start_date || '';
-            document.getElementById('save_end_date').value          = data.end_date || '';
-            document.getElementById('save_payment_terms').value     = data.payment_terms || '';
-            document.getElementById('save_clauses_json').value      = JSON.stringify(data.clauses || []);
-
-            // Render clauses preview
-            const container = document.getElementById('clausesContainer');
-            container.innerHTML = '';
-            (data.clauses || []).forEach(clause => {
-                const div = document.createElement('div');
-                div.className = 'rounded-xl p-4';
-                div.style = 'border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)';
-                div.innerHTML = `
-                    <p class="text-xs font-bold mb-1" style="color:#818cf8">
-                        Art. ${clause.number} — ${escapeHtml(clause.title)}
-                    </p>
-                    <p class="text-xs leading-relaxed" style="color:#94a3b8">
-                        ${escapeHtml(clause.text).replace(/\n/g, '<br>')}
-                    </p>`;
-                container.appendChild(div);
-            });
-
-            // Show preview, hide input form
-            document.getElementById('previewSection').classList.remove('hidden');
-            document.getElementById('generateFormWrap').classList.add('hidden');
-            document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
-
-        } catch (err) {
-            errorBanner.textContent = '✗ ' + (err.message || 'Errore sconosciuto. Riprova.');
-            errorBanner.classList.remove('hidden');
+            _questions = data.questions || [];
+            renderQuestions(_questions);
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('step2').scrollIntoView({ behavior:'smooth', block:'start' });
+        } catch(err) {
+            showError(err.message);
         } finally {
-            btn.disabled = false;
-            label.classList.remove('hidden');
-            spinner.classList.add('hidden');
+            setBusy('analyzeBtn', 'analyzeLabel', 'analyzeSpinner', false);
         }
     }
 
-    function escapeHtml(str) {
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
+    function renderQuestions(questions) {
+        const wrap = document.getElementById('questionsContainer');
+        wrap.innerHTML = '';
+        questions.forEach(q => {
+            const div = document.createElement('div');
+            div.className = 'form-group';
+            let inputHtml = '';
+            if (q.type === 'textarea') {
+                inputHtml = `<textarea id="qa_${q.id}" class="form-textarea" style="min-height:5rem" placeholder="${escHtml(q.placeholder||'')}"></textarea>`;
+            } else if (q.type === 'select' && q.options?.length) {
+                const opts = q.options.map(o => `<option value="${escHtml(o)}">${escHtml(o)}</option>`).join('');
+                inputHtml = `<select id="qa_${q.id}" class="form-select"><option value="">Seleziona…</option>${opts}</select>`;
+            } else {
+                const t = q.type === 'number' ? 'number' : 'text';
+                inputHtml = `<input type="${t}" id="qa_${q.id}" class="form-input" placeholder="${escHtml(q.placeholder||'')}">`;
+            }
+            div.innerHTML = `
+                <label class="form-label" style="color:#c4b5fd">
+                    ${escHtml(q.question)} ${q.required ? '<span style="color:#f87171">*</span>' : '<span style="color:#64748b;font-weight:normal">(opzionale)</span>'}
+                </label>
+                ${inputHtml}`;
+            wrap.appendChild(div);
+        });
+    }
+
+    // ── Step 2 → 3: Generate the full professional contract ───────────────────
+    async function generateWithAI(skipQuestions = false) {
+        const clientId    = document.getElementById('ai_client_id')?.value;
+        const productId   = document.getElementById('ai_product_id')?.value;
+        const description = document.getElementById('ai_description')?.value?.trim();
+
+        // Collect Q&A answers
+        const answers = {};
+        if (!skipQuestions) {
+            _questions.forEach(q => {
+                const el = document.getElementById('qa_' + q.id);
+                if (el) answers[q.question] = el.value.trim();
+            });
+        }
+
+        setBusy('generateBtn', 'generateLabel', 'generateSpinner', true);
+        hideError();
+
+        try {
+            const fd = new FormData();
+            fd.append('client_id',   clientId);
+            fd.append('description', description);
+            fd.append('answers',     JSON.stringify(answers));
+            const res  = await fetch('/admin/api/generate-contract.php', { method:'POST', body:fd, signal: AbortSignal.timeout(150000) });
+            const data = await res.json();
+            if (!res.ok || data.error) throw new Error(data.error || `Errore HTTP ${res.status}`);
+
+            // Populate save form
+            document.getElementById('save_client_id').value    = clientId;
+            document.getElementById('save_product_id').value   = productId || '';
+            document.getElementById('save_contract_number').value = data.contract_number || '';
+            document.getElementById('save_num_display').value    = data.contract_number || '';
+            document.getElementById('save_title').value          = data.title || '';
+            document.getElementById('save_amount').value         = data.amount || '';
+            document.getElementById('save_start').value          = data.start_date || '';
+            document.getElementById('save_end').value            = data.end_date   || '';
+            document.getElementById('save_payment').value        = data.payment_terms || '';
+            document.getElementById('save_clauses_json').value   = JSON.stringify(data.clauses || []);
+
+            // Render clauses
+            const container = document.getElementById('clausesContainer');
+            container.innerHTML = '';
+            const clauses = data.clauses || [];
+            document.getElementById('clauseCount').textContent = `Articoli del contratto (${clauses.length})`;
+            clauses.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'rounded-xl p-4';
+                div.style.cssText = 'border:1px solid rgba(99,102,241,0.2);background:rgba(99,102,241,0.03)';
+                div.innerHTML = `
+                    <p class="text-xs font-bold mb-2" style="color:#818cf8;text-transform:uppercase;letter-spacing:.05em">
+                        Art. ${c.number} — ${escHtml(c.title)}
+                    </p>
+                    <p class="text-xs leading-relaxed" style="color:#94a3b8;white-space:pre-line">${escHtml(c.text)}</p>`;
+                container.appendChild(div);
+            });
+
+            document.getElementById('step3').classList.remove('hidden');
+            document.getElementById('step3').scrollIntoView({ behavior:'smooth', block:'start' });
+        } catch(err) {
+            showError(err.message);
+        } finally {
+            setBusy('generateBtn', 'generateLabel', 'generateSpinner', false);
+        }
+    }
+
+    function resetFlow() {
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step1').scrollIntoView({ behavior:'smooth' });
+    }
+
+    // ── Utilities ─────────────────────────────────────────────────────────────
+    function setBusy(btnId, labelId, spinnerId, busy) {
+        const btn = document.getElementById(btnId);
+        const lbl = document.getElementById(labelId);
+        const sp  = document.getElementById(spinnerId);
+        if (btn) btn.disabled = busy;
+        if (lbl) lbl.classList.toggle('hidden', busy);
+        if (sp)  sp.classList.toggle('hidden', !busy);
+    }
+    function showError(msg) {
+        const b = document.getElementById('aiErrorBanner');
+        if (b) { b.textContent = '✗ ' + msg; b.classList.remove('hidden'); }
+    }
+    function hideError() {
+        const b = document.getElementById('aiErrorBanner');
+        if (b) b.classList.add('hidden');
+    }
+    function escHtml(str) {
+        return String(str||'')
+            .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     </script>
 </body>
 </html>
+
