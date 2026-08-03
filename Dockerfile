@@ -20,6 +20,11 @@ RUN a2enmod rewrite headers deflate expires
 # Set the document root to /var/www/html
 ENV APACHE_DOCUMENT_ROOT=/var/www/html
 
+# Increase PHP execution timeout for AI generation (default 30s is too short)
+RUN echo "max_execution_time = 180" > /usr/local/etc/php/conf.d/intuify.ini \
+ && echo "max_input_time = 120" >> /usr/local/etc/php/conf.d/intuify.ini \
+ && echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/intuify.ini
+
 # Configure Apache to allow .htaccess overrides
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
