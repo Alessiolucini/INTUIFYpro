@@ -286,7 +286,7 @@ $cycleLabels = [
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $c['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
                                                     <a href="?action=pdf&id=<?= $c['id'] ?>" class="btn btn-sm" style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.2)" target="_blank">PDF</a>
-                                                    <a href="?action=delete&id=<?= $c['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
+                                                    <a href="?action=delete&id=<?= $c['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -361,6 +361,7 @@ Al cliente gli diamo il nostro SaaS di gestione HR. Paga 1.500€ al mese di abb
                                 <button type="button" onclick="resetFlow()" class="btn btn-secondary btn-sm">Rigenera</button>
                             </div>
                             <form method="POST" action="?action=ai-generate" class="p-6" id="saveForm">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="save_ai" value="1">
                                 <input type="hidden" name="client_id"       id="save_client_id">
                                 <input type="hidden" name="product_id"      id="save_product_id">
@@ -419,6 +420,7 @@ Al cliente gli diamo il nostro SaaS di gestione HR. Paga 1.500€ al mese di abb
                     </div>
 
                     <form method="POST">
+                        <?= csrfField() ?>
                         <?php if ($contract): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($contract['id']) ?>">
                         <?php endif; ?>
@@ -500,7 +502,7 @@ Al cliente gli diamo il nostro SaaS di gestione HR. Paga 1.500€ al mese di abb
             fd.append('client_id',   clientId);
             fd.append('description', description);
             fd.append('answers',     '{}'); // no Q&A — AI infers everything from description
-            const res  = await fetch('/admin/api/generate-contract.php', { method:'POST', body:fd, signal: AbortSignal.timeout(150000) });
+            const res  = await fetch('/admin/api/generate-contract.php', { method:'POST', body:fd, headers:{ 'X-CSRF-Token': <?= json_encode(csrfToken()) ?> }, signal: AbortSignal.timeout(150000) });
             const data = await res.json();
             if (!res.ok || data.error) throw new Error(data.error || `Errore HTTP ${res.status}`);
 

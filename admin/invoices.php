@@ -236,7 +236,7 @@ $statusLabels = [
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $inv['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
                                                     <a href="?action=pdf&id=<?= $inv['id'] ?>" class="btn btn-sm" style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.2)" target="_blank">PDF</a>
-                                                    <a href="?action=delete&id=<?= $inv['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
+                                                    <a href="?action=delete&id=<?= $inv['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -255,6 +255,7 @@ $statusLabels = [
                     </div>
 
                     <form method="POST" id="invoice-form">
+                        <?= csrfField() ?>
                         <?php if ($invoice): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($invoice['id']) ?>">
                         <?php endif; ?>

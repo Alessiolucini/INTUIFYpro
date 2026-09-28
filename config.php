@@ -22,8 +22,8 @@ return [
     // =========================================================================
     // Google reCAPTCHA v3
     // =========================================================================
-    'recaptcha_site_key' => getenv('RECAPTCHA_SITE_KEY') ?: '6Ld3N1UsAAAAAGF8GWQMgUAUkG9ZRktVQlVFMCha',
-    'recaptcha_secret_key' => getenv('RECAPTCHA_SECRET_KEY') ?: '6Ld3N1UsAAAAAOr8Pm5kL7zBDU9Jx-hGYRX3FoyK',
+    'recaptcha_site_key' => getenv('RECAPTCHA_SITE_KEY') ?: '',
+    'recaptcha_secret_key' => getenv('RECAPTCHA_SECRET_KEY') ?: '',
     'recaptcha_min_score' => 0.5,
 
     // =========================================================================
@@ -37,8 +37,10 @@ return [
     // Admin Panel Authentication
     // =========================================================================
     'admin_username' => 'alessio',
-    'admin_password_hash' => password_hash(getenv('ADMIN_PASSWORD') ?: 'changeme', PASSWORD_DEFAULT),
-    'admin_password_plain' => getenv('ADMIN_PASSWORD') ?: 'changeme',
+    // Prefer ADMIN_PASSWORD_HASH (php -r "echo password_hash('…', PASSWORD_DEFAULT);").
+    // With neither variable set, admin login is disabled (no default password).
+    'admin_password_hash' => getenv('ADMIN_PASSWORD_HASH') ?: '',
+    'admin_password' => getenv('ADMIN_PASSWORD') ?: '',
 
     // =========================================================================
     // Company Details (for invoices & contracts)
@@ -60,4 +62,15 @@ return [
     'openai_api_key' => getenv('OPENAI_API_KEY') ?: '',
     'openai_model' => 'gpt-4o',
     'openai_vision_model' => 'gpt-4o',
+
+    // =========================================================================
+    // Server Control Center (monitoring) — internal URLs only, never sent to the browser
+    // =========================================================================
+    'prometheus_url' => getenv('PROMETHEUS_URL') ?: '',
+    'prometheus_timeout' => (int) (getenv('PROMETHEUS_TIMEOUT') ?: 5),
+    'alertmanager_url' => getenv('ALERTMANAGER_URL') ?: '',
+    'monitoring_server_name' => getenv('MONITORING_SERVER_NAME') ?: 'INTUIFY SERVER',
+    'monitoring_server_env' => getenv('MONITORING_SERVER_ENV') ?: 'Production',
+    // Regex of containers/services whose absence is critical
+    'monitoring_critical_containers' => getenv('MONITORING_CRITICAL_CONTAINERS') ?: 'dokploy|traefik',
 ];

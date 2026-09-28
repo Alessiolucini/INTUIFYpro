@@ -1,8 +1,9 @@
 <?php
 /**
  * IntuiFy Configuration — EXAMPLE FILE
- * Copy this to config.php and fill in real values.
- * config.php is in .gitignore and will NOT be committed.
+ * Reference of the keys returned by config.php.
+ * config.php is committed and reads every secret from environment variables;
+ * this file only documents the keys. Never put real values in either file.
  */
 
 return [
@@ -29,8 +30,8 @@ return [
 
     // Admin Panel
     'admin_username' => 'alessio',
-    'admin_password_hash' => '$2y$10$IntuiFyAdminHash2026.PlaceholderToBeSetOnFirstRun',
-    'admin_password_plain' => 'YOUR_ADMIN_PASSWORD',
+    'admin_password_hash' => 'BCRYPT_HASH_FROM_ADMIN_PASSWORD_HASH', // preferred
+    'admin_password' => 'YOUR_ADMIN_PASSWORD',               // fallback if no hash
     
     // Company details
     'company_name' => 'IntuiFy',
@@ -47,4 +48,12 @@ return [
     'openai_api_key' => 'YOUR_OPENAI_API_KEY',
     'openai_model' => 'gpt-4o',
     'openai_vision_model' => 'gpt-4o',
+
+    // Server Control Center (internal Docker network URLs)
+    'prometheus_url' => 'http://intuify-prometheus:9090',
+    'prometheus_timeout' => 5,
+    'alertmanager_url' => 'http://intuify-alertmanager:9093',
+    'monitoring_server_name' => 'INTUIFY SERVER',
+    'monitoring_server_env' => 'Production',
+    'monitoring_critical_containers' => 'dokploy|traefik',
 ];

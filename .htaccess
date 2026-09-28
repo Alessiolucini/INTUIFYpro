@@ -4,7 +4,12 @@
 # Enable rewrite engine
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    
+
+    # Never serve repository internals, dependencies, notes or monitoring configs
+    # (defense in depth: .dockerignore already keeps them out of the image)
+    RewriteRule (^|/)\.git(/|$) - [F,L]
+    RewriteRule ^(vendor|INTUIFY|monitoring|\.agents)(/|$) - [F,L]
+
     # Force HTTPS (via reverse proxy header — Traefik handles TLS)
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteCond %{HTTPS} off
@@ -39,6 +44,9 @@
     
     # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # HSTS: the site is HTTPS-only (TLS terminated by Traefik)
+    Header always set Strict-Transport-Security "max-age=15552000"
     
     # Content Security Policy (adjust as needed)
     # Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"
@@ -54,6 +62,12 @@ Options -Indexes
 </FilesMatch>
 
 <FilesMatch "(composer\.json|composer\.lock|package\.json|README\.md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Build, deploy, schema and debug files
+<FilesMatch "(\.(sh|sql|md|lock|log|ya?ml)|^Dockerfile|^skills-lock\.json|^config\.example\.php|^test_.*\.php)$">
     Order allow,deny
     Deny from all
 </FilesMatch>

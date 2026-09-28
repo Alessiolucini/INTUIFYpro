@@ -1,0 +1,24 @@
+modules:
+
+  # Public websites: must answer 2xx (after following redirects)
+  http_2xx:
+    prober: http
+    timeout: 10s
+    http:
+      preferred_ip_protocol: ip4
+      follow_redirects: true
+      fail_if_not_ssl: true
+
+  # APIs/gateways without credentials (Supabase Kong answers 401/404 on "/")
+  http_reachable:
+    prober: http
+    timeout: 10s
+    http:
+      preferred_ip_protocol: ip4
+      follow_redirects: true
+      fail_if_not_ssl: true
+      valid_status_codes: [200, 204, 301, 302, 401, 403, 404]
+
+  tcp_connect:
+    prober: tcp
+    timeout: 5s

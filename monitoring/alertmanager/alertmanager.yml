@@ -1,0 +1,30 @@
+# Alertmanager — MVP: alerts are grouped/deduplicated and shown in the admin UI.
+# Notifications (email / Telegram) are Fase 2 → decision SD04 in the Obsidian vault.
+
+route:
+  receiver: "admin-ui-only"
+  group_by: ["alertname", "instance", "name"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+
+receivers:
+  - name: "admin-ui-only"
+
+  # Fase 2 example — email via the existing Hostinger mailbox.
+  # Put the password in a file mounted as a secret, never inline:
+  # - name: "email-info"
+  #   email_configs:
+  #     - to: "info@intuify.net"
+  #       from: "info@intuify.net"
+  #       smarthost: "smtp.hostinger.com:465"
+  #       auth_username: "info@intuify.net"
+  #       auth_password_file: "/run/secrets/smtp_password"
+  #       require_tls: false   # port 465 = implicit TLS
+  #       send_resolved: true
+
+inhibit_rules:
+  # A critical alert silences the matching warning
+  - source_matchers: [severity="critical"]
+    target_matchers: [severity="warning"]
+    equal: ["alertname", "instance"]

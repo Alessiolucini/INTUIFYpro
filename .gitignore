@@ -29,3 +29,6 @@ vendor/
 
 # Rate limit temp files
 tmp/
+
+# Obsidian vault (internal notes — must never be committed or deployed)
+INTUIFY/

@@ -1,0 +1,138 @@
+# Alert rules — thresholds from the Server Control Center spec §6.
+# Warning and critical share the same alertname so Alertmanager can inhibit
+# the warning while the critical is firing.
+
+groups:
+
+  - name: host
+    rules:
+      - alert: HostHighCpu
+        expr: 100 - (avg by (server) (rate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100) > 75
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "CPU sopra il 75% da 10 minuti ({{ $value | printf \"%.0f\" }}%)"
+      - alert: HostHighCpu
+        expr: 100 - (avg by (server) (rate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100) > 90
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "CPU sopra il 90% da 5 minuti ({{ $value | printf \"%.0f\" }}%)"
+
+      - alert: HostHighMemory
+        expr: 100 * (1 - sum by (server) (node_memory_MemAvailable_bytes{job="node"}) / sum by (server) (node_memory_MemTotal_bytes{job="node"})) > 80
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "RAM sopra l'80% da 10 minuti ({{ $value | printf \"%.0f\" }}%)"
+      - alert: HostHighMemory
+        expr: 100 * (1 - sum by (server) (node_memory_MemAvailable_bytes{job="node"}) / sum by (server) (node_memory_MemTotal_bytes{job="node"})) > 92
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "RAM sopra il 92% da 5 minuti ({{ $value | printf \"%.0f\" }}%)"
+
+      - alert: HostDiskSpace
+        expr: 100 * (1 - node_filesystem_avail_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"} / node_filesystem_size_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"}) > 75
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "Disco {{ $labels.mountpoint }} al {{ $value | printf \"%.0f\" }}%"
+      - alert: HostDiskSpace
+        expr: 100 * (1 - node_filesystem_avail_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"} / node_filesystem_size_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"}) > 90
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "Disco {{ $labels.mountpoint }} al {{ $value | printf \"%.0f\" }}%"
+
+      - alert: HostInodes
+        expr: 100 * (1 - node_filesystem_files_free{job="node",fstype!~"tmpfs|overlay|squashfs"} / node_filesystem_files{job="node",fstype!~"tmpfs|overlay|squashfs"}) > 75
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "Inode di {{ $labels.mountpoint }} al {{ $value | printf \"%.0f\" }}%"
+      - alert: HostInodes
+        expr: 100 * (1 - node_filesystem_files_free{job="node",fstype!~"tmpfs|overlay|squashfs"} / node_filesystem_files{job="node",fstype!~"tmpfs|overlay|squashfs"}) > 90
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "Inode di {{ $labels.mountpoint }} al {{ $value | printf \"%.0f\" }}%"
+
+      - alert: HostHighLoad
+        expr: max by (server) (node_load5{job="node"}) / count by (server) (node_cpu_seconds_total{job="node",mode="idle"}) > 0.8
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "Load per core {{ $value | printf \"%.2f\" }} (soglia 0.8)"
+      - alert: HostHighLoad
+        expr: max by (server) (node_load5{job="node"}) / count by (server) (node_cpu_seconds_total{job="node",mode="idle"}) > 1.2
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "Load per core {{ $value | printf \"%.2f\" }} (soglia 1.2)"
+
+  - name: containers
+    rules:
+      # Critical containers (Dokploy, Traefik) not seen for > 60s. Swarm replicas are
+      # grouped by service so a redeploy (new task name) does not look like an outage.
+      - alert: CriticalContainerDown
+        expr: |
+          time() - max by (svc) (
+            label_replace(
+              label_replace(
+                max_over_time(container_last_seen{job="cadvisor",name=~"(?i).*(dokploy|traefik).*"}[1h]),
+                "svc", "$1", "name", "(.*)"
+              ),
+              "svc", "$1", "container_label_com_docker_swarm_service_name", "(.+)"
+            )
+          ) > 60
+        for: 0m
+        labels: { severity: critical }
+        annotations:
+          summary: "Container critico {{ $labels.svc }} non risponde"
+
+  - name: endpoints
+    rules:
+      # 30s probe interval: 2 failures ≈ 1 min, 3+ failures ≈ 1.5 min (spec §6)
+      - alert: EndpointDown
+        expr: probe_success{job="blackbox-http"} == 0
+        for: 1m
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $labels.instance }} non risponde"
+      - alert: EndpointDown
+        expr: probe_success{job="blackbox-http",critical="true"} == 0
+        for: 90s
+        labels: { severity: critical }
+        annotations:
+          summary: "{{ $labels.instance }} non risponde (endpoint critico)"
+
+      - alert: SslExpiring
+        expr: (probe_ssl_earliest_cert_expiry{job="blackbox-http"} - time()) / 86400 < 30
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "Certificato SSL di {{ $labels.instance }} scade tra {{ $value | printf \"%.0f\" }} giorni"
+      - alert: SslExpiring
+        expr: (probe_ssl_earliest_cert_expiry{job="blackbox-http"} - time()) / 86400 < 7
+        for: 10m
+        labels: { severity: critical }
+        annotations:
+          summary: "Certificato SSL di {{ $labels.instance }} scade tra {{ $value | printf \"%.0f\" }} giorni"
+
+      - alert: EndpointSlow
+        expr: probe_duration_seconds{job="blackbox-http"} > 2
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $labels.instance }} risponde in {{ $value | printf \"%.1f\" }} s"
+
+  - name: monitoring
+    rules:
+      # Scrape target down (spec §38). Blackbox probes report their own failures above.
+      - alert: MonitoringTargetDown
+        expr: up{job=~"prometheus|alertmanager|blackbox-exporter|node|cadvisor"} == 0
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          summary: "Il componente di monitoring {{ $labels.job }} non risponde"
