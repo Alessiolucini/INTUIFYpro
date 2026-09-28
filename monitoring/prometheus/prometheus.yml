@@ -1,0 +1,93 @@
+# Prometheus — IntuiFy Server Control Center
+# Job names are read by admin/includes/monitoring/server-control.php: keep them in sync.
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    server: primary
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+
+  # --- monitoring of the monitoring (spec §38) -------------------------------
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: alertmanager
+    static_configs:
+      - targets: ["alertmanager:9093"]
+
+  - job_name: blackbox-exporter
+    static_configs:
+      - targets: ["blackbox-exporter:9115"]
+
+  # --- server & containers ---------------------------------------------------
+  - job_name: node
+    static_configs:
+      - targets: ["host.docker.internal:9100"]
+        labels:
+          server: primary
+
+  - job_name: cadvisor
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["cadvisor:8080"]
+        labels:
+          server: primary
+
+  # --- public endpoints (spec §4.4, §20) -------------------------------------
+  # MVP: list lives here. Fase 2: generate it from the `monitored_endpoints` table.
+  # Labels: project → "Progetto" column in the UI; critical="true" → down = Critical.
+  - job_name: blackbox-http
+    scrape_interval: 30s
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets: ["https://intuify.net"]
+        labels: { project: "IntuiFy", critical: "true" }
+      - targets: ["https://eketrabag.com"]
+        labels: { project: "EKETRA BAG", critical: "true" }
+      - targets: ["https://bubblo.es"]
+        labels: { project: "BUBBLO", critical: "true" }
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  # Supabase gateways answer 401/404 on "/" without an API key: reachable is enough
+  - job_name: blackbox-http-api
+    scrape_interval: 30s
+    metrics_path: /probe
+    params:
+      module: [http_reachable]
+    static_configs:
+      - targets: ["https://supabase.intuify.net"]
+        labels: { project: "IntuiFy", critical: "true" }
+      - targets: ["https://supabase.eketrabag.com"]
+        labels: { project: "EKETRA BAG", critical: "false" }
+      - targets: ["https://supabase.bubblo.es"]
+        labels: { project: "BUBBLO", critical: "false" }
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+      # Same job label as the other probes so the UI/alerts see one list
+      - target_label: job
+        replacement: blackbox-http

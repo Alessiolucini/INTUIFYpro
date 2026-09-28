@@ -5,10 +5,11 @@
 
 declare(strict_types=1);
 
-session_start();
+// Starts the hardened session; requireAuth() is intentionally NOT called here
+require_once __DIR__ . '/includes/auth.php';
 
 // Already authenticated? Go to dashboard
-if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true) {
+if (isAdminAuthenticated() && !adminSessionExpired()) {
     header('Location: /admin/dashboard.php');
     exit;
 }
@@ -19,12 +20,16 @@ $expired = isset($_GET['expired']);
 
 // Handle login form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    
-    require_once __DIR__ . '/includes/auth.php';
-    
-    if (attemptLogin($username, $password, $config)) {
+    $username = trim((string) ($_POST['username'] ?? ''));
+    $password = (string) ($_POST['password'] ?? '');
+    $lockedFor = loginLockedFor();
+
+    $postedToken = $_POST['_csrf'] ?? null;
+    if (!csrfIsValid(is_string($postedToken) ? $postedToken : null)) {
+        $error = 'Sessione scaduta. Ricarica la pagina e riprova.';
+    } elseif ($lockedFor > 0) {
+        $error = 'Troppi tentativi falliti. Riprova tra ' . (int) ceil($lockedFor / 60) . ' minuti.';
+    } elseif (attemptLogin($username, $password, $config)) {
         header('Location: /admin/dashboard.php');
         exit;
     } else {
@@ -216,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             
             <form method="POST" autocomplete="off">
+                <?= csrfField() ?>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" placeholder="Il tuo username" required autofocus>

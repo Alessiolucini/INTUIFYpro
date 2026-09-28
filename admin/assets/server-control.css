@@ -1,0 +1,356 @@
+/* ============================================================================
+   IntuiFy Admin — Server Control Center
+   Status colours always come with a text label and an icon (spec §26).
+   ========================================================================== */
+
+:root {
+    --scc-healthy: #22c55e;
+    --scc-warning: #f59e0b;
+    --scc-critical: #ef4444;
+    --scc-unknown: #64748b;
+}
+
+/* ---- Head ---------------------------------------------------------------- */
+.scc-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+.scc-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #818cf8;
+}
+.scc-server-name {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+.scc-env {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+}
+.scc-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+}
+.scc-stale {
+    color: var(--scc-warning);
+    font-weight: 600;
+}
+
+/* ---- Tabs ---------------------------------------------------------------- */
+.scc-tabs {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    scrollbar-width: none;
+}
+.scc-tab {
+    flex-shrink: 0;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #94a3b8;
+    border-radius: 0.625rem;
+    transition: background 0.2s, color 0.2s;
+}
+.scc-tab:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+.scc-tab.is-active { color: #fff; background: var(--accent-soft); }
+
+/* ---- Badges -------------------------------------------------------------- */
+.scc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.1875rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+.scc-badge .scc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.625rem;
+    border-radius: 9999px;
+    color: #08080f;
+}
+.scc-healthy  { color: #4ade80; background: rgba(34, 197, 94, 0.12); }
+.scc-warning  { color: #fbbf24; background: rgba(245, 158, 11, 0.12); }
+.scc-critical { color: #f87171; background: rgba(239, 68, 68, 0.14); }
+.scc-unknown  { color: #94a3b8; background: rgba(100, 116, 139, 0.16); }
+.scc-healthy .scc-icon  { background: var(--scc-healthy); }
+.scc-warning .scc-icon  { background: var(--scc-warning); }
+.scc-critical .scc-icon { background: var(--scc-critical); }
+.scc-unknown .scc-icon  { background: var(--scc-unknown); }
+
+/* ---- Banner -------------------------------------------------------------- */
+.scc-banner {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.875rem;
+    border: 1px solid rgba(100, 116, 139, 0.35);
+    background: rgba(100, 116, 139, 0.1);
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+.scc-banner strong { color: #fff; }
+
+/* ---- Cards --------------------------------------------------------------- */
+.scc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.scc-card {
+    position: relative;
+    padding: 1.125rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.scc-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--scc-unknown);
+}
+.scc-card[data-level="healthy"]::before  { background: var(--scc-healthy); }
+.scc-card[data-level="warning"]::before  { background: var(--scc-warning); }
+.scc-card[data-level="critical"]::before { background: var(--scc-critical); }
+.scc-card-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+.scc-card-value {
+    margin-top: 0.5rem;
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+}
+.scc-card-sub {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+}
+.scc-meter {
+    height: 6px;
+    margin-top: 0.75rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+.scc-meter > span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--scc-unknown);
+    transition: width 0.6s ease;
+}
+.scc-meter[data-level="healthy"] > span  { background: var(--scc-healthy); }
+.scc-meter[data-level="warning"] > span  { background: var(--scc-warning); }
+.scc-meter[data-level="critical"] > span { background: var(--scc-critical); }
+
+/* ---- Panels & lists ------------------------------------------------------ */
+.scc-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 1023px) {
+    .scc-columns { grid-template-columns: minmax(0, 1fr); }
+}
+.scc-panel { margin-bottom: 1.5rem; }
+.scc-panel .card-header { flex-wrap: wrap; gap: 0.75rem; }
+.scc-list { display: flex; flex-direction: column; }
+.scc-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+}
+.scc-list-row:first-child { border-top: 0; }
+.scc-list-row a { color: inherit; }
+.scc-list-title { color: #fff; font-weight: 600; }
+.scc-list-detail { color: #94a3b8; font-size: 0.75rem; margin-top: 0.125rem; }
+.scc-empty {
+    padding: 1.5rem 1.25rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* ---- Charts -------------------------------------------------------------- */
+.scc-ranges { display: inline-flex; gap: 0.25rem; }
+.scc-range {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: transparent;
+    cursor: pointer;
+}
+.scc-range.is-active { color: #fff; border-color: var(--accent); background: var(--accent-soft); }
+.scc-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1rem;
+    padding: 1.25rem;
+}
+@media (max-width: 480px) {
+    .scc-charts { grid-template-columns: minmax(0, 1fr); padding: 1rem; }
+}
+.scc-chart-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+.scc-chart-box { position: relative; height: 12rem; }
+
+/* ---- Tables (become cards on phones, spec §27) ---------------------------- */
+.scc-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+.scc-chip {
+    padding: 0.3125rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
+}
+.scc-chip.is-active { color: #fff; border-color: var(--accent); background: var(--accent-soft); }
+.scc-chip:disabled { opacity: 0.4; cursor: not-allowed; }
+.scc-table-wrap { overflow-x: auto; }
+.scc-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.scc-table th {
+    padding: 0.625rem 1rem;
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+.scc-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: #cbd5e1;
+    font-variant-numeric: tabular-nums;
+    vertical-align: middle;
+}
+.scc-table tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+.scc-table .num { text-align: right; white-space: nowrap; }
+.scc-table .scc-strong { color: #fff; font-weight: 600; }
+.scc-table .scc-muted { color: #64748b; font-size: 0.75rem; }
+@media (max-width: 767px) {
+    .scc-table-wrap { overflow-x: visible; }
+    .scc-table, .scc-table tbody { display: block; width: 100%; }
+    .scc-table thead { display: none; }
+    .scc-table tr {
+        display: block;
+        margin: 0.75rem;
+        padding: 0.5rem 0.875rem;
+        border: 1px solid var(--border);
+        border-radius: 0.875rem;
+    }
+    .scc-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.4375rem 0;
+        border: 0;
+        text-align: right;
+    }
+    .scc-table td.num { text-align: right; white-space: normal; }
+    .scc-table td[colspan] { display: block; text-align: left; }
+    .scc-table td[colspan]::before { content: none; }
+    .scc-cell { min-width: 0; text-align: right; overflow-wrap: anywhere; }
+    .scc-table td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #64748b;
+        text-align: left;
+    }
+}
+
+/* ---- Info list (server detail) -------------------------------------------- */
+.scc-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.25rem 1.5rem;
+    padding: 1rem 1.25rem 1.25rem;
+}
+.scc-info dt {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-top: 0.625rem;
+}
+.scc-info dd { color: #e2e8f0; font-size: 0.875rem; word-break: break-word; }

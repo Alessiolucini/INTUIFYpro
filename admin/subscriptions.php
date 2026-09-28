@@ -296,7 +296,7 @@ if ($action === 'list') {
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <a href="?action=toggle-renew&id=<?= $s['id'] ?>" class="text-xs hover:underline" title="Clicca per cambiare">
+                                                <a href="?action=toggle-renew&id=<?= $s['id'] ?>&<?= csrfQuery() ?>" class="text-xs hover:underline" title="Clicca per cambiare">
                                                     <?= $s['auto_renew'] ? '✅ Auto' : '⚠️ Manuale' ?>
                                                 </a>
                                             </td>
@@ -304,7 +304,7 @@ if ($action === 'list') {
                                             <td>
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $s['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
-                                                    <a href="?action=delete&id=<?= $s['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo abbonamento?')">×</a>
+                                                    <a href="?action=delete&id=<?= $s['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo abbonamento?')">×</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -323,6 +323,7 @@ if ($action === 'list') {
                     </div>
 
                     <form method="POST">
+                        <?= csrfField() ?>
                         <?php if ($subscription): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($subscription['id']) ?>">
                         <?php endif; ?>

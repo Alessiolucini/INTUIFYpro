@@ -204,7 +204,7 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
                                             <td>
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $d['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
-                                                    <a href="?action=delete&id=<?= $d['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
+                                                    <a href="?action=delete&id=<?= $d['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -223,6 +223,7 @@ $currentYearCost = $costsByYear[$currentYear] ?? 0;
                     </div>
 
                     <form method="POST">
+                        <?= csrfField() ?>
                         <?php if ($domain): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($domain['id']) ?>">
                         <?php endif; ?>

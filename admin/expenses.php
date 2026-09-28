@@ -241,7 +241,7 @@ $totalExpenses = array_sum(array_column($expenses, 'amount'));
                                             <td>
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $e['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
-                                                    <a href="?action=delete&id=<?= $e['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
+                                                    <a href="?action=delete&id=<?= $e['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare?')">×</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -260,6 +260,7 @@ $totalExpenses = array_sum(array_column($expenses, 'amount'));
                     </div>
 
                     <form method="POST" enctype="multipart/form-data">
+                        <?= csrfField() ?>
                         <?php if ($expense): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($expense['id']) ?>">
                         <?php endif; ?>
@@ -405,7 +406,7 @@ $totalExpenses = array_sum(array_column($expenses, 'amount'));
             const formData = new FormData();
             formData.append('scan_file', file);
 
-            fetch('?action=ai-scan', { method: 'POST', body: formData })
+            fetch('?action=ai-scan', { method: 'POST', body: formData, headers: { 'X-CSRF-Token': <?= json_encode(csrfToken()) ?> } })
                 .then(r => r.json())
                 .then(data => {
                     status.classList.add('hidden');

@@ -1,0 +1,26 @@
+# Everything listed here stays out of the image — the whole build context
+# becomes the public web root (/var/www/html).
+
+# Repository metadata and history
+.git
+.gitignore
+.dockerignore
+
+# Internal notes (Obsidian vault) and AI agent skills
+INTUIFY
+.agents
+skills-lock.json
+
+# Monitoring stack configs (deployed as a separate Dokploy compose)
+monitoring
+
+# Dependencies are installed inside the image by composer
+vendor
+
+# Docs, debug scripts, local junk
+README.md
+test_*.php
+*.log
+.DS_Store
+.vscode
+.idea

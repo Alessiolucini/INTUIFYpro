@@ -163,7 +163,7 @@ if ($action === 'list') {
                                             <td>
                                                 <div class="flex items-center gap-1">
                                                     <a href="?action=edit&id=<?= $c['id'] ?>" class="btn btn-secondary btn-sm">Modifica</a>
-                                                    <a href="?action=delete&id=<?= $c['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo cliente?')">Elimina</a>
+                                                    <a href="?action=delete&id=<?= $c['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo cliente?')">Elimina</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -183,6 +183,7 @@ if ($action === 'list') {
                     </div>
 
                     <form method="POST">
+                        <?= csrfField() ?>
                         <?php if ($client): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($client['id']) ?>">
                         <?php endif; ?>

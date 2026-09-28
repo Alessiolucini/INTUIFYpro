@@ -274,7 +274,7 @@ $chatHistory = $_SESSION['ai_chat'] ?? [];
             const formData = new FormData();
             formData.append('ai_message', text);
             
-            const res = await fetch('', { method: 'POST', body: formData });
+            const res = await fetch('', { method: 'POST', body: formData, headers: { 'X-CSRF-Token': <?= json_encode(csrfToken()) ?> } });
             const data = await res.json();
             
             hideTyping();

@@ -9,7 +9,7 @@ ini_set('max_execution_time', '180');
 set_time_limit(180);
 
 require_once dirname(__DIR__) . '/includes/auth.php';
-requireAuth();
+requireAuthJson();
 require_once dirname(__DIR__) . '/includes/supabase.php';
 
 header('Content-Type: application/json; charset=UTF-8');

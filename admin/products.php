@@ -152,7 +152,7 @@ $typeColors = [
 
                                     <div class="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
                                         <a href="?action=edit&id=<?= $p['id'] ?>" class="btn btn-secondary btn-sm flex-1 justify-center">Modifica</a>
-                                        <a href="?action=delete&id=<?= $p['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo prodotto?')">×</a>
+                                        <a href="?action=delete&id=<?= $p['id'] ?>&<?= csrfQuery() ?>" class="btn btn-danger btn-sm" onclick="return confirm('Eliminare questo prodotto?')">×</a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -168,6 +168,7 @@ $typeColors = [
                     </div>
 
                     <form method="POST">
+                        <?= csrfField() ?>
                         <?php if ($product): ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']) ?>">
                         <?php endif; ?>

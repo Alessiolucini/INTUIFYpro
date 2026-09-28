@@ -1,0 +1,107 @@
+# ============================================================================
+# INTUIFY-MONITORING — Server Control Center metrics stack
+# Dokploy: project "INTUIFY-MONITORING" → environment "production" → Compose "monitoring"
+#          Compose path: monitoring/compose.yml (this repository)
+#
+# NOTHING is published on the host's public interfaces (no `ports:`):
+#   9090 Prometheus · 9100 Node Exporter · 8080 cAdvisor · 9115 Blackbox · 9093 Alertmanager
+# The IntuiFy app reaches Prometheus as http://intuify-prometheus:9090 on the network
+# it already uses (APP_NETWORK, default dokploy-network — see bottom of file).
+# Image versions are pinned on purpose (spec §48): bump them deliberately.
+# ============================================================================
+
+services:
+
+  prometheus:
+    image: prom/prometheus:v3.15.0
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+      - --web.enable-lifecycle
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus-data:/prometheus
+    extra_hosts:
+      # node-exporter runs in the host network namespace (see below) and listens on docker0
+      - host.docker.internal:host-gateway
+    networks:
+      monitoring:
+      app-network:
+        aliases:
+          - intuify-prometheus
+
+  # Host metrics. It must share the HOST network namespace, otherwise network
+  # RX/TX would be the container's own traffic. It listens only on the docker0
+  # bridge address (default 172.17.0.1), never on the public interface.
+  node-exporter:
+    image: prom/node-exporter:v1.12.1
+    restart: unless-stopped
+    network_mode: host
+    pid: host
+    command:
+      - --path.rootfs=/host
+      - --web.listen-address=${NODE_EXPORTER_LISTEN:-172.17.0.1:9100}
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|run/credentials/.+|sys|var/lib/docker/.+|var/lib/containers/storage/.+)($|/)
+    volumes:
+      - /:/host:ro,rslave
+
+  cadvisor:
+    image: ghcr.io/google/cadvisor:v0.60.6
+    restart: unless-stopped
+    privileged: true
+    command:
+      - --docker_only=true
+      - --housekeeping_interval=15s
+      - --disable_metrics=percpu,sched,tcp,udp,advtcp,hugetlb,referenced_memory,cpu_topology,resctrl
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    networks:
+      - monitoring
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.28.0
+    restart: unless-stopped
+    command:
+      - --config.file=/config/blackbox.yml
+    volumes:
+      - ./blackbox/blackbox.yml:/config/blackbox.yml:ro
+    networks:
+      - monitoring
+
+  alertmanager:
+    image: prom/alertmanager:v0.34.1
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager-data:/alertmanager
+    networks:
+      monitoring:
+      app-network:
+        aliases:
+          - intuify-alertmanager
+
+volumes:
+  prometheus-data:
+  alertmanager-data:
+
+networks:
+  monitoring:
+  # Network the IntuiFy app container is attached to, so the admin can resolve
+  # intuify-prometheus. Find it on the server with:
+  #   sudo docker ps --format '{{.Names}}\t{{.Networks}}' | grep -i intuify
+  # and set APP_NETWORK in the Dokploy compose environment if it is not dokploy-network.
+  app-network:
+    external: true
+    name: ${APP_NETWORK:-dokploy-network}
