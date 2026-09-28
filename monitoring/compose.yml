@@ -5,7 +5,8 @@
 #
 # NOTHING is published on the host's public interfaces (no `ports:`):
 #   9090 Prometheus · 9100 Node Exporter · 8080 cAdvisor · 9115 Blackbox · 9093 Alertmanager
-# The IntuiFy app reaches Prometheus as http://intuify-prometheus:9090 on dokploy-network.
+# The IntuiFy app reaches Prometheus as http://intuify-prometheus:9090 on the network
+# it already uses (APP_NETWORK, default dokploy-network — see bottom of file).
 # Image versions are pinned on purpose (spec §48): bump them deliberately.
 # ============================================================================
 
@@ -28,7 +29,7 @@ services:
       - host.docker.internal:host-gateway
     networks:
       monitoring:
-      dokploy-network:
+      app-network:
         aliases:
           - intuify-prometheus
 
@@ -87,7 +88,7 @@ services:
       - alertmanager-data:/alertmanager
     networks:
       monitoring:
-      dokploy-network:
+      app-network:
         aliases:
           - intuify-alertmanager
 
@@ -97,7 +98,10 @@ volumes:
 
 networks:
   monitoring:
-  # Shared with the IntuiFy app. Verify the real name on the server first:
-  #   docker network ls | grep dokploy
-  dokploy-network:
+  # Network the IntuiFy app container is attached to, so the admin can resolve
+  # intuify-prometheus. Find it on the server with:
+  #   sudo docker ps --format '{{.Names}}\t{{.Networks}}' | grep -i intuify
+  # and set APP_NETWORK in the Dokploy compose environment if it is not dokploy-network.
+  app-network:
     external: true
+    name: ${APP_NETWORK:-dokploy-network}
