@@ -1,205 +1,193 @@
 {
     "lang": "it",
     "meta": {
-        "title": "IntuiFy — AI-Driven Venture Builder",
-        "description": "IntuiFy è il venture builder AI-driven che lancia la prossima generazione di piattaforme SaaS proprietarie. Progettiamo, possediamo e scaliamo software verticale ad alta velocità pensato per automatizzare interi settori."
+        "title": "IntuiFy | App, e-commerce e software su misura",
+        "description": "Sviluppo di app iOS e Android, negozi online, software aziendale e intelligenza artificiale. IntuiFy Ventures, S.L., da Maiorca.",
+        "og_locale": "it_IT",
+        "og_image_alt": "IntuiFy: app, e-commerce e software su misura per le aziende"
     },
     "nav": {
-        "inicio": "Home",
-        "servicios": "Servizi",
-        "portfolio": "Portfolio",
-        "beneficios": "Vantaggi",
-        "contacto": "Contatti",
-        "cta": "Inizia il tuo progetto"
+        "services": "Servizi",
+        "projects": "Progetti",
+        "method": "Metodo",
+        "agencies": "Agenzie",
+        "company": "Azienda",
+        "contact": "Contatti",
+        "cta": "Richiedi un preventivo",
+        "menu": "Menu",
+        "language": "Lingua"
     },
     "hero": {
-        "badge": "AI-Driven Venture Builder",
-        "title_line1": "Ingegnerizziamo, possediamo e scaliamo",
-        "title_line2": "piattaforme SaaS proprietarie.",
-        "subtitle": "Dal concept all'App Store e Google Play in meno di 5 giorni. Ingegnerizziamo, possediamo e scaliamo software verticale ad alta velocità pensato per automatizzare interi settori.",
-        "cta_primary": "Esplora i Nostri Ventures",
-        "cta_secondary": "Investi con Noi",
-        "stats": {
-            "products": "Prodotti Proprietari",
-            "speed": "Giorni al Lancio",
-            "equity": "Equity Trattenuto"
-        }
-    },
-    "showcase": {
-        "title": "I nostri prodotti pionieri",
-        "tagline": "Deteniamo il 100% dell'equity nel nostro ecosistema in rapida crescita di prodotti digitali autonomi.",
-        "subtitle": "Piattaforme e app che abbiamo progettato, sviluppato e pubblicato — dalla prima riga di codice al lancio negli store",
-        "visit_site": "Visita il sito",
-        "items": [
-            {
-                "name": "Auterio",
-                "description": "Piattaforma digitale per concessionarie auto. Gestione veicoli, perizie, wallet digitale e dashboard analytics.",
-                "tag": "Automotive SaaS"
-            },
-            {
-                "name": "Orqesia",
-                "description": "Piattaforma AaaS (Agents as a Service) di gestione lead per aziende. Orchestrazione multi-agentica con 6+ agenti AI programmati per convertire ogni lead in vendita, in modo completamente automatizzato.",
-                "tag": "AaaS / AI Agents"
-            },
-            {
-                "name": "Eco Andratx",
-                "description": "App civica per la gestione dei rifiuti e il riciclo nel comune di Andratx. Calendario raccolta, segnalazioni e punti verdi.",
-                "tag": "GreenTech / Civic"
-            },
-            {
-                "name": "LingoBite",
-                "description": "Piattaforma SaaS per ristoranti che traduce automaticamente menù in 30+ lingue con IA. QR code dinamici.",
-                "tag": "FoodTech / AI"
-            }
-        ]
-    },
-    "process": {
-        "title": "Dalla tua idea al lancio in < 7 giorni",
-        "subtitle": "Il nostro processo ultra-rapido è progettato per startup, imprenditori e aziende che non possono permettersi di aspettare",
-        "steps": [
-            {
-                "day": "Giorno 1",
-                "title": "Brief & Strategia",
-                "description": "Analizziamo la tua idea, definiamo scope e architettura tecnica"
-            },
-            {
-                "day": "Giorno 2-3",
-                "title": "Design & Prototipo",
-                "description": "UI/UX premium, wireframe interattivi e design system completo"
-            },
-            {
-                "day": "Giorno 4-5",
-                "title": "Sviluppo Full-Stack",
-                "description": "Codice pulito, API, database, integrazione AI e backend scalabile"
-            },
-            {
-                "day": "Giorno 6-7",
-                "title": "Test & Lancio",
-                "description": "QA rigoroso, deploy su Apple Store e Google Play, go-live"
-            }
-        ]
+        "eyebrow": "Sviluppo software · Maiorca",
+        "title_line1": "Sviluppiamo app, e-commerce",
+        "title_line2": "e software su misura per le aziende.",
+        "subtitle": "Creiamo soluzioni digitali per vendere online, gestire la tua attività e automatizzare il lavoro ripetitivo. Ti accompagniamo dalla definizione del progetto al lancio, alla manutenzione e ai miglioramenti.",
+        "cta_primary": "Richiedi un preventivo",
+        "cta_secondary": "Guarda i progetti realizzati",
+        "capabilities": ["Web ed e-commerce", "App iOS e Android", "Software aziendale", "Intelligenza artificiale"]
     },
     "services": {
-        "title": "Cosa costruiamo",
-        "subtitle": "Dalla consulenza strategica alla pubblicazione — copriamo ogni fase del ciclo di vita del tuo prodotto digitale",
+        "title": "Soluzioni digitali per la tua azienda",
+        "intro": "Sviluppiamo ogni progetto in base alle esigenze della tua attività, con un ambito definito, un preventivo chiaro e un supporto tecnico costante.",
         "items": [
             {
-                "title": "App Mobile & Web",
-                "description": "iOS, Android e Web App",
-                "features": [
-                    "App native e cross-platform (React Native, Expo)",
-                    "Progressive Web App ad alte prestazioni",
-                    "Pubblicazione su Apple Store e Google Play",
-                    "Manutenzione e aggiornamenti continui"
-                ]
+                "id": "web",
+                "title": "Web ed e-commerce",
+                "description": "Realizziamo siti web e negozi online con una gestione semplice di prodotti, ordini e clienti.",
+                "features": ["Siti aziendali", "E-commerce e cataloghi digitali", "Pagamenti online", "Gestione di prodotti, ordini e clienti", "Pannelli di amministrazione utilizzabili da smartphone", "Integrazioni concordate in base al progetto"]
             },
             {
-                "title": "Intelligenza Artificiale",
-                "description": "AI & Machine Learning",
-                "features": [
-                    "Integrazione di modelli AI (GPT, Claude, Gemini)",
-                    "Automazione processi con agenti intelligenti",
-                    "Analisi dati e dashboard predittive",
-                    "Chatbot e assistenti virtuali personalizzati"
-                ]
+                "id": "app",
+                "title": "App iOS e Android",
+                "description": "Sviluppiamo app mobili e ci occupiamo della loro preparazione, presentazione e gestione su App Store e Google Play.",
+                "features": ["Progettazione dell'esperienza utente", "Sviluppo per iOS e Android", "Account, notifiche e funzionalità concordate", "Collegamento a database e sistemi aziendali", "Preparazione e invio agli store", "Manutenzione e aggiornamenti"]
             },
             {
-                "title": "Marketing Digitale",
-                "description": "Growth & Performance",
-                "features": [
-                    "Strategia di posizionamento e branding",
-                    "Campagne multicanale (social, SEO, ads)",
-                    "Creazione contenuti e direzione creativa",
-                    "Analytics e ottimizzazione conversioni"
-                ]
+                "id": "software",
+                "title": "Software aziendale",
+                "description": "Creiamo strumenti su misura per organizzare le informazioni, controllare le attività e ridurre il lavoro manuale.",
+                "features": ["Gestionali e CRM", "Dashboard e indicatori (KPI)", "Gestione di clienti, documenti e operazioni", "Ruoli e permessi", "Integrazioni con gli strumenti esistenti", "Report e automazioni"]
             },
             {
-                "title": "Piattaforme SaaS",
-                "description": "Software as a Service",
-                "features": [
-                    "Architettura multi-tenant scalabile",
-                    "Dashboard admin e pannelli di controllo",
-                    "Sistemi di pagamento (Stripe, PayPal)",
-                    "API RESTful e integrazioni di terze parti"
-                ]
-            },
-            {
-                "title": "Soluzioni Settoriali",
-                "description": "Immobiliare, Turismo & Altro",
-                "features": [
-                    "Portali immobiliari e gestione proprietà",
-                    "Piattaforme di prenotazione turistica",
-                    "E-commerce e marketplace personalizzati",
-                    "Soluzioni IoT e automazione industriale"
-                ]
+                "id": "ai",
+                "title": "Intelligenza artificiale e automazione",
+                "description": "Integriamo l'intelligenza artificiale dove può portare un miglioramento concreto alla tua attività.",
+                "features": ["Assistenti e chatbot", "Elaborazione di documenti", "Automazione delle attività ripetitive", "Organizzazione delle richieste commerciali", "Generazione e gestione di contenuti", "Integrazione con i processi aziendali"]
             }
-        ]
+        ],
+        "cta": "Chiedi un preventivo per questo servizio"
     },
-    "benefits": {
-        "title": "Perché scegliere IntuiFy",
-        "subtitle": "Non siamo un'agenzia tradizionale. Siamo ingegneri, designer e imprenditori che costruiscono prodotti reali ogni giorno",
+    "projects": {
+        "title": "Progetti che puoi vedere",
+        "subtitle": "Scopri alcune delle piattaforme, app e negozi online che abbiamo sviluppato.",
+        "kind": {
+            "own": "Prodotto proprio",
+            "client": "Progetto per un cliente"
+        },
+        "status": {
+            "operativo": "Operativo",
+            "publicado": "Pubblicato",
+            "en_desarrollo": "In sviluppo"
+        },
+        "pending": "Da confermare (solo anteprima)",
+        "need": "Esigenza",
+        "solution": "Soluzione",
+        "features": "Funzionalità",
+        "links": {
+            "web": "Vai al sito",
+            "app_store": "App Store",
+            "google_play": "Google Play"
+        },
+        "own_products": {
+            "title": "I nostri prodotti",
+            "text": "IntuiFy è anche un venture builder: progettiamo, lanciamo e gestiamo prodotti propri come Auterio, BUBBLO ed Eco Andratx, di cui manteniamo la proprietà. È questa esperienza di prodotto che portiamo nei progetti dei nostri clienti.",
+            "investors": "Se sei un partner strategico o un investitore e ti interessa uno dei nostri prodotti, parliamone.",
+            "cta": "Parliamo dei nostri prodotti"
+        }
+    },
+    "method": {
+        "title": "Dall'esigenza al lancio",
+        "steps": [
+            { "title": "Capiamo il tuo progetto", "text": "Analizziamo di cosa hai bisogno, chi userà la soluzione e quali obiettivi deve raggiungere." },
+            { "title": "Definiamo ambito e preventivo", "text": "Concordiamo funzionalità, consegne, tempi e condizioni prima di iniziare." },
+            { "title": "Progettiamo e sviluppiamo", "text": "Costruiamo la soluzione e ti mostriamo i progressi nelle fasi concordate." },
+            { "title": "Testiamo e lanciamo", "text": "Verifichiamo il funzionamento, mettiamo la soluzione in produzione e ti spieghiamo come usarla." },
+            { "title": "Manteniamo e miglioriamo", "text": "Offriamo manutenzione e assistenza con condizioni definite in base al progetto." }
+        ],
+        "note": "I tempi dipendono dall'ambito e dalle integrazioni necessarie."
+    },
+    "reasons": {
+        "title": "Un partner tecnico per la tua attività",
         "items": [
-            {
-                "title": "Velocità estrema",
-                "description": "Dalla prima call al prodotto live in meno di 7 giorni. Nessun mese di attesa, nessun processo burocratico."
-            },
-            {
-                "title": "Full-Stack in-house",
-                "description": "Design, frontend, backend, AI, deploy — tutto sotto lo stesso tetto. Zero dipendenza da terzi."
-            },
-            {
-                "title": "Pubblicazione garantita",
-                "description": "Il tuo progetto finisce su Apple Store e Google Play. Gestiamo tutto il processo di review e pubblicazione."
-            },
-            {
-                "title": "Stack tecnologico moderno",
-                "description": "Next.js, React Native, Supabase, Stripe, AI — usiamo le tecnologie più avanzate del mercato."
-            },
-            {
-                "title": "Prezzo trasparente",
-                "description": "Budget chiaro dall'inizio. Nessun costo nascosto, nessuna sorpresa a fine progetto."
-            },
-            {
-                "title": "Supporto post-lancio",
-                "description": "Non sparariamo dopo il deploy. Manutenzione, aggiornamenti e supporto tecnico continuo."
-            }
+            { "title": "Sviluppo su misura", "text": "Adattiamo la soluzione al modo in cui lavora la tua azienda, non il contrario." },
+            { "title": "Un unico referente", "text": "Una persona segue il tuo progetto e risponde ai tuoi dubbi dall'inizio alla fine." },
+            { "title": "Preventivo e consegne definiti", "text": "Ambito, tempi e condizioni concordati prima di iniziare. Lavoriamo in modo efficiente e con tempi realistici." },
+            { "title": "Esperienza propria e con i clienti", "text": "Sviluppiamo prodotti nostri e progetti per clienti, e portiamo ciò che impariamo in ogni lavoro." },
+            { "title": "Formazione all'uso", "text": "Alla messa in produzione ti spieghiamo come usare la soluzione." },
+            { "title": "Assistenza dopo il lancio", "text": "Manutenzione e supporto secondo il servizio concordato." }
         ]
     },
-    "cta_section": {
-        "title": "Collabora con noi o investi nei nostri ventures",
-        "subtitle": "Costruiamo il futuro del SaaS verticale insieme.",
-        "cta": "Contattaci"
+    "agencies": {
+        "title": "Sviluppo per agenzie e studi",
+        "text": "Collaboriamo con agenzie di marketing, design e comunicazione che cercano un partner tecnico per sviluppare siti, e-commerce, app e software per i loro clienti.",
+        "white_label": "Possiamo lavorare con il marchio dell'agenzia, con ambito, responsabilità e condizioni concordati.",
+        "points": ["Siti e negozi online per i tuoi clienti", "App e software su misura", "Integrazioni e automazioni con l'IA", "Comunicazione diretta con il tuo team"],
+        "cta": "Proponi una collaborazione"
+    },
+    "company": {
+        "title": "Tecnologia creata a Maiorca",
+        "text": "IntuiFy Ventures, S.L. sviluppa software, app e soluzioni digitali per le aziende. Affianchiamo il lavoro per i clienti allo sviluppo di prodotti propri, seguendo ogni progetto dalla definizione alla messa in produzione.",
+        "founder_pending": "Spazio per la foto e la presentazione professionale del fondatore (da fornire e approvare).",
+        "data_title": "Dati aziendali",
+        "data_pending": "Dati societari da confermare prima della pubblicazione."
     },
     "contact": {
-        "title": "Collabora con noi o investi nei nostri ventures",
-        "subtitle": "Costruiamo il futuro del SaaS verticale insieme. Compila il form e ti ricontattiamo entro 24 ore.",
-        "reasons_title": "Cosa ottieni con IntuiFy",
-        "reasons": [
-            "Proposta dettagliata entro 24 ore",
-            "Timeline reale con milestones chiare",
-            "Preventivo trasparente senza sorprese",
-            "Primo prototipo visibile in 48 ore"
-        ],
+        "title": "Raccontaci di cosa ha bisogno la tua azienda",
+        "subtitle": "Spiegaci il tuo progetto o il processo che vuoi migliorare. Ti contatteremo per definire i prossimi passi.",
+        "direct_title": "Preferisci scriverci direttamente?",
+        "whatsapp": "Scrivici su WhatsApp",
+        "whatsapp_message": "Ciao, vorrei informazioni su un progetto.",
+        "email_label": "Email",
+        "location": "Maiorca, Spagna",
         "form": {
-            "name": "Nome completo",
-            "name_placeholder": "Mario Rossi",
-            "company": "Azienda / Startup",
-            "company_placeholder": "La mia startup",
+            "name": "Nome",
+            "name_placeholder": "Il tuo nome",
+            "company": "Azienda",
+            "company_placeholder": "Nome della tua azienda",
+            "optional": "facoltativo",
             "email": "Email",
-            "email_placeholder": "mario@startup.com",
+            "email_placeholder": "tu@azienda.com",
+            "phone": "Telefono",
+            "phone_placeholder": "+39 300 000 0000",
+            "type": "Tipo di richiesta",
+            "type_placeholder": "Seleziona un'opzione",
+            "types": {
+                "web": "Sito web o e-commerce",
+                "app": "App iOS / Android",
+                "software": "Software aziendale",
+                "ai": "IA e automazioni",
+                "agency": "Collaborazione con agenzia",
+                "other": "Altro"
+            },
             "message": "Descrivi il tuo progetto",
-            "message_placeholder": "Ho bisogno di un'app per... (descrivi la tua idea, settore, funzionalità principali, target)",
-            "submit": "Invia Richiesta",
-            "sending": "Invio in corso...",
-            "success": "Richiesta ricevuta! Ti ricontatteremo entro 24 ore con una proposta su misura.",
-            "error": "Errore nell'invio. Riprova."
+            "message_placeholder": "Raccontaci di cosa hai bisogno, per chi è e se usate già qualche strumento.",
+            "privacy_note": "Useremo i tuoi dati solo per rispondere alla tua richiesta. Maggiori informazioni nell'",
+            "privacy_link": "Informativa sulla privacy",
+            "submit": "Invia richiesta",
+            "sending": "Invio in corso…",
+            "success": "Abbiamo ricevuto la tua richiesta. Grazie per aver contattato IntuiFy.",
+            "error": "Non siamo riusciti a inviare la richiesta. Riprova o scrivici a info@intuify.net."
+        },
+        "errors": {
+            "wait": "Attendi qualche secondo prima di inviare il modulo.",
+            "security": "Non siamo riusciti a verificare l'invio. Riprova.",
+            "too_many": "Hai inviato diverse richieste di seguito. Attendi qualche minuto.",
+            "too_many_network": "Troppi invii dalla tua rete. Riprova più tardi.",
+            "required": "Compila i campi obbligatori.",
+            "invalid_email": "Inserisci un indirizzo email valido.",
+            "invalid_type": "Seleziona il tipo di richiesta.",
+            "server": "Non siamo riusciti a ricevere la tua richiesta. Riprova o scrivici a info@intuify.net."
         }
     },
     "footer": {
-        "tagline": "IntuiFy è il venture builder AI-driven che lancia la prossima generazione di piattaforme SaaS proprietarie. Progettiamo, possediamo e scaliamo software verticale pensato per automatizzare interi settori.",
-        "nav_title": "Navigazione",
+        "tagline": "IntuiFy Ventures, S.L. sviluppa app, e-commerce, software aziendale e soluzioni con intelligenza artificiale per le aziende, da Maiorca.",
         "services_title": "Servizi",
+        "projects_title": "Progetti",
+        "company_title": "Azienda",
         "contact_title": "Contatti",
-        "copyright": "© {year} IntuiFy. Tutti i diritti riservati."
+        "legal": {
+            "privacy": "Informativa privacy",
+            "legal_notice": "Note legali",
+            "cookies": "Cookie"
+        },
+        "vat": "CIF",
+        "copyright": "© {year} IntuiFy Ventures, S.L. Tutti i diritti riservati."
+    },
+    "email": {
+        "reply_subject": "Grazie per aver contattato IntuiFy, {name}",
+        "signature": "Il team di IntuiFy"
+    },
+    "preview": {
+        "banner": "Anteprima: include contenuti da confermare che non compariranno sul sito pubblicato."
     }
 }

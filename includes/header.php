@@ -1,115 +1,64 @@
 <?php
 /**
- * IntuiFy - Futuristic Dark Header Component
- * Floating dark glass navbar with neon glow, responsive, i18n-ready.
+ * IntuiFy — Header: floating glass navbar, language picker, quote CTA, mobile menu.
+ * Expects $t (i18n) and $currentLang. On pages other than the home, $navBase = '/' so
+ * anchors point back to the landing (e.g. "/#servicios").
  */
+$navBase = $navBase ?? '';
+$navItems = [
+    'servicios' => $t['nav']['services'],
+    'proyectos' => $t['nav']['projects'],
+    'metodo'    => $t['nav']['method'],
+    'agencias'  => $t['nav']['agencies'],
+    'empresa'   => $t['nav']['company'],
+    'contacto'  => $t['nav']['contact'],
+];
+$langLabels = ['es' => 'Español', 'it' => 'Italiano', 'en' => 'English'];
 ?>
-<header id="main-header" class="fixed top-0 left-0 right-0 z-50 mt-4 md:mt-5 mx-auto w-[92%] max-w-6xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-    <div class="relative w-full rounded-full bg-[#0d0d14]/80 backdrop-blur-2xl border border-white/[0.06] shadow-2xl shadow-black/40 px-4 md:px-6 py-2.5 md:py-3 transition-all duration-500">
-        
-        <nav class="flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#inicio"
-                class="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 rounded-full transition-transform duration-300 hover:scale-102"
-                aria-label="IntuiFy - <?= $t['nav']['inicio'] ?>">
-                <img src="logo/intuifylogo.svg?v=<?= time() ?>" alt="IntuiFy" class="h-5 md:h-6 w-auto invert brightness-200" width="96" height="28">
+<header id="main-header" class="site-header">
+    <div class="site-header-bar">
+        <nav class="flex items-center justify-between gap-3" aria-label="Principal">
+            <a href="<?= $navBase ?>#inicio" class="flex items-center rounded-full focus-visible:ring-2 focus-visible:ring-indigo-400 shrink-0" aria-label="IntuiFy">
+                <img src="<?= $navBase === '' ? '' : '/' ?>logo/intuifylogo.svg" alt="IntuiFy" class="h-5 md:h-6 w-auto invert brightness-200" width="96" height="28">
             </a>
 
-            <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex items-center gap-1 bg-white/[0.04] p-1 rounded-full border border-white/[0.06]">
-                <a href="#inicio" data-section="inicio"
-                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-all duration-500 rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400">
-                    <?= $t['nav']['inicio'] ?>
-                </a>
-                <a href="#portfolio" data-section="portfolio"
-                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-all duration-500 rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400">
-                    <?= $t['nav']['portfolio'] ?>
-                </a>
-                <a href="#servicio" data-section="servicio"
-                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-all duration-500 rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400">
-                    <?= $t['nav']['servicios'] ?>
-                </a>
-                <a href="#contacto" data-section="contacto"
-                    class="nav-link px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-all duration-500 rounded-full focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400">
-                    <?= $t['nav']['contacto'] ?>
-                </a>
+            <div class="hidden lg:flex items-center gap-1 bg-white/[0.04] p-1 rounded-full border border-white/[0.06]">
+                <?php foreach ($navItems as $id => $label): ?>
+                    <a href="<?= $navBase ?>#<?= $id ?>" data-section="<?= $id ?>" class="nav-link px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white rounded-full transition-colors"><?= htmlspecialchars($label) ?></a>
+                <?php endforeach; ?>
             </div>
 
-            <!-- Language Switcher + CTA -->
-            <div class="flex items-center gap-3">
-                <!-- Segmented Language Picker -->
-                <div class="hidden sm:flex items-center bg-white/[0.04] p-0.5 rounded-full border border-white/[0.06]">
-                    <a href="?lang=es"
-                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'es' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300"
-                        aria-label="Español">ES</a>
-                    <a href="?lang=it"
-                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'it' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300"
-                        aria-label="Italiano">IT</a>
-                    <a href="?lang=en"
-                        class="px-2.5 py-1 text-[10px] font-bold rounded-full <?= $currentLang === 'en' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300"
-                        aria-label="English">EN</a>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="hidden sm:flex items-center bg-white/[0.04] p-0.5 rounded-full border border-white/[0.06]" role="group" aria-label="<?= htmlspecialchars($t['nav']['language']) ?>">
+                    <?php foreach ($langLabels as $code => $name): ?>
+                        <a href="?lang=<?= $code ?>" lang="<?= $code ?>" hreflang="<?= $code ?>" aria-label="<?= $name ?>" <?= $currentLang === $code ? 'aria-current="true"' : '' ?>
+                           class="px-2.5 py-1 text-[10px] font-bold rounded-full transition-colors <?= $currentLang === $code ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white' ?>"><?= strtoupper($code) ?></a>
+                    <?php endforeach; ?>
                 </div>
-
-                <!-- Primary CTA -->
-                <a href="#contacto"
-                    class="group hidden sm:inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] rounded-full transition-all duration-500 shadow-lg shadow-indigo-500/20">
-                    <span><?= $t['nav']['cta'] ?></span>
-                    <span class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-500 group-hover:translate-x-0.5">
-                        <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </span>
+                <a href="<?= $navBase ?>#contacto" class="hidden sm:inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-colors shadow-lg shadow-indigo-500/20">
+                    <?= htmlspecialchars($t['nav']['cta']) ?>
                 </a>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" type="button"
-                    class="md:hidden relative w-9 h-9 flex flex-col items-center justify-center rounded-full bg-white/[0.06] hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
-                    aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-                    <span id="hamburger-line-1" class="w-4 h-0.5 bg-white rounded transition-transform duration-500 translate-y-[-3px]"></span>
-                    <span id="hamburger-line-2" class="w-4 h-0.5 bg-white rounded transition-transform duration-500 translate-y-[3px]"></span>
+                <button id="mobile-menu-btn" type="button" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/[0.07] hover:bg-white/10 transition-colors"
+                        aria-expanded="false" aria-controls="mobile-menu" aria-label="<?= htmlspecialchars($t['nav']['menu']) ?>">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
             </div>
         </nav>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu"
-            class="md:hidden absolute top-[110%] left-0 right-0 w-full bg-[#0d0d14]/95 backdrop-blur-2xl border border-white/[0.06] rounded-3xl p-6 shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] opacity-0 pointer-events-none translate-y-4 scale-95 z-40">
-            <div class="flex flex-col gap-4">
-                <a href="#inicio" data-section="inicio"
-                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300">
-                    <?= $t['nav']['inicio'] ?>
-                </a>
-                <a href="#portfolio" data-section="portfolio"
-                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300">
-                    <?= $t['nav']['portfolio'] ?>
-                </a>
-                <a href="#servicio" data-section="servicio"
-                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300">
-                    <?= $t['nav']['servicios'] ?>
-                </a>
-                <a href="#contacto" data-section="contacto"
-                    class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300">
-                    <?= $t['nav']['contacto'] ?>
-                </a>
-
-                <!-- Mobile Language Picker -->
-                <div class="flex items-center justify-between px-4 py-3 border-t border-white/[0.06] mt-2">
-                    <span class="text-xs font-bold text-slate-500">Language:</span>
+        <div id="mobile-menu" class="mobile-menu lg:hidden">
+            <div class="flex flex-col gap-1">
+                <?php foreach ($navItems as $id => $label): ?>
+                    <a href="<?= $navBase ?>#<?= $id ?>" data-section="<?= $id ?>" class="mobile-nav-link block px-4 py-3 text-base font-semibold text-slate-200 hover:text-white hover:bg-white/5 rounded-2xl"><?= htmlspecialchars($label) ?></a>
+                <?php endforeach; ?>
+                <div class="flex items-center justify-between px-4 py-3 border-t border-white/[0.08] mt-2">
+                    <span class="text-xs font-bold text-slate-400"><?= htmlspecialchars($t['nav']['language']) ?></span>
                     <div class="flex items-center bg-white/[0.04] p-0.5 rounded-full border border-white/[0.06]">
-                        <a href="?lang=es"
-                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'es' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300">ES</a>
-                        <a href="?lang=it"
-                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'it' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300">IT</a>
-                        <a href="?lang=en"
-                            class="px-3 py-1 text-xs font-bold rounded-full <?= $currentLang === 'en' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-white' ?> transition-all duration-300">EN</a>
+                        <?php foreach ($langLabels as $code => $name): ?>
+                            <a href="?lang=<?= $code ?>" lang="<?= $code ?>" aria-label="<?= $name ?>" class="px-3 py-1.5 text-xs font-bold rounded-full <?= $currentLang === $code ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white' ?>"><?= strtoupper($code) ?></a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-
-                <!-- Mobile CTA -->
-                <a href="#contacto"
-                    class="block w-full text-center py-3.5 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-colors mt-2 shadow-lg shadow-indigo-500/20">
-                    <?= $t['nav']['cta'] ?>
-                </a>
+                <a href="<?= $navBase ?>#contacto" class="block w-full text-center py-3.5 mt-1 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-full transition-colors"><?= htmlspecialchars($t['nav']['cta']) ?></a>
             </div>
         </div>
     </div>

@@ -64,6 +64,16 @@ return [
     'openai_vision_model' => 'gpt-4o',
 
     // =========================================================================
+    // Public website (landing)
+    // =========================================================================
+    // WhatsApp Business number, digits only with country code (e.g. 34600000000).
+    // Empty = the WhatsApp button is not shown.
+    'whatsapp_number' => preg_replace('/\D+/', '', (string) (getenv('WHATSAPP_NUMBER') ?: '')),
+    // SITE_PREVIEW=1 shows content still pending confirmation (projects, founder bio…).
+    // Never set it in production.
+    'site_preview' => getenv('SITE_PREVIEW') === '1',
+
+    // =========================================================================
     // Server Control Center (monitoring) — internal URLs only, never sent to the browser
     // =========================================================================
     'prometheus_url' => getenv('PROMETHEUS_URL') ?: '',
