@@ -24,7 +24,12 @@
         "subtitle": "Creamos soluciones digitales para vender online, gestionar tu negocio y automatizar tareas. Te acompañamos desde la definición del proyecto hasta el lanzamiento, el mantenimiento y las mejoras.",
         "cta_primary": "Solicitar presupuesto",
         "cta_secondary": "Ver proyectos realizados",
-        "capabilities": ["Web y e-commerce", "Apps iOS y Android", "Software empresarial", "Inteligencia artificial"]
+        "capabilities": [
+            "Web y e-commerce",
+            "Apps iOS y Android",
+            "Software empresarial",
+            "Inteligencia artificial"
+        ]
     },
     "services": {
         "title": "Soluciones digitales para tu empresa",
@@ -34,25 +39,53 @@
                 "id": "web",
                 "title": "Web y e-commerce",
                 "description": "Creamos páginas web y tiendas online con una gestión sencilla de productos, pedidos y clientes.",
-                "features": ["Webs corporativas", "Tiendas online y catálogos digitales", "Pagos online", "Gestión de productos, pedidos y clientes", "Paneles de administración usables desde el móvil", "Integraciones acordadas según el proyecto"]
+                "features": [
+                    "Webs corporativas",
+                    "Tiendas online y catálogos digitales",
+                    "Pagos online",
+                    "Gestión de productos, pedidos y clientes",
+                    "Paneles de administración usables desde el móvil",
+                    "Integraciones acordadas según el proyecto"
+                ]
             },
             {
                 "id": "app",
                 "title": "Apps iOS y Android",
                 "description": "Desarrollamos aplicaciones móviles y gestionamos su preparación, presentación y seguimiento en App Store y Google Play.",
-                "features": ["Diseño de la experiencia de usuario", "Desarrollo para iOS y Android", "Cuentas, notificaciones y funciones acordadas", "Conexión con bases de datos y sistemas de la empresa", "Preparación y envío a las tiendas de apps", "Mantenimiento y actualizaciones"]
+                "features": [
+                    "Diseño de la experiencia de usuario",
+                    "Desarrollo para iOS y Android",
+                    "Cuentas, notificaciones y funciones acordadas",
+                    "Conexión con bases de datos y sistemas de la empresa",
+                    "Preparación y envío a las tiendas de apps",
+                    "Mantenimiento y actualizaciones"
+                ]
             },
             {
                 "id": "software",
                 "title": "Software empresarial",
                 "description": "Creamos herramientas a medida para organizar la información, controlar operaciones y reducir el trabajo manual.",
-                "features": ["Programas de gestión y CRM", "Dashboards e indicadores (KPI)", "Gestión de clientes, documentos y operaciones", "Roles y permisos", "Integraciones con herramientas existentes", "Informes y automatizaciones"]
+                "features": [
+                    "Programas de gestión y CRM",
+                    "Dashboards e indicadores (KPI)",
+                    "Gestión de clientes, documentos y operaciones",
+                    "Roles y permisos",
+                    "Integraciones con herramientas existentes",
+                    "Informes y automatizaciones"
+                ]
             },
             {
                 "id": "ai",
                 "title": "Inteligencia artificial y automatización",
                 "description": "Integramos inteligencia artificial donde puede aportar una mejora concreta a tu negocio.",
-                "features": ["Asistentes y chatbots", "Procesamiento de documentos", "Automatización de tareas repetitivas", "Organización de solicitudes comerciales", "Generación y gestión de contenidos", "Integración con los procesos de la empresa"]
+                "features": [
+                    "Asistentes y chatbots",
+                    "Procesamiento de documentos",
+                    "Automatización de tareas repetitivas",
+                    "Organización de solicitudes comerciales",
+                    "Generación y gestión de contenidos",
+                    "Integración con los procesos de la empresa"
+                ]
             }
         ],
         "cta": "Pedir presupuesto para este servicio"
@@ -88,38 +121,76 @@
     "method": {
         "title": "De la necesidad al lanzamiento",
         "steps": [
-            { "title": "Entendemos tu proyecto", "text": "Analizamos qué necesitas, quién utilizará la solución y qué objetivos debe cumplir." },
-            { "title": "Definimos alcance y presupuesto", "text": "Acordamos funcionalidades, entregables, plazos y condiciones antes de comenzar." },
-            { "title": "Diseñamos y desarrollamos", "text": "Construimos la solución y te mostramos los avances en las etapas acordadas." },
-            { "title": "Probamos y lanzamos", "text": "Verificamos el funcionamiento, realizamos la puesta en marcha y te explicamos cómo utilizarla." },
-            { "title": "Mantenemos y mejoramos", "text": "Ofrecemos mantenimiento y soporte con condiciones definidas según el proyecto." }
+            {
+                "title": "Entendemos tu proyecto",
+                "text": "Analizamos qué necesitas, quién utilizará la solución y qué objetivos debe cumplir."
+            },
+            {
+                "title": "Definimos alcance y presupuesto",
+                "text": "Acordamos funcionalidades, entregables, plazos y condiciones antes de comenzar."
+            },
+            {
+                "title": "Diseñamos y desarrollamos",
+                "text": "Construimos la solución y te mostramos los avances en las etapas acordadas."
+            },
+            {
+                "title": "Probamos y lanzamos",
+                "text": "Verificamos el funcionamiento, realizamos la puesta en marcha y te explicamos cómo utilizarla."
+            },
+            {
+                "title": "Mantenemos y mejoramos",
+                "text": "Ofrecemos mantenimiento y soporte con condiciones definidas según el proyecto."
+            }
         ],
         "note": "Los plazos dependen del alcance y de las integraciones necesarias."
     },
     "reasons": {
         "title": "Un partner técnico para tu negocio",
         "items": [
-            { "title": "Desarrollo a tu medida", "text": "Adaptamos la solución a cómo trabaja tu empresa, no al revés." },
-            { "title": "Un interlocutor de referencia", "text": "Una persona sigue tu proyecto y responde a tus dudas de principio a fin." },
-            { "title": "Presupuesto y entregas definidos", "text": "Alcance, plazos y condiciones acordados antes de empezar. Trabajamos con eficiencia y con plazos realistas." },
-            { "title": "Experiencia propia y con clientes", "text": "Desarrollamos productos propios y proyectos para clientes, y aplicamos lo aprendido en cada uno." },
-            { "title": "Formación de uso", "text": "En la puesta en marcha te explicamos cómo utilizar la solución." },
-            { "title": "Asistencia tras el lanzamiento", "text": "Mantenimiento y soporte según el servicio acordado." }
+            {
+                "title": "Desarrollo a tu medida",
+                "text": "Adaptamos la solución a cómo trabaja tu empresa, no al revés."
+            },
+            {
+                "title": "Un interlocutor de referencia",
+                "text": "Una persona sigue tu proyecto y responde a tus dudas de principio a fin."
+            },
+            {
+                "title": "Presupuesto y entregas definidos",
+                "text": "Alcance, plazos y condiciones acordados antes de empezar. Trabajamos con eficiencia y con plazos realistas."
+            },
+            {
+                "title": "Experiencia propia y con clientes",
+                "text": "Desarrollamos productos propios y proyectos para clientes, y aplicamos lo aprendido en cada uno."
+            },
+            {
+                "title": "Formación de uso",
+                "text": "En la puesta en marcha te explicamos cómo utilizar la solución."
+            },
+            {
+                "title": "Asistencia tras el lanzamiento",
+                "text": "Mantenimiento y soporte según el servicio acordado."
+            }
         ]
     },
     "agencies": {
         "title": "Desarrollo para agencias y estudios",
         "text": "Colaboramos con agencias de marketing, diseño y comunicación que necesitan un partner técnico para desarrollar webs, e-commerce, aplicaciones y software para sus clientes.",
         "white_label": "Podemos trabajar bajo la marca de la agencia, con alcance, responsabilidades y condiciones acordadas.",
-        "points": ["Webs y tiendas online para tus clientes", "Apps y software a medida", "Integraciones y automatizaciones con IA", "Comunicación directa con tu equipo"],
+        "points": [
+            "Webs y tiendas online para tus clientes",
+            "Apps y software a medida",
+            "Integraciones y automatizaciones con IA",
+            "Comunicación directa con tu equipo"
+        ],
         "cta": "Proponer una colaboración"
     },
     "company": {
         "title": "Tecnología creada desde Mallorca",
         "text": "IntuiFy Ventures, S.L. desarrolla software, aplicaciones y soluciones digitales para empresas. Combinamos el trabajo para clientes con el desarrollo de productos propios, acompañando cada proyecto desde su definición hasta su puesta en marcha.",
-        "founder_pending": "Espacio para la foto y la presentación profesional del fundador (pendiente de facilitar y aprobar).",
         "data_title": "Datos de la empresa",
-        "data_pending": "Datos societarios pendientes de confirmar antes de publicar."
+        "legal_name_label": "Razón social",
+        "based_in_label": "Sede"
     },
     "contact": {
         "title": "Cuéntanos qué necesita tu empresa",

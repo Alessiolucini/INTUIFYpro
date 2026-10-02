@@ -212,18 +212,11 @@
 /* ---- Company ------------------------------------------------------------- */
 .company-grid { display: grid; gap: 2rem; }
 @media (min-width: 900px) { .company-grid { grid-template-columns: 1.3fr 1fr; align-items: center; } }
-.founder-slot {
-    display: grid; gap: 1rem; justify-items: start;
-    padding: 1.5rem; border-radius: 1.5rem;
-    border: 1px dashed rgba(251, 191, 36, 0.5); background: rgba(13, 13, 20, 0.7);
-    color: var(--ink-2); font-size: 0.9375rem;
-}
-.founder-photo {
-    width: 5.5rem; height: 5.5rem; border-radius: 9999px; display: grid; place-items: center;
-    color: var(--ink-3); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line);
-}
-.founder-photo svg { width: 2.5rem; height: 2.5rem; }
-.company-data p { margin: 0.15rem 0; }
+.company-card { padding: 1.75rem; }
+.company-card dl { display: grid; gap: 0.9rem; }
+.company-card dt { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+.company-card dd { color: #fff; font-weight: 600; margin-top: 0.15rem; }
+.company-card a { color: var(--accent-1); }
 
 /* ---- Contact ------------------------------------------------------------- */
 .direct-contacts { display: grid; gap: 0.75rem; }

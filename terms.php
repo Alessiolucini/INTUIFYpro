@@ -1,7 +1,7 @@
 <?php
 /**
  * IntuiFy — Legal notice and terms of use (es / it / en), as required by LSSI art. 10.
- * Company details come from config.php. Registry data still to be provided by the owner.
+ * Company details shown: legal name and CIF (owner's choice, 2026-10-02).
  * To be reviewed by a legal advisor.
  */
 
@@ -11,7 +11,6 @@ require __DIR__ . '/includes/legal-layout.php';
 
 $cfg = require __DIR__ . '/config.php';
 $vat = htmlspecialchars((string) ($cfg['company_vat'] ?? ''));
-$address = htmlspecialchars((string) ($cfg['company_address'] ?? ''));
 $mail = '<a href="mailto:info@intuify.net">info@intuify.net</a>';
 $privacy = fn(string $lang, string $label) => "<a href=\"/privacy.php?lang={$lang}\">{$label}</a>";
 
@@ -21,13 +20,12 @@ renderLegalPage([
         'meta_description' => 'Datos del titular de intuify.net y condiciones de uso del sitio web de IntuiFy Ventures, S.L.',
         'title'            => 'Aviso legal y condiciones de uso',
         'updated'          => 'Última actualización: 2 de octubre de 2026',
-        'review_note'      => 'Pendiente: confirmar domicilio social completo y datos de inscripción en el Registro Mercantil, y revisión por un asesor legal.',
+        'review_note'      => 'Pendiente de revisión por un asesor legal.',
         'sections' => [
             ['title' => '1. Titular del sitio web',
              'list'  => [
                  '<strong>Titular:</strong> IntuiFy Ventures, S.L.',
                  "<strong>CIF:</strong> {$vat}",
-                 "<strong>Domicilio:</strong> {$address}",
                  "<strong>Email:</strong> {$mail}",
                  '<strong>Actividad:</strong> desarrollo de software, aplicaciones y soluciones digitales para empresas.',
              ]],
@@ -54,13 +52,12 @@ renderLegalPage([
         'meta_description' => 'Dati del titolare di intuify.net e condizioni d\'uso del sito di IntuiFy Ventures, S.L.',
         'title'            => 'Note legali e condizioni d\'uso',
         'updated'          => 'Ultimo aggiornamento: 2 ottobre 2026',
-        'review_note'      => 'Da completare: sede legale completa e dati di iscrizione al Registro Mercantil, e revisione da parte di un consulente legale.',
+        'review_note'      => 'Da far revisionare a un consulente legale.',
         'sections' => [
             ['title' => '1. Titolare del sito',
              'list'  => [
                  '<strong>Titolare:</strong> IntuiFy Ventures, S.L.',
                  "<strong>CIF:</strong> {$vat}",
-                 "<strong>Sede:</strong> {$address}",
                  "<strong>Email:</strong> {$mail}",
                  '<strong>Attività:</strong> sviluppo di software, app e soluzioni digitali per le aziende.',
              ]],
@@ -87,13 +84,12 @@ renderLegalPage([
         'meta_description' => 'Owner details of intuify.net and terms of use of the IntuiFy Ventures, S.L. website.',
         'title'            => 'Legal notice and terms of use',
         'updated'          => 'Last updated: 2 October 2026',
-        'review_note'      => 'Pending: full registered address and Commercial Registry details, and review by a legal advisor.',
+        'review_note'      => 'Pending review by a legal advisor.',
         'sections' => [
             ['title' => '1. Website owner',
              'list'  => [
                  '<strong>Owner:</strong> IntuiFy Ventures, S.L.',
                  "<strong>Tax ID (CIF):</strong> {$vat}",
-                 "<strong>Address:</strong> {$address}",
                  "<strong>Email:</strong> {$mail}",
                  '<strong>Activity:</strong> development of software, apps and digital solutions for businesses.',
              ]],

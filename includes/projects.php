@@ -11,6 +11,8 @@
  *
  * Verified on 2026-10-02: Auterio (auterio.net live), BUBBLO (App Store + Google Play
  * + bubblo.es), Eco Andratx (App Store + Google Play + ecoandratx.es).
+ * Confirmed by the owner on 2026-10-02: Auterio operativo, Eco Andratx producto propio,
+ * Aquatrópolis client project (shop in development).
  */
 
 return [
@@ -127,13 +129,12 @@ return [
         ],
     ],
 
-    // ---- Pending confirmation: visible only with SITE_PREVIEW=1 --------------
     [
         'id'        => 'aquatropolis',
         'name'      => 'Aquatrópolis',
         'kind'      => 'client',
         'status'    => 'en_desarrollo',
-        'confirmed' => false, // name, images, status and authorisation to be confirmed by the owner
+        'confirmed' => true, // confirmed by the owner on 2026-10-02 (online shop not launched yet)
         'media'     => [
             ['src' => 'assets/projects/screens/aquatropolis-web.jpg', 'type' => 'web'],
         ],

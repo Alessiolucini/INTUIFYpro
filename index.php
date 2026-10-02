@@ -597,20 +597,15 @@ function contactLink(string $type): string
                         <h2 class="cascade font-display"><?= e($t['company']['title']) ?></h2>
                         <p class="lead"><?= e($t['company']['text']) ?></p>
                     </div>
-                    <?php if ($isPreview): ?>
-                        <div class="reveal-element founder-slot" aria-label="<?= e($t['company']['founder_pending']) ?>">
-                            <div class="founder-photo" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
-                            </div>
-                            <p><?= e($t['company']['founder_pending']) ?></p>
-                            <div class="company-data">
-                                <p class="features-label"><?= e($t['company']['data_title']) ?></p>
-                                <p>IntuiFy Ventures, S.L. · <?= e($t['footer']['vat']) ?> <?= e($config['company_vat'] ?? '') ?></p>
-                                <p><?= e($config['company_address'] ?? '') ?></p>
-                                <p class="badge badge-pending mt-2"><?= e($t['company']['data_pending']) ?></p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+                    <div class="reveal-element glow-card company-card">
+                        <p class="features-label"><?= e($t['company']['data_title']) ?></p>
+                        <dl>
+                            <div><dt><?= e($t['company']['legal_name_label']) ?></dt><dd>IntuiFy Ventures, S.L.</dd></div>
+                            <div><dt><?= e($t['footer']['vat']) ?></dt><dd><?= e($config['company_vat'] ?? '') ?></dd></div>
+                            <div><dt><?= e($t['company']['based_in_label']) ?></dt><dd><?= e($t['contact']['location']) ?></dd></div>
+                            <div><dt><?= e($t['contact']['email_label']) ?></dt><dd><a href="mailto:<?= e($contactEmail) ?>"><?= e($contactEmail) ?></a></dd></div>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </section>

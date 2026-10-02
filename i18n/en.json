@@ -24,7 +24,12 @@
         "subtitle": "We create digital solutions to sell online, run your business and automate tasks. We stay with you from defining the project to launch, maintenance and improvements.",
         "cta_primary": "Request a quote",
         "cta_secondary": "See our projects",
-        "capabilities": ["Web & e-commerce", "iOS and Android apps", "Business software", "Artificial intelligence"]
+        "capabilities": [
+            "Web & e-commerce",
+            "iOS and Android apps",
+            "Business software",
+            "Artificial intelligence"
+        ]
     },
     "services": {
         "title": "Digital solutions for your business",
@@ -34,25 +39,53 @@
                 "id": "web",
                 "title": "Web & e-commerce",
                 "description": "We build websites and online stores that make products, orders and customers easy to manage.",
-                "features": ["Company websites", "Online stores and digital catalogues", "Online payments", "Product, order and customer management", "Admin panels you can use from your phone", "Integrations agreed for each project"]
+                "features": [
+                    "Company websites",
+                    "Online stores and digital catalogues",
+                    "Online payments",
+                    "Product, order and customer management",
+                    "Admin panels you can use from your phone",
+                    "Integrations agreed for each project"
+                ]
             },
             {
                 "id": "app",
                 "title": "iOS and Android apps",
                 "description": "We develop mobile apps and handle their preparation, submission and follow-up on the App Store and Google Play.",
-                "features": ["User experience design", "Development for iOS and Android", "Accounts, notifications and agreed features", "Connection to databases and company systems", "Store preparation and submission", "Maintenance and updates"]
+                "features": [
+                    "User experience design",
+                    "Development for iOS and Android",
+                    "Accounts, notifications and agreed features",
+                    "Connection to databases and company systems",
+                    "Store preparation and submission",
+                    "Maintenance and updates"
+                ]
             },
             {
                 "id": "software",
                 "title": "Business software",
                 "description": "We build custom tools to organise information, keep operations under control and reduce manual work.",
-                "features": ["Management software and CRM", "Dashboards and KPIs", "Customer, document and operations management", "Roles and permissions", "Integrations with your existing tools", "Reports and automations"]
+                "features": [
+                    "Management software and CRM",
+                    "Dashboards and KPIs",
+                    "Customer, document and operations management",
+                    "Roles and permissions",
+                    "Integrations with your existing tools",
+                    "Reports and automations"
+                ]
             },
             {
                 "id": "ai",
                 "title": "Artificial intelligence & automation",
                 "description": "We add artificial intelligence where it brings a concrete improvement to your business.",
-                "features": ["Assistants and chatbots", "Document processing", "Automation of repetitive tasks", "Organising sales enquiries", "Content generation and management", "Integration with your business processes"]
+                "features": [
+                    "Assistants and chatbots",
+                    "Document processing",
+                    "Automation of repetitive tasks",
+                    "Organising sales enquiries",
+                    "Content generation and management",
+                    "Integration with your business processes"
+                ]
             }
         ],
         "cta": "Ask for a quote for this service"
@@ -88,38 +121,76 @@
     "method": {
         "title": "From need to launch",
         "steps": [
-            { "title": "We understand your project", "text": "We look at what you need, who will use the solution and which goals it has to meet." },
-            { "title": "We define scope and budget", "text": "We agree on features, deliverables, timelines and terms before we start." },
-            { "title": "We design and build", "text": "We build the solution and show you progress at the agreed milestones." },
-            { "title": "We test and launch", "text": "We check that everything works, put it live and show you how to use it." },
-            { "title": "We maintain and improve", "text": "We offer maintenance and support on terms defined for each project." }
+            {
+                "title": "We understand your project",
+                "text": "We look at what you need, who will use the solution and which goals it has to meet."
+            },
+            {
+                "title": "We define scope and budget",
+                "text": "We agree on features, deliverables, timelines and terms before we start."
+            },
+            {
+                "title": "We design and build",
+                "text": "We build the solution and show you progress at the agreed milestones."
+            },
+            {
+                "title": "We test and launch",
+                "text": "We check that everything works, put it live and show you how to use it."
+            },
+            {
+                "title": "We maintain and improve",
+                "text": "We offer maintenance and support on terms defined for each project."
+            }
         ],
         "note": "Timelines depend on the scope and the integrations required."
     },
     "reasons": {
         "title": "A technical partner for your business",
         "items": [
-            { "title": "Built around you", "text": "We adapt the solution to how your company works, not the other way round." },
-            { "title": "One point of contact", "text": "One person follows your project and answers your questions from start to finish." },
-            { "title": "Defined budget and deliverables", "text": "Scope, timelines and terms agreed before we start. We work efficiently, with realistic timelines." },
-            { "title": "Own products and client work", "text": "We build our own products and client projects, and bring what we learn to each one." },
-            { "title": "Training on how to use it", "text": "At go-live we show you how to use the solution." },
-            { "title": "Support after launch", "text": "Maintenance and support according to the agreed service." }
+            {
+                "title": "Built around you",
+                "text": "We adapt the solution to how your company works, not the other way round."
+            },
+            {
+                "title": "One point of contact",
+                "text": "One person follows your project and answers your questions from start to finish."
+            },
+            {
+                "title": "Defined budget and deliverables",
+                "text": "Scope, timelines and terms agreed before we start. We work efficiently, with realistic timelines."
+            },
+            {
+                "title": "Own products and client work",
+                "text": "We build our own products and client projects, and bring what we learn to each one."
+            },
+            {
+                "title": "Training on how to use it",
+                "text": "At go-live we show you how to use the solution."
+            },
+            {
+                "title": "Support after launch",
+                "text": "Maintenance and support according to the agreed service."
+            }
         ]
     },
     "agencies": {
         "title": "Development for agencies and studios",
         "text": "We work with marketing, design and communication agencies that need a technical partner to build websites, e-commerce, apps and software for their clients.",
         "white_label": "We can work under the agency's brand, with agreed scope, responsibilities and terms.",
-        "points": ["Websites and online stores for your clients", "Custom apps and software", "AI integrations and automations", "Direct communication with your team"],
+        "points": [
+            "Websites and online stores for your clients",
+            "Custom apps and software",
+            "AI integrations and automations",
+            "Direct communication with your team"
+        ],
         "cta": "Propose a partnership"
     },
     "company": {
         "title": "Technology made in Mallorca",
         "text": "IntuiFy Ventures, S.L. develops software, apps and digital solutions for businesses. We combine client work with building our own products, guiding every project from definition to go-live.",
-        "founder_pending": "Space for the founder's photo and professional profile (to be provided and approved).",
         "data_title": "Company details",
-        "data_pending": "Company details to be confirmed before publishing."
+        "legal_name_label": "Company name",
+        "based_in_label": "Based in"
     },
     "contact": {
         "title": "Tell us what your business needs",

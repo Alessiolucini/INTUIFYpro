@@ -17,7 +17,7 @@ renderLegalPage([
         'meta_description' => 'Cómo trata IntuiFy Ventures, S.L. los datos personales recibidos a través de intuify.net y qué cookies utiliza.',
         'title'            => 'Política de privacidad y cookies',
         'updated'          => 'Última actualización: 2 de octubre de 2026',
-        'review_note'      => 'Texto preparado a partir del funcionamiento real del sitio: pendiente de revisión por un asesor legal y de confirmar los datos societarios.',
+        'review_note'      => 'Texto preparado a partir del funcionamiento real del sitio: pendiente de revisión por un asesor legal.',
         'sections' => [
             ['title' => '1. Responsable del tratamiento',
              'html'  => "<strong>IntuiFy Ventures, S.L.</strong>, con CIF B88769526. Para cualquier cuestión sobre tus datos puedes escribirnos a {$mail}."],
@@ -71,7 +71,7 @@ renderLegalPage([
         'meta_description' => 'Come IntuiFy Ventures, S.L. tratta i dati personali ricevuti tramite intuify.net e quali cookie utilizza.',
         'title'            => 'Informativa privacy e cookie',
         'updated'          => 'Ultimo aggiornamento: 2 ottobre 2026',
-        'review_note'      => 'Testo preparato in base al funzionamento reale del sito: da far revisionare a un consulente legale e da completare con i dati societari confermati.',
+        'review_note'      => 'Testo preparato in base al funzionamento reale del sito: da far revisionare a un consulente legale.',
         'sections' => [
             ['title' => '1. Titolare del trattamento',
              'html'  => "<strong>IntuiFy Ventures, S.L.</strong>, CIF B88769526. Per qualsiasi domanda sui tuoi dati puoi scriverci a {$mail}."],
@@ -125,7 +125,7 @@ renderLegalPage([
         'meta_description' => 'How IntuiFy Ventures, S.L. handles personal data received through intuify.net and which cookies it uses.',
         'title'            => 'Privacy and cookie policy',
         'updated'          => 'Last updated: 2 October 2026',
-        'review_note'      => 'Text based on how the site actually works: pending review by a legal advisor and confirmation of company details.',
+        'review_note'      => 'Text based on how the site actually works: pending review by a legal advisor.',
         'sections' => [
             ['title' => '1. Data controller',
              'html'  => "<strong>IntuiFy Ventures, S.L.</strong>, tax ID (CIF) B88769526. For any question about your data you can write to {$mail}."],

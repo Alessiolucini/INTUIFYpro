@@ -24,7 +24,12 @@
         "subtitle": "Creiamo soluzioni digitali per vendere online, gestire la tua attività e automatizzare il lavoro ripetitivo. Ti accompagniamo dalla definizione del progetto al lancio, alla manutenzione e ai miglioramenti.",
         "cta_primary": "Richiedi un preventivo",
         "cta_secondary": "Guarda i progetti realizzati",
-        "capabilities": ["Web ed e-commerce", "App iOS e Android", "Software aziendale", "Intelligenza artificiale"]
+        "capabilities": [
+            "Web ed e-commerce",
+            "App iOS e Android",
+            "Software aziendale",
+            "Intelligenza artificiale"
+        ]
     },
     "services": {
         "title": "Soluzioni digitali per la tua azienda",
@@ -34,25 +39,53 @@
                 "id": "web",
                 "title": "Web ed e-commerce",
                 "description": "Realizziamo siti web e negozi online con una gestione semplice di prodotti, ordini e clienti.",
-                "features": ["Siti aziendali", "E-commerce e cataloghi digitali", "Pagamenti online", "Gestione di prodotti, ordini e clienti", "Pannelli di amministrazione utilizzabili da smartphone", "Integrazioni concordate in base al progetto"]
+                "features": [
+                    "Siti aziendali",
+                    "E-commerce e cataloghi digitali",
+                    "Pagamenti online",
+                    "Gestione di prodotti, ordini e clienti",
+                    "Pannelli di amministrazione utilizzabili da smartphone",
+                    "Integrazioni concordate in base al progetto"
+                ]
             },
             {
                 "id": "app",
                 "title": "App iOS e Android",
                 "description": "Sviluppiamo app mobili e ci occupiamo della loro preparazione, presentazione e gestione su App Store e Google Play.",
-                "features": ["Progettazione dell'esperienza utente", "Sviluppo per iOS e Android", "Account, notifiche e funzionalità concordate", "Collegamento a database e sistemi aziendali", "Preparazione e invio agli store", "Manutenzione e aggiornamenti"]
+                "features": [
+                    "Progettazione dell'esperienza utente",
+                    "Sviluppo per iOS e Android",
+                    "Account, notifiche e funzionalità concordate",
+                    "Collegamento a database e sistemi aziendali",
+                    "Preparazione e invio agli store",
+                    "Manutenzione e aggiornamenti"
+                ]
             },
             {
                 "id": "software",
                 "title": "Software aziendale",
                 "description": "Creiamo strumenti su misura per organizzare le informazioni, controllare le attività e ridurre il lavoro manuale.",
-                "features": ["Gestionali e CRM", "Dashboard e indicatori (KPI)", "Gestione di clienti, documenti e operazioni", "Ruoli e permessi", "Integrazioni con gli strumenti esistenti", "Report e automazioni"]
+                "features": [
+                    "Gestionali e CRM",
+                    "Dashboard e indicatori (KPI)",
+                    "Gestione di clienti, documenti e operazioni",
+                    "Ruoli e permessi",
+                    "Integrazioni con gli strumenti esistenti",
+                    "Report e automazioni"
+                ]
             },
             {
                 "id": "ai",
                 "title": "Intelligenza artificiale e automazione",
                 "description": "Integriamo l'intelligenza artificiale dove può portare un miglioramento concreto alla tua attività.",
-                "features": ["Assistenti e chatbot", "Elaborazione di documenti", "Automazione delle attività ripetitive", "Organizzazione delle richieste commerciali", "Generazione e gestione di contenuti", "Integrazione con i processi aziendali"]
+                "features": [
+                    "Assistenti e chatbot",
+                    "Elaborazione di documenti",
+                    "Automazione delle attività ripetitive",
+                    "Organizzazione delle richieste commerciali",
+                    "Generazione e gestione di contenuti",
+                    "Integrazione con i processi aziendali"
+                ]
             }
         ],
         "cta": "Chiedi un preventivo per questo servizio"
@@ -88,38 +121,76 @@
     "method": {
         "title": "Dall'esigenza al lancio",
         "steps": [
-            { "title": "Capiamo il tuo progetto", "text": "Analizziamo di cosa hai bisogno, chi userà la soluzione e quali obiettivi deve raggiungere." },
-            { "title": "Definiamo ambito e preventivo", "text": "Concordiamo funzionalità, consegne, tempi e condizioni prima di iniziare." },
-            { "title": "Progettiamo e sviluppiamo", "text": "Costruiamo la soluzione e ti mostriamo i progressi nelle fasi concordate." },
-            { "title": "Testiamo e lanciamo", "text": "Verifichiamo il funzionamento, mettiamo la soluzione in produzione e ti spieghiamo come usarla." },
-            { "title": "Manteniamo e miglioriamo", "text": "Offriamo manutenzione e assistenza con condizioni definite in base al progetto." }
+            {
+                "title": "Capiamo il tuo progetto",
+                "text": "Analizziamo di cosa hai bisogno, chi userà la soluzione e quali obiettivi deve raggiungere."
+            },
+            {
+                "title": "Definiamo ambito e preventivo",
+                "text": "Concordiamo funzionalità, consegne, tempi e condizioni prima di iniziare."
+            },
+            {
+                "title": "Progettiamo e sviluppiamo",
+                "text": "Costruiamo la soluzione e ti mostriamo i progressi nelle fasi concordate."
+            },
+            {
+                "title": "Testiamo e lanciamo",
+                "text": "Verifichiamo il funzionamento, mettiamo la soluzione in produzione e ti spieghiamo come usarla."
+            },
+            {
+                "title": "Manteniamo e miglioriamo",
+                "text": "Offriamo manutenzione e assistenza con condizioni definite in base al progetto."
+            }
         ],
         "note": "I tempi dipendono dall'ambito e dalle integrazioni necessarie."
     },
     "reasons": {
         "title": "Un partner tecnico per la tua attività",
         "items": [
-            { "title": "Sviluppo su misura", "text": "Adattiamo la soluzione al modo in cui lavora la tua azienda, non il contrario." },
-            { "title": "Un unico referente", "text": "Una persona segue il tuo progetto e risponde ai tuoi dubbi dall'inizio alla fine." },
-            { "title": "Preventivo e consegne definiti", "text": "Ambito, tempi e condizioni concordati prima di iniziare. Lavoriamo in modo efficiente e con tempi realistici." },
-            { "title": "Esperienza propria e con i clienti", "text": "Sviluppiamo prodotti nostri e progetti per clienti, e portiamo ciò che impariamo in ogni lavoro." },
-            { "title": "Formazione all'uso", "text": "Alla messa in produzione ti spieghiamo come usare la soluzione." },
-            { "title": "Assistenza dopo il lancio", "text": "Manutenzione e supporto secondo il servizio concordato." }
+            {
+                "title": "Sviluppo su misura",
+                "text": "Adattiamo la soluzione al modo in cui lavora la tua azienda, non il contrario."
+            },
+            {
+                "title": "Un unico referente",
+                "text": "Una persona segue il tuo progetto e risponde ai tuoi dubbi dall'inizio alla fine."
+            },
+            {
+                "title": "Preventivo e consegne definiti",
+                "text": "Ambito, tempi e condizioni concordati prima di iniziare. Lavoriamo in modo efficiente e con tempi realistici."
+            },
+            {
+                "title": "Esperienza propria e con i clienti",
+                "text": "Sviluppiamo prodotti nostri e progetti per clienti, e portiamo ciò che impariamo in ogni lavoro."
+            },
+            {
+                "title": "Formazione all'uso",
+                "text": "Alla messa in produzione ti spieghiamo come usare la soluzione."
+            },
+            {
+                "title": "Assistenza dopo il lancio",
+                "text": "Manutenzione e supporto secondo il servizio concordato."
+            }
         ]
     },
     "agencies": {
         "title": "Sviluppo per agenzie e studi",
         "text": "Collaboriamo con agenzie di marketing, design e comunicazione che cercano un partner tecnico per sviluppare siti, e-commerce, app e software per i loro clienti.",
         "white_label": "Possiamo lavorare con il marchio dell'agenzia, con ambito, responsabilità e condizioni concordati.",
-        "points": ["Siti e negozi online per i tuoi clienti", "App e software su misura", "Integrazioni e automazioni con l'IA", "Comunicazione diretta con il tuo team"],
+        "points": [
+            "Siti e negozi online per i tuoi clienti",
+            "App e software su misura",
+            "Integrazioni e automazioni con l'IA",
+            "Comunicazione diretta con il tuo team"
+        ],
         "cta": "Proponi una collaborazione"
     },
     "company": {
         "title": "Tecnologia creata a Maiorca",
         "text": "IntuiFy Ventures, S.L. sviluppa software, app e soluzioni digitali per le aziende. Affianchiamo il lavoro per i clienti allo sviluppo di prodotti propri, seguendo ogni progetto dalla definizione alla messa in produzione.",
-        "founder_pending": "Spazio per la foto e la presentazione professionale del fondatore (da fornire e approvare).",
         "data_title": "Dati aziendali",
-        "data_pending": "Dati societari da confermare prima della pubblicazione."
+        "legal_name_label": "Ragione sociale",
+        "based_in_label": "Sede"
     },
     "contact": {
         "title": "Raccontaci di cosa ha bisogno la tua azienda",
