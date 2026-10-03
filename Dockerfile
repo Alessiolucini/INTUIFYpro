@@ -17,8 +17,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Enable Apache modules needed by .htaccess
 RUN a2enmod rewrite headers deflate expires remoteip
 
-# Real client IP behind Traefik: trust X-Forwarded-For only from private (Docker) networks.
+# Client IP behind Traefik: trust X-Forwarded-For only from private (Docker) networks.
 # Without this REMOTE_ADDR is the proxy IP for everyone (rate limits, audit log, reCAPTCHA).
+# Behind Cloudflare REMOTE_ADDR is then the Cloudflare edge: includes/client-ip.php takes the
+# visitor IP from CF-Connecting-IP, only when the request really came through Cloudflare.
 RUN printf '%s\n' \
       'RemoteIPHeader X-Forwarded-For' \
       'RemoteIPTrustedProxy 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16' \
