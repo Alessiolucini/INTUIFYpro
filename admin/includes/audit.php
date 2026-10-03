@@ -7,13 +7,7 @@
 
 declare(strict_types=1);
 
-/**
- * Client IP. Behind Traefik this is correct only with mod_remoteip enabled (see Dockerfile).
- */
-function clientIp(): string
-{
-    return (string) ($_SERVER['REMOTE_ADDR'] ?? '');
-}
+require_once dirname(__DIR__, 2) . '/includes/client-ip.php';
 
 function auditLog(string $action, string $resourceType = '', string $resourceId = '', array $metadata = []): void
 {

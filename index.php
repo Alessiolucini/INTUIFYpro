@@ -14,6 +14,7 @@ session_start();
 $config = require __DIR__ . '/config.php';
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/lead-mailer.php';
+require_once __DIR__ . '/includes/client-ip.php';
 
 const SITE_URL = 'https://intuify.net';
 const SITE_LANGS = ['es', 'it', 'en'];
@@ -21,8 +22,8 @@ const SITE_LANGS = ['es', 'it', 'en'];
 if (!isset($_SESSION['form_submissions'])) {
     $_SESSION['form_submissions'] = [];
 }
-// IP-based rate limiting (REMOTE_ADDR is the real client IP thanks to mod_remoteip)
-$rateLimitFile = sys_get_temp_dir() . '/intuify_ratelimit_' . md5($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '.json';
+// IP-based rate limiting (real visitor IP behind Cloudflare and Traefik, see includes/client-ip.php)
+$rateLimitFile = sys_get_temp_dir() . '/intuify_ratelimit_' . md5(clientIp() ?: 'unknown') . '.json';
 
 /**
  * ?lang= → session → browser language (it/en) → Spanish (main version).
@@ -88,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_submit'])) {
             'content' => http_build_query([
                 'secret'   => $config['recaptcha_secret_key'],
                 'response' => (string) ($_POST['recaptcha_token'] ?? ''),
-                'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                'remoteip' => clientIp(),
             ]),
             'timeout' => 8,
         ]]));
