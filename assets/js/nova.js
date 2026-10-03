@@ -782,9 +782,9 @@ async function boot() {
 
     /* ---- particle cloud -------------------------------------------------- */
 
-    // 200×600 ≈ 120k points on desktop; a third of that on phones/low-end GPUs.
-    const segW = low ? 96 : 200;
-    const segH = low ? 288 : 600;
+    // 160×480 ≈ 77k points on desktop (was 120k: lighter for the landing); ~28k on phones/low-end GPUs.
+    const segW = low ? 96 : 160;
+    const segH = low ? 288 : 480;
     const geometry = new THREE.SphereGeometry(4.2, segW, segH);
 
     const material = new THREE.ShaderMaterial({

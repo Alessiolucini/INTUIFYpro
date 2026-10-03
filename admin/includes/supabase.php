@@ -200,7 +200,6 @@ class SupabaseClient
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
 
         if ($httpCode >= 200 && $httpCode < 300) {
             return $this->url . '/storage/v1/object/public/' . $bucket . '/' . $path;
@@ -249,7 +248,6 @@ class SupabaseClient
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $error = curl_error($ch);
-        curl_close($ch);
 
         if ($error) {
             error_log("Supabase cURL error: $error");

@@ -1,60 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://intuify.net/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://intuify.net/?lang=es</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://intuify.net/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://intuify.net/?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intuify.net/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://intuify.net/"/>
+    <lastmod>2026-10-02</lastmod>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Portfolio section -->
   <url>
-    <loc>https://intuify.net/#portfolio</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://intuify.net/?lang=it</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://intuify.net/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://intuify.net/?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intuify.net/?lang=en"/>
+    <lastmod>2026-10-02</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Services section -->
   <url>
-    <loc>https://intuify.net/#servicio</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://intuify.net/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://intuify.net/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://intuify.net/?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intuify.net/?lang=en"/>
+    <lastmod>2026-10-02</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Benefits section -->
-  <url>
-    <loc>https://intuify.net/#beneficios</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Contact section -->
-  <url>
-    <loc>https://intuify.net/#contacto</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Privacy Policy -->
-  <url>
-    <loc>https://intuify.net/privacy</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  
-  <!-- Terms of Service -->
-  <url>
-    <loc>https://intuify.net/terms</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  
+  <url><loc>https://intuify.net/privacy.php?lang=es</loc><lastmod>2026-10-02</lastmod><priority>0.3</priority></url>
+  <url><loc>https://intuify.net/terms.php?lang=es</loc><lastmod>2026-10-02</lastmod><priority>0.3</priority></url>
 </urlset>
